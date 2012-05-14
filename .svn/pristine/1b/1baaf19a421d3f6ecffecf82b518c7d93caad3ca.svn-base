@@ -1,0 +1,652 @@
+<?php
+
+class Xmlrpc extends WE_Controller {
+	var $methods;
+	var $current;
+	
+	function __construct() {
+		$this->current=time();
+		$this->methods = array (
+				'we.addUser'=>'this:add_user',
+				'we.userLogin'=>'this:user_login',
+				'we.addGroup'=>'this:add_group',
+				'we.joinGroup'=>'this:join_group',
+				'we.postContent'=>'this:post_content',
+				'we.transpondContent'=>'this:transpond_content',
+				'we.uploadPicture'=>'this:upload_pirture',
+				'we.uploadAvatar'=>'this:upload_avatar',
+				'we.getNearbyBluetoothDatas'=>'this:get_near_by_bluetooth_datas',
+				'we.groupCheckInbyBluetoothDatas'=>'this:group_check_in_by_bluetooth_datas',
+				'we.getGroupDatasbyCategory'=>'this:get_group_datas_by_category'
+		);
+		
+		parent::__construct ( $this->methods );
+		
+	}
+	
+	/**
+	 * 增加新用户
+	 * @param array $args(email,password,real_name,bluetooth_mac)
+	 * @return boolean
+	 */
+	function add_user($args){
+	
+		$this->load->model('m_user');
+		$this->load->helper('album');
+		
+		$data['email']=$args[0];
+		
+		if(!valid_email($data['email']))
+			return "invalid_email";
+		
+		if($this->m_user->check_exist('email',$data['email']))
+			return 	"existing_email";
+		
+		$data['password']=$args[1];
+		
+		if(!valid_password($data['password']))
+			return "invalid_password";
+		
+		$data['real_name']=$args[2];
+		
+		if(!valid_real_name($data['real_name']))
+			return "invalid_real_name";
+		
+		$bluetooth_mac=$args[3];
+		$bluetooth_name=$args[4];
+		
+		if(!valid_bluetooth_mac($bluetooth_mac))
+			return "invalid_bluetooth_mac";
+		
+		$bluetooth_mac=strtoupper($bluetooth_mac);
+		
+		
+		$data['bluetooth_id']=$this->m_user->get_bluetooth_id_by_mac($bluetooth_mac);
+		
+		
+		if($data['bluetooth_id']){
+			return "existing_bluetooth_mac";
+		}else{
+			$data['bluetooth_id']=$this->m_user->add_bluetooth(array(
+					'bluetooth_mac'=>$bluetooth_mac,
+					'bluetooth_name'=>$bluetooth_name,
+					'create_time'=>$this->current
+					));
+		}
+		
+		
+		$data['password'] = md5($data['password']);
+		
+		$data['display_name']=$data['real_name'];
+		
+		$num=$this->m_user->check_exist('real_name',$data['real_name']);
+		$data['real_name']=$data['real_name'].'('.($num+1).')';
+		$data['create_time']=time();
+		
+		$result=$this->m_user->add_user($data);
+		
+		if($result){
+			
+			//创建用户的默认相册
+			$this->create_album($result,'default','default album');
+			create_user_dir($result);
+			
+			//设置用户的默认头像
+			$this->m_user->add_user_meta(array(
+					'user_id'=>$result,
+					'meta_key'=>'user_avatar',
+					'meta_value'=>'upload/default.jpg'
+					));
+			
+			
+			//给用户欢迎信息
+			$this->send_notify(0, $result, 'welcome', '欢迎加入蜗临客大家庭！');
+			
+			//为用户登录
+			$this->user_login($args);
+			
+			return 'success_'.$result;
+		}
+		else return FALSE;
+	}
+	
+	/**
+	 * 用户登录，生成token，供下次使用
+	 * 
+	 * @param array $args(email,password)
+	 * @return fail "invalid_user_data"
+     * @return success $token
+	 */
+ 	function user_login($args){
+		$this->load->model(array('m_user','m_online'));
+		$this->load->driver('cache', array('adapter' => 'memcached', 'backup' => 'file'));
+		
+		$data['email']=$args[0];
+		$data['password']=$args[1];
+		$user_data=$this->m_user->validate_user($data);
+		if($user_data)
+			$token=md5($data['email']);
+		else return "invalid_user_data";
+		
+		//根据用户此次登陆的情况生成一个token
+		$this->cache->save($token,serialize($user_data),300);
+		
+		$data=array(
+				'user_id'=>$user_data['user_id'],
+				'display_name'=>$user_data['display_name'],
+				'create_time'=>time(),
+				'online_type'=>'电脑在线'
+					);
+		$this->m_online->add_online($data);
+		
+		$result=array(
+				'display_name'=>$user_data['display_name'],
+				'user_avatar'=>$user_data['user_avatar'],
+				'token'=>$token
+				);
+		
+		return $result;
+	} 
+	
+	/**
+	 * 创建一个群组
+	 * @param unknown_type $args
+	 * @return string|boolean
+	 */
+	function add_group($args){
+		
+		$this->load->model('m_group');
+		
+		//获得用户的令牌
+		$token=$args[0];
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		$data['user_id']=$user_data['user_id'];
+		
+		$data['group_name']=$args[1];
+		
+		$group_category_name=$args[2];
+		
+		$data['group_category']=$this->m_group->add_group_category(
+				array(
+				'group_category_name'=>$group_category_name,
+				'group_count'=>1
+				));
+		
+		$data['group_destription']=$args[3];
+		
+		$data['group_states']=1;
+		
+		$data['member_count']=1;
+		
+		$data['create_time']=$this->current;
+		
+		$result=$this->m_group->add_group($data);
+		
+		if($result){
+			$data=array();
+			$data['group_id']=$result;
+			$data['user_id']=$user_data['user_id'];
+			$data['inviter_id']=0;
+			$data['is_admin']=1;
+			$data['is_confirmed']=1;
+			$data['create_time']=$this->current;
+			$this->m_group->add_group_member($data);
+			return 'success_'.$result;
+		}
+		else return FALSE;
+	}
+	
+	/**
+	 * 申请加入群组
+	 * @param unknown_type $args
+	 * @return string|boolean
+	 */
+	function join_group($args){
+		
+		$this->load->model('m_group');
+		
+		//获得用户的令牌
+		$token=$args[0];
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		$data=array();
+		
+		$data['group_id']=$args[1];
+		
+		$data['user_id']=$user_data['user_id'];
+		
+		$row=$this->m_group->get_group_member_id_by_user_id($data['user_id'],$data['group_id']);
+		
+		if($row){
+			return $row['is_confirmed']?"be_in":"wait_verify";
+		}
+		
+		$data['inviter_id']=0;
+		
+		$data['is_admin']=0;
+		
+		$data['is_confirmed']=0;
+		
+		$data['create_time']=$this->current;
+		
+		$result=$this->m_group->add_group_member($data);
+		
+		if($result){
+			$create_user_id=$this->m_group->get_group_create_user_id_by_group_id($args[1]);
+			
+			$this->send_notify($user_data['user_id'], $create_user_id, 'group_application', $args[2]);
+			
+			return 'success_'.$result;
+		}else{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * 根据群组ID获得群组中不在自己身边的成员
+	 * @param unknown_type $args
+	 */
+	function group_check_in_by_bluetooth_datas($args){
+		
+		$this->load->model('m_user');
+		$this->load->model('m_group');
+		//获得用户的令牌
+		$token=array_shift($args);
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+	
+		$group_id=array_shift($args);
+	
+		//如果传入了蓝牙数据，根据蓝牙数据增加蓝牙的发现关系
+		if($args)
+			$this->m_user->add_bluetooth_searchs_by_bluetooth_datas($user_data['bluetooth_id'],$args);
+		
+		//根据时间和用户获得发现蓝牙的ID
+		$bluetooth_ids=$this->m_user->get_bluetooth_ids_by_search_time($user_data['bluetooth_id'],$this->current);
+		
+		//根据蓝牙ID获取用户数据
+		$user_datas=$this->m_user->get_user_datas_by_bluetooth_ids($bluetooth_ids);
+		
+		//获得群组内未到的用户资料
+		$absent_member_datas=$this->m_group->get_absent_member_datas_by_user_datas($group_id,$user_datas,$user_data['user_id']);	
+		
+		return $absent_member_datas;
+		
+	}
+
+	/**
+	 * 发表一个状态
+	 * @param unknown_type $args
+     * @return success "success_{id}"
+     * 
+	 */
+	function post_content($args){
+		$this->load->model('m_feed');	
+		
+		//获得用户的令牌
+		$token=$args[0];
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		//发表状态内容
+		$content['display_name']=$user_data['display_name'];
+		$content['content']=$args[1];
+		
+		$data=array(
+				'user_id'=>$user_data['user_id'],
+				'feed_type'=>0,
+				'feed_content'=>serialize($content),
+				'create_time'=>$this->current,
+				'transpond_id'=>0,
+				'transpond_count'=>0,
+				'comment_count'=>0
+		);
+		
+		$result=$this->m_feed->add_feed($data);
+		if($result){
+			$this->update_last_activity($user_data['user_id'], $his->current);
+			return 'success_'.$result;
+		}	
+		else 
+			return FALSE;
+	}
+	
+	/**
+	 * 转发一条状态
+	 * @param array $args(token,feed_id,content)
+	 * @return string|boolean
+	 */
+	function transpond_content($args){
+		$this->load->model('m_feed');
+		
+		//获得用户的令牌
+		$token=$args[0];
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		//标记当前时间
+		$current_time=time();
+		
+		//获得转发的feed_id
+		$transpond_id=$args[1];
+		
+		//发表状态内容
+		$content['display_name']=$user_data['display_name'];
+		$content['content']=$args[2];
+		
+		$data=array(
+				'user_id'=>$user_data['user_id'],
+				'feed_type'=>0,
+				'feed_content'=>serialize($content),
+				'create_time'=>$current_time,
+				'transpond_id'=>$transpond_id,
+				'transpond_count'=>0,
+				'comment_count'=>0
+		);
+		
+		$result=$this->m_feed->add_feed($data);
+		
+		if($result){
+			$this->update_last_activity($user_data['user_id'], $current_time);
+			$this->m_feed->increase_transpond_count($transpond_id);
+			return 'success_'.$result;
+		}
+		else
+			return FALSE;
+	}
+	
+	/**
+	 * 上传照片
+	 * @param unknown_type $args
+	 * @return string
+	 */
+	function upload_pirture($args){
+		$this->load->model('m_album');
+		$this->load->helper('file');
+		//获得用户的令牌
+		$token=$args[0];
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		$data['album_id']=$args[1];
+		
+		if($user_data['user_id']!=$this->m_album->get_user_id_by_album_id($data['album_id'])){
+			$data['album_id']=$this->m_album->get_user_album_id($user_data['user_id']);
+		} 
+		
+		$data['user_id']=$user_data['user_id'];
+		
+		$data['picture_name']=$args[2];
+		
+		$data['picture_destription']=$args[3];
+		
+		$bits=base64_decode($args[4]);
+		
+		$data['file_size']=$args[5];
+		
+		$data['file_type']=$args[6];
+		
+		$data['create_time']=$this->current;
+		
+		switch($data['file_type']){
+			case 1:$img_type="gif";break;
+			case 2:$img_type="jpg";break;
+			case 3:$img_type="png";break;
+		}
+		
+		$data['file_name']=$data['user_id'].'_'.$data['create_time'].'.'.$img_type;
+		
+		
+		write_file('upload/'.$data['user_id'].'/'.$data['file_name'], $bits);
+		
+		
+		$picture_id=$this->m_album->add_picture($data);
+		
+		return 'success_'.$picture_id;
+		
+	}
+	
+	/**
+	 * 上传用户的头像
+	 * @param unknown_type $args
+	 * @return string
+	 */
+	function upload_avatar($args){
+		$this->load->model(array('m_album','m_user'));
+		$this->load->helper('file');
+		//获得用户的令牌
+		$token=$args[0];
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		$data['album_id']=$args[1];
+		
+		if($user_data['user_id']!=$this->m_album->get_user_id_by_album_id($data['album_id'])){
+			$data['album_id']=$this->m_album->get_user_album_id($user_data['user_id']);
+		} 
+		
+		$data['user_id']=$user_data['user_id'];
+		
+		$data['picture_name']=$args[2];
+		
+		$data['picture_destription']=$args[3];
+		
+		$bits=base64_decode($args[4]);
+		
+		$data['file_size']=$args[5];
+		
+		$data['file_type']=$args[6];
+		
+		$data['create_time']=$this->current;
+		
+		switch($data['file_type']){
+			case 1:$img_type="gif";break;
+			case 2:$img_type="jpg";break;
+			case 3:$img_type="png";break;
+		}
+		
+		$data['file_name']=$data['user_id'].'_'.$data['create_time'].'.'.$img_type;
+		
+		$file_path='upload/'.$data['user_id'].'/'.$data['file_name'];
+		
+		write_file($file_path, $bits);
+		
+		
+		$picture_id=$this->m_album->add_picture($data);
+		
+		$data=array(
+				'user_id'=>$user_data['user_id'],
+				'meta_key'=>'user_avatar',
+				'meta_value'=>$file_path
+				);
+		
+		$this->m_user->add_user_meta($data);
+		
+		return 'success_'.$picture_id;
+	}
+	
+	/**
+	 * 根据蓝牙数据获得刚刚身边用户数据
+	 * @param unknown_type $args
+	 * @return string|unknown
+	 */
+	function get_near_by_bluetooth_datas($args){
+		
+		$this->load->model('m_user');
+		
+		//获得用户的令牌
+		$token=array_shift($args);
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		//如果传入了蓝牙数据，根据蓝牙数据增加蓝牙的发现关系
+		if($args)
+			$this->m_user->add_bluetooth_searchs_by_bluetooth_datas($user_data['bluetooth_id'],$args);
+		
+		//根据时间和用户获得发现蓝牙的ID
+		$bluetooth_ids=$this->m_user->get_bluetooth_ids_by_search_time($user_data['bluetooth_id'],$this->current);
+		
+		//根据蓝牙ID获取用户数据
+		$user_datas=$this->m_user->get_user_datas_by_bluetooth_ids($bluetooth_ids);
+		
+		
+		return $user_datas;
+	}
+	
+	/**
+	 * 获得群组的列表
+	 * @param unknown_type $args
+	 * @return string|unknown
+	 */
+	function get_group_datas_by_category($args){
+		
+		$this->load->model('m_group');
+		
+		//获得用户的令牌
+		$token=$args[0];
+		
+		//从缓存中获得用户资料
+		$user_data=$this->get_user_by_token($token);
+		
+		if(!$user_data)
+			return "not_login";
+		
+		$category=isset($args[1])?$args[1]:0;
+		
+		$page=isset($args[2])?$args[2]:0;
+		
+		$page_count=isset($args[3])?$args[3]:0;
+		
+		$group_datas=$this->m_group->get_group_datas($category,$page,$page_count);
+		
+		if($group_datas)
+			return $group_datas;
+		else 
+			return "no_group";
+		
+	}
+	
+	/**
+	 * 根据令牌获得用户信息
+	 * @param unknown_type $token
+	 * @return mixed|boolean
+	 */
+	function get_user_by_token($token){
+		$this->load->driver('cache', array('adapter' => 'memcached', 'backup' => 'file'));
+		$this->load->model('m_online');
+		
+		$user_data=$this->cache->get($token);
+		if($user_data){
+			
+			//更新token时间
+			$this->cache->save($token,$user_data,300);
+			
+			//获得token内容
+			$user_data=unserialize($user_data);
+			
+			//更新用户最后活动时间
+			$this->update_last_activity($user_data['user_id'], $this->current);
+			
+			//更新在线表
+			$data=array(
+					'user_id'=>$user_data['user_id'],
+					'display_name'=>$user_data['display_name'],
+					'create_time'=>$this->current,
+					'online_type'=>'电脑在线'
+			);
+			$this->m_online->add_online($data);
+			
+			return $user_data;
+		}
+		else
+			return FALSE;
+	}
+	
+	/**
+	 * 更新用户最后活动时间
+	 * @param unknown_type $user_id
+	 * @param unknown_type $last_activity
+	 */
+	function update_last_activity($user_id,$last_activity){
+		$this->load->model('m_user');
+		$this->m_user->update_last_activity($user_id,$last_activity);
+	}
+	
+	/**
+	 * 创建用户相册
+	 * @param unknown_type $user_id
+	 * @param unknown_type $album_name
+	 * @param unknown_type $album_password
+	 * @return unknown
+	 */
+	function create_album($user_id,$album_name,$album_destription,$album_password=NULL){
+		$this->load->model('m_album');
+		$data['album_name']=$album_name;
+		$data['user_id']=$user_id;
+		$data['album_destription']=$album_destription;
+		$data['create_time']=time();
+		$data['picture_count']=0;
+		$data['album_visible']=0;
+		if(!is_null($album_password))
+			$data['album_password']=md5($album_password);
+		
+		$num=$this->m_album->add_album($data);
+		return $num;
+	}
+	
+	/**
+	 * 给用户发送一条通知
+	 * @param unknown_type $from_id
+	 * @param unknown_type $to_id
+	 * @param unknown_type $notify_type
+	 * @param unknown_type $notify_content
+	 */
+	function send_notify($from_id,$to_id,$notify_type,$notify_content){
+		$this->load->model('m_notify');
+		$data['from_id']=$from_id;
+		$data['to_id']=$to_id;
+		$data['notify_type']=$notify_type;
+		$data['notify_content']=$notify_content;
+		$data['is_read']=0;
+		$data['create_time']=$this->current;
+		
+		$num=$this->m_notify->add_notify($data);
+		return $num;
+	}
+}
+?>

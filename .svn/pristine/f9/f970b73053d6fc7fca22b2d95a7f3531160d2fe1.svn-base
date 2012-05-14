@@ -1,0 +1,30 @@
+<?php
+require_once 'IXR_Server.php';
+class Xmlrpc_Methods extends IXR_Server {
+	var $methods;
+	function __construct() {
+		$this->methods = array (
+				'hello' => 'this:sayhello', 
+				'addTwo' => 'this:addTwo' ,
+				'we.addUser'=>'this:add_user'
+				);
+		parent::__construct ( $this->methods );
+	}
+	function sayhello() {
+		return "Hello";
+	}
+	function addTwo($args) {
+		return $args [0] + $args [1];
+	}
+	function add_user($args){
+		$this->load->model('m_user');
+		$data['email']=$args[0];
+		$data['password']=md5($args[1]);
+		$data['real_name']=$args[2];
+		$data['display_name']=$args[3];
+		$data['create_time']=time();
+		$data['last_activity']=0;
+		$this->m_user->add_user($data);
+	}
+}
+?>

@@ -1,0 +1,20 @@
+<?php
+class Xmlrpc extends CI_Controller {
+ 	function __construct(){
+ 		parent::__construct();
+
+ 	}
+	function index()
+	{
+		//获取传入的内容
+		if ( !isset( $HTTP_RAW_POST_DATA ) ) {
+			$HTTP_RAW_POST_DATA = file_get_contents( 'php://input' );
+		}
+		
+		if ( isset($HTTP_RAW_POST_DATA) )
+			$HTTP_RAW_POST_DATA = trim($HTTP_RAW_POST_DATA);
+		
+		$this->load->library('Xmlrpc_Methods');	
+	}
+}
+?>

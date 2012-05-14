@@ -1,0 +1,551 @@
+<?php
+	/**
+	 * 
+	 * @author Yan Su
+	 * 这个是用户model，用来处理用户表的操作信息，并且进行session处理，在这个
+	 * 类中，所有函数只返回TRUE或FALSE
+	 *
+	 */
+	class M_user extends CI_Model{
+
+		private $user_table;
+		
+		private $user_meta_table;
+		
+		private $session_table;
+		
+		private $bluetooth_table;
+		
+		private $blutooth_search_table;
+		
+		
+		/**
+		 * 构造函数 
+		 */
+		function __construct(){
+			parent::__construct();
+			$this->user_table=$this->db->dbprefix('user');
+			$this->session_table=$this->db->dbprefix('session');
+			$this->user_meta_table=$this->db->dbprefix('user_meta');
+			$this->bluetooth_table=$this->db->dbprefix('bluetooth');
+			$this->bluetooth_search_table=$this->db->dbprefix('bluetooth_search');
+			$this->create_table();
+			$this->load->library('session');
+		}
+		
+		/**
+		 * 创建数据库
+		 * @return unknown
+		 */
+		function create_table(){
+			$user= $this->db->simple_query("
+					CREATE TABLE IF NOT EXISTS {$this->user_table} (
+					  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+					  `email` varchar(200) NOT NULL UNIQUE,
+					  `password` varchar(49) DEFAULT NULL,
+					  `real_name` varchar(32) NOT NULL,
+					  `display_name` varchar(32) DEFAULT NULL,
+					  `create_time` int(10) unsigned NOT NULL,
+					  `bluetooth_id` int(10) unsigned NOT NULL,
+					  `last_activity` int(10) unsigned NOT NULL,
+					  PRIMARY KEY (`user_id`)
+					) ENGINE=MyISAM  DEFAULT CHARSET=utf8;"
+					);
+			$session=$this->db->simple_query("
+					CREATE TABLE IF NOT EXISTS  {$this->session_table} (
+						session_id varchar(40) DEFAULT '0' NOT NULL,
+						ip_address varchar(16) DEFAULT '0' NOT NULL,
+						user_agent varchar(120) NOT NULL,
+						last_activity int(10) unsigned DEFAULT 0 NOT NULL,
+						user_data text DEFAULT '' NOT NULL,
+						PRIMARY KEY (session_id)
+					);");
+			$user_meta=$this->db->simple_query("
+					CREATE TABLE  IF NOT EXISTS  {$this->user_meta_table} (
+						`user_meta_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+						`user_id` INT( 11 ) NOT NULL ,
+						`meta_key` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+						`meta_value` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+						) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+					");
+			$bluetooth=$this->db->simple_query("
+					CREATE TABLE  `{$this->bluetooth_table}` (
+						`bluetooth_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+						`bluetooth_mac` VARCHAR( 12 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+						`bluetooth_name` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+						`create_time` INT( 10 ) UNSIGNED NOT NULL
+						) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+			");
+			$bluetooth_search=$this->db->simple_query("
+					CREATE TABLE  `{$this->bluetooth_search_table}` (
+						`bluetooth_search_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+						`from_id` INT( 11 ) UNSIGNED NOT NULL ,
+						`to_id` INT( 11 ) UNSIGNED NOT NULL ,
+						`rssi` INT( 6 ) NOT NULL ,
+						`create_time` INT( 10 ) UNSIGNED NOT NULL
+						) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+			");
+			return TRUE;
+		}
+		
+		/**
+		 * 添加一个用户
+		 * @param array $data
+		 * @return string|Ambigous <string, boolean>
+		 */
+		function add_user($data){
+			$this->db->insert($this->user_table,$data);
+			return ($this->db->affected_rows() > 0) ? $this->db->insert_id() : FALSE;
+		}
+		
+		/**
+		 * 增加用户额外设定
+		 * @param unknown_type $data
+		 * @return boolean
+		 */
+		function add_user_meta($data){
+			$user_meta_id=$this->get_user_meta_id_by_key($data['user_id'],$data['meta_key']);
+			
+			if($user_meta_id){
+				$this->db->update(
+						$this->user_meta_table,
+						array('meta_value'=>$data['meta_value']),
+						array('user_meta_id'=>$user_meta_id)
+				);
+				return TRUE;
+			}else{
+				$this->db->insert(
+						$this->user_meta_table,
+						array(
+								'user_id'=>$data['user_id'],
+								'meta_key'=>$data['meta_key'],
+								'meta_value'=>$data['meta_value']
+								));
+				return TRUE;
+			}
+		}
+
+		/**
+		 * 增加蓝牙模块
+		 * @param unknown_type $data
+		 * @return boolean
+		 */
+		function add_bluetooth($data){
+			$this->db->insert($this->bluetooth_table,$data);
+			return ($this->db->affected_rows() > 0) ? $this->db->insert_id() : FALSE;
+		}		
+
+		/**
+		 * 增加蓝牙的发现关系
+		 * @param unknown_type $data
+		 * @return boolean
+		 */
+		function add_bluetooth_search($data){
+			$bluetooth_search_id=$this->get_bluetooth_search_id_by_bluetooth_id($data['from_id'], $data['to_id']);
+			
+			if($bluetooth_search_id){
+				$this->db->update(
+						$this->bluetooth_search_table,
+						array(
+								'create_time'=>$data['create_time'],
+								'rssi'=>$data['rssi']
+								),
+						array('bluetooth_search_id'=>$bluetooth_search_id)
+				);
+				return TRUE;
+			}else{
+				if($data['from_id']<$data['to_id']){
+					$this->db->insert(
+							$this->bluetooth_search_table,
+							array(
+									'from_id'=>$data['from_id'],
+									'to_id'=>$data['to_id'],
+									'rssi'=>$data['rssi'],
+									'create_time'=>$data['create_time']
+							));
+				}else{
+					$this->db->insert(
+							$this->bluetooth_search_table,
+							array(
+									'from_id'=>$data['to_id'],
+									'to_id'=>$data['from_id'],
+									'rssi'=>$data['rssi'],
+									'create_time'=>$data['create_time']
+							));
+				}
+				return TRUE;
+			}
+		}
+		
+		/**
+		 * 根据蓝牙数组增加蓝牙的发现关系
+		 * @param unknown_type $user_id
+		 * @param unknown_type $bluetooth_datas
+		 * @return boolean
+		 */
+		function add_bluetooth_searchs_by_bluetooth_datas($bluetooth_id,$bluetooth_datas){
+			
+			$bluetooth_ids=$this->get_bluetooth_ids_by_bluetooth_datas($bluetooth_datas);
+			
+			$length=count($bluetooth_ids);
+			for($i=0;$i<$length;$i++){
+				$this->add_bluetooth_search(array(
+						'from_id'=>$bluetooth_id,
+						'to_id'=>$bluetooth_ids[$i],
+						'rssi'=>$bluetooth_datas[$i][2],
+						'create_time'=>time()
+						));
+			}
+			return TRUE;
+		}
+
+		/**
+		 * 根据当前时间和用户蓝牙ID获得发现的蓝牙ID
+		 * @param unknown_type $bluetooth_id
+		 * @param unknown_type $current_time
+		 * @return multitype:
+		 */
+		function get_bluetooth_ids_by_search_time($bluetooth_id,$current_time){
+			
+			$bluetooth_ids=array();
+			
+			$create_time=$current_time-300;
+			
+			 $this->db->select('from_id')->from($this->bluetooth_search_table);
+			
+			$this->db->where(array(
+					'to_id'=>$bluetooth_id,
+					'create_time >' =>$create_time
+					));
+			
+			$query=$this->db->get();
+			
+			$bluetooth_ids=$query->result_array();
+			
+			foreach($bluetooth_ids as $key => $value){
+				$bluetooth_ids[$key]=$value['from_id'];
+			}
+			
+			$query->free_result(); 
+			
+			$this->db->select('to_id')->from($this->bluetooth_search_table);
+			
+			$this->db->where(array(
+					'from_id'=>$bluetooth_id,
+					'create_time >' =>$create_time
+			));
+			
+			$query=$this->db->get();
+			
+			$result=$query->result_array();
+			
+			foreach($result as $key => $value){
+				$result[$key]=$value['to_id'];
+			}
+			
+			$bluetooth_ids=array_merge($bluetooth_ids,$result);
+			
+			$query->free_result();
+			
+			return array_unique($bluetooth_ids);
+			
+		}
+		
+		/**
+		 * 根据蓝牙IDS获得相应用户的数据
+		 * @param unknown_type $bluetooth_ids
+		 * @return multitype:number
+		 */
+		function get_user_datas_by_bluetooth_ids($bluetooth_ids){
+			
+			$user_datas=array();
+			
+			foreach($bluetooth_ids as $value){
+				$user_data=$this->get_user_data_by_bluetooth_id($value);
+				if(empty($user_data)){
+					$user_data['user_id']=0;
+					$user_data['display_name']=$this->get_bluetooth_name_by_bluetooth_id($value);
+					$user_data['last_activity']=0;
+					$user_data['user_avatar']='upload/default.jpg';
+				}
+				$user_datas[]=$user_data;
+			}
+			return $user_datas;
+			
+		}
+
+		/**
+		 * 获得用户的个人设定ID
+		 * @param unknown_type $user_id
+		 * @param unknown_type $meta_key
+		 */
+		function get_user_meta_id_by_key($user_id,$meta_key){
+			$this->db->select('user_meta_id')->from($this->user_meta_table);
+			$this->db->where(array(
+					'user_id'=>$user_id,
+					'meta_key'=>$meta_key
+					));
+			$query = $this->db->get();
+			$num = $query->row();
+			$query->free_result();
+			if($num)
+				return intval($num->user_meta_id);
+			else 
+				return FALSE;
+		}
+		
+		/**
+		 * 获得用户个人设定的值
+		 * @param unknown_type $user_id
+		 * @param unknown_type $meta_key
+		 * @return boolean
+		 */
+		function get_user_meta_value_by_key($user_id,$meta_key){
+			$this->db->select('meta_value')->from($this->user_meta_table);
+			$this->db->where(array(
+					'user_id'=>$user_id,
+					'meta_key'=>$meta_key
+					));
+			$query = $this->db->get();
+			$num = $query->row();
+			$query->free_result();
+			if($num)
+				return $num->meta_value;
+			else 
+				return FALSE;
+		}
+
+		/**
+		 * 根据蓝牙地址获得蓝牙ID
+		 * @param unknown_type $bluetooth_mac
+		 */
+		function get_bluetooth_id_by_mac($bluetooth_mac){
+			$this->db->select('bluetooth_id')->from($this->bluetooth_table);
+			$this->db->where('bluetooth_mac',$bluetooth_mac);
+			$query = $this->db->get();
+			$num = $query->row();
+			$query->free_result();
+			
+			if($num)
+				return intval($num->bluetooth_id);
+			else
+				return FALSE;
+		}
+		
+		/**
+		 * 根据发现的蓝牙数据获得蓝牙相应的ID
+		 * 
+		 * $bluetooth_datas[]=array('bluetooth_mac','bluetooth_name','rssi')
+		 * 
+		 * @param array $bluetooth_datas
+		 * @return array $bluetooth_ids
+		 */
+		function get_bluetooth_ids_by_bluetooth_datas($bluetooth_datas){
+			
+			$bluetooth_ids=array();
+			
+			while($bluetooth_datas){
+				$bluetooth_data=array_shift($bluetooth_datas);
+				
+				$bluetooth_id=$this->get_bluetooth_id_by_mac($bluetooth_data[0]);
+				
+				if(empty($bluetooth_id))
+					$bluetooth_id=$this->add_bluetooth(array(
+							'bluetooth_mac'=>$bluetooth_data[0],
+							'bluetooth_name'=>$bluetooth_data[1],
+							'create_time'=>time()
+							));
+				
+				$bluetooth_ids[]=$bluetooth_id;
+			}
+			
+			return $bluetooth_ids;
+		}
+		
+		/**
+		 * 根据发现关系获得关系ID
+		 * @param unknown_type $from_id
+		 * @param unknown_type $to_id
+		 * @return boolean
+		 */
+		function get_bluetooth_search_id_by_bluetooth_id($from_id,$to_id){
+			$this->db->select('bluetooth_search_id')->from($this->bluetooth_search_table);
+			
+			if($from_id<$to_id)
+				$this->db->where(array('from_id'=>$from_id,'to_id'=>$to_id));
+			else
+				$this->db->where(array('from_id'=>$to_id,'to_id'=>$from_id));
+			
+			$query = $this->db->get();
+			$num = $query->row();
+			$query->free_result();
+			
+			if($num)
+				return intval($num->bluetooth_search_id);
+			else
+				return FALSE;
+		}
+		
+		/**
+		 * 根据蓝牙mac获取用户的ID
+		 * @param unknown_type $bluetooth_mac
+		 * @return boolean
+		 */
+		function get_user_id_by_bluetooth_mac($bluetooth_mac){
+			$this->db->select('user_id')->from($this->user_table);
+			$this->db->where('bluetooth_id',
+					'(SELECT bluetooth_id FROM '.$this->bluetooth_table.' WHERE bluetooth_mac='.$bluetooth_mac.')',
+					FALSE);
+			$query=$this->db->get();
+			$num=$query->row();
+			$query->free_result();
+			
+			if($num)
+				return $num->user_id;
+			else
+				return FALSE;
+		}
+		
+		/**
+		 * 根据用户id获得用户的资料
+		 * @param unknown_type $user_id
+		 * @return unknown|multitype:unknown
+		 */
+		function get_user_data_by_user_id($user_id){
+			
+			$user_data=array();
+			
+			$this->db->select('display_name,last_activity')->from($this->user_table);
+			$this->db->where('user_id',$user_id);
+			$query = $this->db->get();
+			$row = $query->row_array();
+			$query->free_result();
+			
+			
+			$user_data['user_id']=$user_id;
+			$user_data['display_name']=$row['display_name'];
+			$user_data['last_activity']=$row['last_activity'];
+			$user_data['user_avatar']=$this->get_user_meta_value_by_key($user_id, 'user_avatar');
+			return $user_data;
+		}
+		
+		/**
+		 * 根据蓝牙ID获得用户的资料
+		 * @param unknown_type $bluetooth_id
+		 * @return unknown|multitype:unknown
+		 */
+		function get_user_data_by_bluetooth_id($bluetooth_id){
+		
+			$this->db->select('user_id,display_name,last_activity')->from($this->user_table);
+			$this->db->where('bluetooth_id',$bluetooth_id);
+			$query = $this->db->get();
+			$user_data = $query->row_array();
+			$query->free_result();
+			
+			if($user_data){
+				$user_data['user_avatar']=$this->get_user_meta_value_by_key($user_data['user_id'], 'user_avatar');
+				return $user_data;
+			}else{
+				return FALSE;
+			}
+		}		
+		
+		/**
+		 * 根据蓝牙ID获得蓝牙名称
+		 * @param unknown_type $bluetooth_id
+		 * @return string
+		 */
+		function get_bluetooth_name_by_bluetooth_id($bluetooth_id){
+			$this->db->select('bluetooth_name')->from($this->bluetooth_table);
+			$this->db->where('bluetooth_id',$bluetooth_id);
+			$query=$this->db->get();
+			$row=$query->row();
+			$query->free_result();
+			
+			if($row)
+				return $row->bluetooth_name;
+			else 
+				return FLASE;
+		}
+		
+		/**
+		 * 验证用户表中某个内容是否存在
+		 * @param string $key
+		 * @param string $value
+		 * @param int $exclude_uid
+		 * @return boolean
+		 */
+		function check_exist($key = 'email',$value = '', $exclude_user_id = 0)
+		{
+			if(!empty($value))
+			{
+				if($key=='real_name'){
+					$this->db->select('user_id')->from($this->user_table)->like($key,$value.'(','after');
+				}else {
+					$this->db->select('user_id')->from($this->user_table)->like($key,$value);
+				}
+				
+				if(!empty($exclude_user_id) && is_numeric($exclude_user_id))
+				{
+					$this->db->where('uid <>', $exclude_user_id);
+				}
+		
+				$query = $this->db->get();
+				$num = $query->num_rows();
+				$query->free_result();
+				if($num)
+					return $num;
+				else
+					return FALSE;
+			}
+			return FALSE;
+		}
+		
+		/**
+		 * 更新用户最后活动时间
+		 * @param unknown_type $user_id
+		 * @param unknown_type $last_activity
+		 */
+		function update_last_activity($user_id,$last_activity){
+			if($user_id){
+				$this->db->update(
+						$this->user_table,
+						array('last_activity'=>$last_activity),
+						array('user_id'=>$user_id)
+						);
+			}
+		}
+		
+		/**
+		 * 验证用户账号和密码
+		 * @param string $username 账号
+		 * @param string $password 密码
+		 * @return Ambigous <boolean, unknown>
+		 */
+		function validate_user($data)
+		{
+			$user_data = FALSE;
+		
+			$this->db->select('*')->from($this->user_table);
+			$this->db->where('email', $data['email']);
+			$query = $this->db->get();
+			
+			if($query->num_rows() == 0)
+				return FALSE;
+			
+			$user_data = $query->row_array();
+
+			$user_data = ($user_data['password']===md5($data['password'])) ? $user_data : FALSE;
+
+			$query->free_result();
+			
+			$user_data['user_avatar']=$this->get_user_meta_value_by_key($user_data['user_id'], 'user_avatar');
+			
+			return $user_data;
+		}
+
+	}
+	
+
+		
+		

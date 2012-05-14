@@ -1,0 +1,16 @@
+<?php
+require_once 'IXR_Server.php';
+class Xmlrpc_Methods extends IXR_Server {
+	var $methods;
+	function __construct() {
+		$this->methods = array ('hello' => 'this:sayhello', 'addTwo' => 'this:addTwo' );
+		parent::__construct ( $this->methods );
+	}
+	function sayhello() {
+		return "Hello";
+	}
+	function addTwo($args) {
+		return $args [0] + $args [1];
+	}
+}
+?>

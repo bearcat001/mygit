@@ -1,0 +1,36 @@
+<?php
+class Xmlrpc extends WE_Controller {
+	var $methods;
+	function __construct() {
+		$this->methods = array (
+				'hello' => 'this:sayhello',
+				'addTwo' => 'this:addTwo' ,
+				'we.addUser'=>'this:add_user'
+		);
+		if ( !isset( $HTTP_RAW_POST_DATA ) ) {
+			$HTTP_RAW_POST_DATA = file_get_contents( 'php://input' );
+		}
+		
+		if ( isset($HTTP_RAW_POST_DATA) )
+			$HTTP_RAW_POST_DATA = trim($HTTP_RAW_POST_DATA);
+		parent::__construct ( $this->methods );
+	}
+	function sayhello() {
+		return "Hello";
+	}
+	function addTwo($args) {
+		return $args [0] + $args [1];
+	}
+	function add_user($args){
+		$this->load->model('m_user');
+		$data['email']=$args[0];
+		$data['password']=md5($args[1]);
+		$data['real_name']=$args[2];
+		$data['display_name']=$args[3];
+		$data['create_time']=time();
+		$data['last_activity']=0;
+		$this->m_user->add_user($data);
+	}
+	
+}
+?>

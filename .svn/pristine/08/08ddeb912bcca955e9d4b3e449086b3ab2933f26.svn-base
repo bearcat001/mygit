@@ -1,0 +1,62 @@
+<?php
+	class M_feed extends CI_Model{
+		private $feed_table;
+		
+		/**
+		 * 构造函数 
+		 */
+		function __construct(){
+			parent::__construct();
+			$this->feed_table=$this->db->dbprefix('feed');
+			$this->create_table();
+		}
+		
+		/**
+		 * 创建数据库
+		 * @return unknown
+		 */
+		function create_table(){
+			$result= $this->db->simple_query("
+					CREATE TABLE  {$this->feed_table} (
+						`feed_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+						`user_id` INT( 11 ) NOT NULL ,
+						`feed_type` TINYINT( 1 ) UNSIGNED NOT NULL ,
+						`feed_content` TEXT NOT NULL ,
+						`create_time` INT( 10 ) NOT NULL ,
+						`transpond_id` INT( 11 ) NOT NULL ,
+						`transpond_count` INT( 11 ) NOT NULL ,
+						`comment_count` INT( 11 ) NOT NULL
+						) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;"
+					);
+			return $result;
+		}
+		
+		/**
+		 * 创建一条feed
+		 * 
+		 * feed内容包含
+		 * feed_id：feed的唯一标示
+		 * user_id：本条feed的作者ID
+		 * feed_type：feed的属性
+		 * 0 状态
+		 * 1 日志
+		 * 
+		 * feed_content：feed的具体内容
+		 * create_time：创建时间
+		 * transpond_id：转载来自
+		 * transpond_count：被转载次数
+		 * comment_count：评论的次数
+		 * @param unknown_type $data
+		 * @return boolean
+		 */
+		function add_feed($data){
+			$this->db->insert($this->feed_table,$data);
+			return ($this->db->affected_rows() > 0) ? $this->db->insert_id() : FALSE;
+		}
+		
+		function increase_transpond_count($feed_id){
+			$this->db->set('transpond_count',"transpond_count+1",FALSE);
+			$this->db->where(array('feed_id'=>$feed_id));
+			$this->db->update($this->feed_table);
+		}
+	}

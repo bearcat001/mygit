@@ -1,0 +1,48 @@
+<?php
+//核心类，包含XML调用和WEB端调用
+class C_Wlinke extends CI_Controller{
+  
+  var $userdata;
+
+  function __construct(){
+    parent::__construct();//原构造函数
+    $this->load->model('m_user');//默认载入用户类
+    $this->load->helper('we_error');//载入错误处理函数
+  }
+
+  /**
+     创建一个新用户，输入内容为
+     string  email  邮箱
+     string  password  密码
+     string  real_name  真实姓名
+     string  bluetooth_mac  蓝牙地址
+     string  bluetooth_name 蓝牙名称  可选
+  */
+  function add_user($email,$password,$real_name,$bluetooth_mac="",$bluetooth_name=""){
+    //检查邮箱地址
+    if(!valid_email($email)){
+      return we_single_error('invalid_email');
+    }
+    //检查用户邮箱是否已经被注册
+    if($this->m_user->check_exist('email',$email)){
+      return we_single_error('existing_email');
+    }
+    $this->userdata['email']=$email;
+    //检查用户密码格式
+    if(!valid_password($password)){
+      return we_single_error('invalid_password');
+    }
+    $this->userdata['password']=$password;
+    //检查用户真实姓名
+    if(!valid_real_name($real_name))
+      return we_single_error('invalid_real_name');
+    $this->userdata['real_name']=$real_name;
+    //检查蓝牙地址
+    if(!$bluetooth_mac||!valid_bluetooth_mac($bluetooth_mac))
+      return we_single_error('invalid_bluetooth_mac');
+    $userdata['bluetooth_mac']=strtoupper($bluetooth_mac);
+    //检查蓝牙名称
+    if($bluetooth_name)
+      $userdata['bluetooth_name']=$bluetooth_name;
+    return $userdata;
+}

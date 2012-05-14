@@ -1,0 +1,112 @@
+/*#--id*/
+/*.--class*/
+
+/*#--id*/
+/*.--class*/
+
+/*@@@@@@@@@@@@@@@@@@*/
+/*body:*/
+/*@@@@@@@@@@@@@@@@@@*/
+input{
+	font-size:20px;
+	border-radius:8px;
+}
+a:link, a:visited { 
+	color: #ffffff; 
+	text-decoration: underline; 
+	font-weight: normal; 
+}
+ 
+a:active, a:hover { 
+	color: #FFFF66; 
+	text-decoration: none; 
+}
+/*@@@@@@@@@@@@@@@@@@*/
+/*longin_regist:*/
+/*@@@@@@@@@@@@@@@@@@*/
+#login_top_wrapper{
+	position: relative;
+	width: 100%;
+	height: 130px;
+	margin: 0 auto;
+	background:  url(../images/templatemo_header_bg.jpg) center top no-repeat;
+}
+#login_center_wrapper{
+	clear:both;
+	width: 100%;
+	height: 400px;
+	margin: 0 auto;	
+	background: url(../images/templatemo_content_bg.jpg) top center no-repeat;
+}
+#login_bottom_wrapper{
+	clear: both;
+	width: 100%;
+	height: 140px;
+	margin: 0 auto;	
+	background: url(../images/templatemo_footer_bg.jpg) top center no-repeat;
+}
+#login_center{
+	width:700px;
+	height:500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#login_center_pic{
+	position:relative;
+	top:100px;
+	width:20%;
+}
+#login_center_logo{
+	position:relative;
+	top:90px;
+	left:auto;
+	right:auto;
+}
+#login_center_table{
+	position:relative;
+	top:140px;
+	left:auto;
+	right:auto;
+}
+#login_center_table tr{
+	font:"ËÎÌו";
+	font-size:14px;
+	color:#FFFFFF;
+	text-shadow:text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+}
+.login_center_botton{
+	color:#D5B799;
+	background:#1C0E00;
+	border:0px;
+	width:60px;
+	height:30px;
+	text-align:center;
+	font-size:14px;
+	text-shadow:text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+}
+.login_center_botton:hover{
+	background:#002200;
+}
+
+.front_style_lable{
+	font:"ËÎÌו";
+	font-size:14px;
+	color:#FFFFFF;
+	text-shadow:text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+}
+.front_style_regist{
+	width:100px;
+	height:30px;
+}
+#regist_center_table{
+	position:relative;
+	top:120px;
+	left:auto;
+	right:auto;
+}
+#regist_center_table tr{
+	font:"ËÎÌו";
+	font-size:14px;
+	color:#FFFFFF;
+	text-shadow:text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+}

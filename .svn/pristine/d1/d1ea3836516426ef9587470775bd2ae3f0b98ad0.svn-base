@@ -1,0 +1,44 @@
+<?php
+	class M_message extends CI_Model{
+		private $message_table;
+		
+		
+		/**
+		 * 构造函数 
+		 */
+		function __construct(){
+			parent::__construct();
+			$this->message_table=$this->db->dbprefix('message');
+
+			$this->create_table();
+		}
+		
+		/**
+		 * 创建数据库
+		 * @return unknown
+		 */
+		function create_table(){
+			$place= $this->db->simple_query("
+					CREATE TABLE  `{$this->message_table}` (
+						`message_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+						`from_id` INT( 11 ) NOT NULL ,
+						`to_id` INT( 11 ) NOT NULL ,
+						`message_content` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+						`is_read` TINYINT( 1 ) UNSIGNED NOT NULL ,
+						`create_time` INT( 10 ) UNSIGNED NOT NULL
+						) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+					");
+			return TRUE;
+		}
+		
+		/**
+		 * 创建信息
+		 * @param unknown_type $data
+		 * @return boolean
+		 */
+		function add_message($data){
+			$this->db->insert($this->message_table,$data);
+			return ($this->db->affected_rows() > 0) ? $this->db->insert_id() : FALSE;
+		}
+
+	}
