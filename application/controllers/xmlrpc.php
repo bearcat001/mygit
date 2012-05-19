@@ -1,18 +1,8 @@
 <?php
 
 class Xmlrpc extends WE_Controller {
-	
-	/**
-	 * XMLRPC的函数列表
-	 * @var array
-	 */
-	var $methods;
-	
-	/**
-	 * 当前的时间
-	 * @var integer
-	 */
-	var $current;
+	var $methods;//函数数组
+	var $current_time;//当前时间
 
 	/**
 	 * 构造函数
@@ -20,7 +10,7 @@ class Xmlrpc extends WE_Controller {
 	 * 初始化各API，以及当前请求的时间
 	 */
 	function __construct() {
-		$this->current=time();
+		$this->current_time=time();
 		$this->methods = array (
 				'we.addUser'=>'this:add_user',
 				'we.userLogin'=>'this:user_login',
@@ -54,141 +44,20 @@ class Xmlrpc extends WE_Controller {
 				'we.getUserDatabyDisplayName'=>'this:get_user_data_by_display_name'
 		);
 		parent::__construct ( $this->methods );
-		
+        $this->load->helper('we_error');
 	}
 
-	/**
-	 * 增加一个新用户
-	 * 
-	 * 增加一条数据库用户信息，包含并且自动创建一个默认相册，发送欢迎通知
-	 * 
-	 * @param array $args <br>
-	 * 		string email 用户邮箱 <br>
-	 * 		string password 用户密码 <br>
-	 * 		string real_name 真实名字<br>
-	 * 		string bluetooth_mac 手机蓝牙地址 <br>
-	 * @return string|boolean  <br>
-	 * 		增加成功 <br>
-	 * 		string "success_1" 返回用户ID<br>
-	 * 		增加失败<br>
-	 * 		string "invalid_email" 邮箱格式不对<br>
-	 *		string "existing_email" 邮箱已存在<br>
-	 * 		string "invalid_password" 密码格式不对<br>
-	 * 		string "invalid_real_name" 真实名字不规范<br>
-	 * 		string "invalid_bluetooth_mac" 蓝牙地址不可用<br>
-	 * 		string "existing_bluetooth_mac" 蓝牙地址已存在
-	 */
 	function add_user($args){
-		$this->load->model('m_user');
-		$this->load->helper('album');
-		
-		$data['email']=$args[0];
-		
-		if(!valid_email($data['email']))
-			return array("error"=>"invalid_email");
-
-		if($this->m_user->check_exist('email',$data['email']))
-			return 	array("error"=>"existing_email");
-		
-		$data['password']=$args[1];
-		
-		if(!valid_password($data['password']))
-			return array("error"=>"invalid_password");
-		
-		$data['real_name']=$args[2];
-		
-		if(!valid_real_name($data['real_name']))
-			return array("error"=>"invalid_real_name");
-		
-		if(isset($args[3]))
-			$bluetooth_mac=$args[3];
-		else return array("error"=>"invalid_bluetooth_mac");
-			
-		if(!valid_bluetooth_mac($bluetooth_mac))
-			return array("error"=>"invalid_bluetooth_mac");
-		
-		$bluetooth_mac=strtoupper($bluetooth_mac);
-		
-		if(isset($args[4]))
-			$bluetooth_name=$args[4];
-		else
-			$bluetooth_name="";
-		
-		$data['bluetooth_id']=$this->m_user->get_user_id_by_bluetooth_mac($bluetooth_mac);
-		
-		if($data['bluetooth_id']){
-			return array("error"=>"existing_bluetooth_mac");
-		}else{
-			$data['bluetooth_id']=$this->m_user->add_bluetooth(array(
-					'bluetooth_mac'=>$bluetooth_mac,
-					'bluetooth_name'=>$bluetooth_name,
-					'create_time'=>$this->current
-					));
-		}
-	
-		$data['password'] = md5($data['password']);
-		
-		$data['display_name']=$data['real_name'];
-		
-		$num=$this->m_user->check_exist('real_name',$data['real_name']);
-		$data['real_name']=$data['real_name'].'('.($num+1).')';
-		$data['create_time']=time();
-		$data['user_type']='user';
-		
-		$result=$this->m_user->add_user($data);
-		
-		if($result){
-			
-			$this->m_user->add_bluetooth(
-					array(
-					'user_id'=>$result,
-					'bluetooth_mac'=>$bluetooth_mac,
-					'bluetooth_name'=>$bluetooth_name,
-					'create_time'=>$this->current
-			));
-			
-			//创建用户的默认相册
-			$this->create_album($result,'default','default album');
-			create_user_dir($result);
-			
-			//设置用户的默认头像
-			$this->m_user->add_user_meta(array(
-					'user_id'=>$result,
-					'meta_key'=>'user_avatar',
-					'meta_value'=>base_url().'upload/default.jpg'
-					));
-			
-			//设置用户好友数量
-			$this->m_user->add_user_meta(array(
-					'user_id'=>$result,
-					'meta_key'=>'friend_count',
-					'meta_value'=>0
-			));
-			
-			//设置用户微博数量
-			$this->m_user->add_user_meta(array(
-					'user_id'=>$result,
-					'meta_key'=>'weibo_count',
-					'meta_value'=>0
-			));
-			
-			//设置用户最后发表状态
-			$this->m_user->add_user_meta(array(
-					'user_id'=>$result,
-					'meta_key'=>'latest_update',
-					'meta_value'=>"我刚刚注册了蜗邻客哦，快来发现我吧！"
-			));
-			
-			
-			//给用户欢迎信息
-			$this->send_notify(0, $result, 'welcome','0','欢迎加入蜗临客大家庭！');
-			
-			//为用户登录
-			$user_data=$this->user_login($args);
-			
-			return $user_data;
-		}
-		else return array("error"=>"unknown_error");
+		$email=isset($args[0])?$args[0]:"";
+        $password=isset($args[1])?$args[1]:"";
+        $real_name=isset($args[2])?$args[2]:"";
+        $bluetooth_mac=isset($args[3])?$args[3]:"";
+        $bluetooth_name=isset($args[4])?$args[4]:"";
+        $this->load->model('m_wlinke');
+        $user_data=$this->m_wlinke->add_user($email,$password,$real_name,$bluetooth_mac,$bluetooth_name);
+        if(is_we_error($user_data))
+            return we_single_error($user_data->error_message);
+        return $user_data;
 	}
 	
 	/**
@@ -199,41 +68,14 @@ class Xmlrpc extends WE_Controller {
      * @return success $token
 	 */
  	function user_login($args){
- 		
-		$this->load->model('m_user');
-		$this->load->model('m_online');
-		
-		//$this->load->driver('cache', array('adapter' => 'memcached', 'backup' => 'file'));
-		
-		$this->load->driver('cache',array('adapter'=>'file'));
-		
-		$data['email']=$args[0];
-		$data['password']=$args[1];
-		
-		$user_data=$this->m_user->validate_user($data);
-		
-		if($user_data)
-			$token=md5($data['email']);
-		else return array("error"=>"invalid_user_data");
-		
-		$user_data['token']=$token;
-		//根据用户此次登陆的情况生成一个token
-		$this->cache->save($token,serialize($user_data),300);
-		
-		$data=array(
-				'user_id'=>$user_data['user_id'],
-				'display_name'=>$user_data['display_name'],
-				'create_time'=>time(),
-				'online_type'=>'电脑在线'
-					);
-		$this->m_online->add_online($data);
-		
-		unset($user_data['password']);
-		if(!isset($user_data['latest_update'])){
-			$user_data['latest_update']="";
-		}
-		$user_data['relationship']="self";
-		return $user_data;
+        $email=isset($args[0])?$args[0]:"";
+        $password=isset($args[1])?$args[1]:"";
+        $this->load->model('m_wlinke');
+        $user_data=$this->m_wlinke->user_login($email,$password);
+        if(is_we_error($user_data))
+            return we_single_error($user_data->error_message);
+        else
+            return $user_data;
 	} 
 	
 	/**

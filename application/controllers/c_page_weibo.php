@@ -7,15 +7,14 @@
 		
 		function __construct(){
 			parent::__construct();
-			$this->load->library('session');
 			$this->rpc_url=base_url('xmlrpc');
 			$this->base_url=base_url();
 			$this->load->helper('date');
-			$this->user_data=unserialize($this->session->userdata('user_data'));
+			$this->user_data=$this->session->userdata('user_data');
 		}
 
 		function index(){
-			if($this->user_data&&$this->is_user_login($this->user_data['token'])){
+			if($this->user_data){
 				$this->load->helper('ixr_xmlrpc');
 				$rpc = new IXR_Client( $this->rpc_url );
 				

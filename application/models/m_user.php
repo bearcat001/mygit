@@ -55,13 +55,13 @@
 		 * @param unknown_type $data
 		 * @return boolean
 		 */
-		function add_user_meta($data){
-			$user_meta_id=$this->get_user_meta_id_by_key($data['user_id'],$data['meta_key']);
+		function add_user_meta($user_id,$meta_key,$meta_value){
+			$user_meta_id=$this->get_user_meta_id_by_key($user_id,$meta_key);
 			
 			if($user_meta_id){
 				$this->db->update(
 						$this->user_meta_table,
-						array('meta_value'=>$data['meta_value']),
+						array('meta_value'=>$meta_value),
 						array('user_meta_id'=>$user_meta_id)
 				);
 				return TRUE;
@@ -69,13 +69,22 @@
 				$this->db->insert(
 						$this->user_meta_table,
 						array(
-								'user_id'=>$data['user_id'],
-								'meta_key'=>$data['meta_key'],
-								'meta_value'=>$data['meta_value']
+								'user_id'=>$user_id,
+								'meta_key'=>$meta_key,
+								'meta_value'=>$meta_value
 								));
 				return TRUE;
 			}
 		}
+
+        function add_user_metas($user_id,$meta_datas){
+            foreach($meta_datas as $key=>$value){
+                if(!$this->add_user_meta($user_id,$key,$value))
+                    return false;
+            }
+            return true;
+        }
+            
 		
 		function increase_user_meta($user_id,$meta_key){	
 			$this->db->set('meta_value','meta_value+1',FALSE);
@@ -664,15 +673,17 @@
          */
         function get_user_real_name_by_display_name($display_name){
             //获得用户即将获得的ID
-            $this->db->select("max(user_id)+1 as max_user_id",false);
-            $query=$this->db->get($this->user_table);
+            $query=$this->db->query(
+                             'SHOW TABLE STATUS FROM '.$this->config->item("database")
+                             .' LIKE "'.$this->user_table.'"');
             $user_id=$query->row_array();
             if($user_id){
-                return $display_name."(".$user_id['max_user_id'].")";
+                return $display_name."(".$user_id['Auto_increment'].")";
             }else{
                 return false;
             }
         }
+
 		/**
 		 * 验证用户表中某个内容是否存在
 		 * @param string $key
@@ -729,12 +740,12 @@
 		 * @param string $password 密码
 		 * @return Ambigous <boolean, unknown>
 		 */
-		function validate_user($data)
+		function validate_user($email,$password)
 		{
 			$user_data = FALSE;
 		
 			$this->db->select('*')->from($this->user_table);
-			$this->db->where('email', $data['email']);
+			$this->db->where('email', $email);
 			$query = $this->db->get();
 			
 			if($query->num_rows() == 0)
@@ -742,7 +753,7 @@
 			
 			$user_data = $query->row_array();
 
-			$user_data = ($user_data['password']===md5($data['password'])) ? $user_data : FALSE;
+			$user_data = ($user_data['password']===md5($password)) ? $user_data : FALSE;
 
 			$query->free_result();
 			
@@ -752,7 +763,7 @@
 					$user_data[$value['meta_key']]=$value['meta_value'];
 				}
 			}
-			
+			unset($user_data['password']);
 			return $user_data;
 		}
 
