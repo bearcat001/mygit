@@ -1,25 +1,23 @@
 <?php 
 	class c_login extends CI_Controller{
 			
-		private $rpc_url;
 		private $base_url;
 		private $user_data;
 		
 		function __construct(){
 			parent::__construct();
-			$this->rpc_url=base_url('xmlrpc');
 			$this->base_url=base_url();
 			$this->load->helper('date');
-			$this->user_data=$this->session->userdata('user_data');
+            $this->load->library('session');
+			$this->load->model('m_wlinke');
+            $this->user_data=$this->m_wlinke->is_user_login();
 		}
 
 		function index($error=""){
-			if($this->user_data){
+			if(!is_we_error($this->user_data)){
 				redirect('c_page_weibo');
 			}else{
-				$this->load->model('m_user');
-				$user_ids=$this->m_user->get_all_user_id(1,6);
-				$data['latest_user_data']=$this->m_user->get_user_datas_by_user_ids($user_ids);
+				$data['latest_user_data']=$this->m_wlinke->get_recent_register_users_data(6);
 				if($error)
 					$data['error']=$error;
 				$this->load->view('v_header');
@@ -31,16 +29,8 @@
 		function login_submit(){
 			$login_email=$this->input->post('login_email');
 			$login_password=$this->input->post('login_password');
-			$this->load->helper('ixr_xmlrpc');
-			$rpc = new IXR_Client( $this->rpc_url );
-			$status = $rpc->query(
-					'we.userLogin',
-					$login_email,
-					$login_password
-			);
-			$user_data=$rpc->getResponse();
-			if(!array_key_exists('error',$user_data)){
-				$this->session->set_userdata('user_data',serialize($user_data));
+            $user_data=$this->m_wlinke->user_login($login_email,$login_password);
+			if(!is_we_error($user_data)){
 				redirect('c_page_weibo');
 			}else{
 				//提示账号或者密码错误
@@ -56,28 +46,12 @@
 			$this->load->view('mobile/v_footer');
 		}
 		
-		function login_out(){
-			if($this->user_data&&$this->is_user_login($this->user_data['token'])){
-				$this->session->sess_destroy();
+		function logout_submit(){
+			if(!is_we_error($this->user_data)){
+				$this->m_wlinke->user_logout();
 				redirect('c_login');
 			}else{
 				$this->index();
 			}
-		}
-		
-		function is_user_login($token){
-			$this->load->helper('ixr_xmlrpc');
-			$rpc = new IXR_Client( $this->rpc_url );
-			$status = $rpc->query(
-					'we.sayHello',
-					$token
-			);
-			$user_data=$rpc->getResponse();
-			if($user_data){
-				$this->session->set_userdata('user_data',serialize($user_data));
-				$this->user_data=$user_data;
-				return TRUE;
-			}else
-				return FALSE;
 		}
 	}

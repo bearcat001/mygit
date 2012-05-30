@@ -48,11 +48,11 @@ class Xmlrpc extends WE_Controller {
 	}
 
 	function add_user($args){
-		$email=isset($args[0])?$args[0]:"";
-        $password=isset($args[1])?$args[1]:"";
-        $real_name=isset($args[2])?$args[2]:"";
-        $bluetooth_mac=isset($args[3])?$args[3]:"";
-        $bluetooth_name=isset($args[4])?$args[4]:"";
+		$email=we_escape($args[0]);
+        $password=we_escape($args[1]);
+        $real_name=we_escape($args[2]);
+        $bluetooth_mac=we_escape($args[3]);
+        $bluetooth_name=we_escape($args[4]);
         $this->load->model('m_wlinke');
         $user_data=$this->m_wlinke->add_user($email,$password,$real_name,$bluetooth_mac,$bluetooth_name);
         if(is_we_error($user_data))
@@ -68,8 +68,8 @@ class Xmlrpc extends WE_Controller {
      * @return success $token
 	 */
  	function user_login($args){
-        $email=isset($args[0])?$args[0]:"";
-        $password=isset($args[1])?$args[1]:"";
+        $email=we_escape($args[0]);
+        $password=we_escape($args[1]);
         $this->load->model('m_wlinke');
         $user_data=$this->m_wlinke->user_login($email,$password);
         if(is_we_error($user_data))
@@ -190,46 +190,21 @@ class Xmlrpc extends WE_Controller {
 	 */
 	function add_group($args){
 		
-		//获得用户的令牌
-		$token=$args[0];
-		
-		//从缓存中获得用户资料
-		$user_data=$this->get_user_by_token($token);
-		
-		if(!$user_data)
-			return array("error"=>"not_login");
-		
-		$this->load->model('m_group');
-		
-		$group['user_id']=$user_data['user_id'];
-		
-		$group['group_name']=$args[1];
-		
-		$group['group_destription']=$args[2];
-		
-		$group['group_category']=$args[3];
-		
-		$group['group_states']=1;
-		
-		$group['member_count']=1;
-		
-		$group['create_time']=$this->current;
-		
-		$result=$this->m_group->add_group($group);
-		
-		if($result){
-			$group_member=array();
-			$group_member['group_id']=$result;
-			$group_member['user_id']=$user_data['user_id'];
-			$group_member['inviter_id']=0;
-			$group_member['is_admin']=1;
-			$group_member['is_confirmed']=1;
-			$group_member['create_time']=$this->current;
-			$this->m_group->add_group_member($group_member);
-			$group['group_id']=$result;
-			return $group;
-		}
-		else return array("error"=>"unknown_error");
+		//获得用户的令牌，判断用户是否登录
+		$token=we_escape($args[0]);
+        $group_name=we_escape($args[1]);
+        $group_destription=we_escape($args[2]);
+        $group_category=we_escape($args[3]);
+        $this->load->model('m_wlinke');
+        $user_data=$this->m_wlinke->is_user_login($token);
+        if(is_we_error($user_data))
+            return we_single_error($user_data->error_message);
+        //增加群组
+        $group_data=$this->m_wlinke->add_group($user_data['user_id'],$group_name,$group_destription,$group_category);
+        if(is_we_error($group_data))
+            return we_single_error($group_data->error_message);
+        else
+            return $group_data;
 	}
 	
 	/**
@@ -524,46 +499,21 @@ class Xmlrpc extends WE_Controller {
      * 
 	 */
 	function post_weibo($args){
-		$this->load->model('m_feed');	
-		
-		//获得用户的令牌
-		$token=$args[0];
-		
-		//从缓存中获得用户资料
-		$user_data=$this->get_user_by_token($token);
-		
-		if(!$user_data)
-			return array("error"=>"not_login");
-		
-		//发表状态内容
-		$content=$args[1];
-		
-		$visibility=$args[2];
-		
-		$data=array(
-				'user_id'=>$user_data['user_id'],
-				'feed_type'=>'weibo',
-				'feed_content'=>$content,
-				'picture_url'=>"",
-				'create_time'=>$this->current,
-				'transpond_id'=>0,
-				'transpond_count'=>0,
-				'comment_count'=>0,
-				'visibility'=>$visibility
-		);
-		
-		$feed_id=$this->m_feed->add_feed($data);
-		if($feed_id){
-			$this->update_last_activity($user_data['user_id'], $this->current,$content);
-			$data=array_merge(array('feed_id'=>$feed_id),$data);
-			$data=array_merge($data,$this->m_user->get_user_data_by_user_id($data['user_id']));
-			$this->load->model('m_user');
-			$this->m_user->increase_user_meta($data['user_id'], 'weibo_count');
-			return $data;
-		}	
-		else 
-			return array('error'=>"unknown_error");
-	}
+        //获得用户的令牌，判断用户是否登录
+		$token=we_escape($args[0]);
+        $content=we_escape($args[1]);
+        $visibility=we_escape($args[2]);
+        $this->load->model('m_wlinke');
+        $user_data=$this->m_wlinke->is_user_login($token);
+        if(is_we_error($user_data))
+            return we_single_error($user_data->error_message);
+		$feed=$this->m_wlinke->post_weibo($user_data['user_id'],$content,$visibility);
+		if(is_we_error($feed)){
+            return we_single_error($feed->error_message);
+        }else{
+            return $feed;
+        }
+    }
 	
 	/**
 	 * 转发一条状态
@@ -623,34 +573,21 @@ class Xmlrpc extends WE_Controller {
 	 * @return string|Ambigous <boolean, unknown>
 	 */
 	function get_all_public_weibo($args){
-		
-		//获得用户的令牌
-		$token=$args[0];
-		
-		//从缓存中获得用户资料
-		$user_data=$this->get_user_by_token($token);
-		
-		if(!$user_data)
-			return array(array("error"=>"not_login"));
-		
-		if(isset($args[1])&&$args[1])
-			$filter=$args[1];
+		//获得用户的令牌，判断用户是否登录
+		$token=we_escape($args[0]);
+        $filter=we_escape($args[1],"old");
+        $id=we_escape($args[2],0);
+        $page=we_escape($args[3],1);
+        $page_count=we_escape($args[4],20);
+        $this->load->model('m_wlinke');
+        $user_data=$this->m_wlinke->is_user_login($token);
+        if(is_we_error($user_data))
+            return we_single_error($user_data->error_message);	
+		$public_weibos=$this->m_wlinke->get_all_public_weibo($filter,$id,$page,$page_count);
+		if(is_we_error($public_weibos))
+            return we_single_error($public_weibos->error_message);
 		else
-			$filter="old";
-		
-		if(isset($args[2])&&$args[2])
-			$id=$args[2];
-		else
-			$id="";
-		
-		$this->load->model('m_feed');
-		
-		$feeds=$this->m_feed->get_all_public_feeds($filter, $id, "", "");
-		
-		if(!$feeds)
-			return array(array("error"=>"no_weibo"));
-		else
-			return $feeds;
+			return $public_weibos;
 	}
 	
 	/**

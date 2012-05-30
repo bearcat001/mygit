@@ -26,7 +26,7 @@ class c_test extends CI_Controller {
         var_dump($this->m_wlinke->is_user_login());
     }
     
-    function userLogin($email="",$password=""){
+    function userLogin($email="test1@163.com",$password="111111"){
         $this->load->model('m_wlinke');
         var_dump($this->m_wlinke->user_login($email,$password));
     }
@@ -35,9 +35,16 @@ class c_test extends CI_Controller {
         var_dump($this->m_wlinke->add_user($email,$password,$real_name,$bluetooth_mac,$bluetooth_name));
         
     }
-
-    function getUserRealNamebyDisplayName($display_name){
-        $this->load->model('m_user');
-        var_dump( $this->m_user->get_user_real_name_by_display_name($display_name));
+    function addGroup($token,$group_name='test',$group_destription='test',$group_category='test'){
+        $this->load->model('m_wlinke');
+        var_dump($this->m_wlinke->add_group($token,$group_name,$group_destription,$group_category));
+    }
+    function getAllPublicWeibo($filter="old",$id=null,$page=null,$page_count=null){
+        $this->load->model('m_wlinke');
+        var_dump($this->m_wlinke->get_all_public_weibo($filter,$id,$page,$page_count));
+    } 
+	function updateLastActivity($user_id,$last_activity=1,$latest_update=""){
+        $this->load->model('m_wlinke');
+		var_dump($this->m_wlinke->update_last_activity($user_id,$last_activity,$latest_update));
     }
 }

@@ -7,11 +7,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="<?=base_url("c_wlinke"); ?>">蜗临客</a>
+          <a class="brand" href="<?php echo base_url(); ?>">蜗临客</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="<?=base_url("c_login"); ?>">登陆</a></li>
-              <li><a href="<?=base_url("c_register"); ?>">注册</a></li>
+              <li class="active"><a href="<?php echo base_url("c_login"); ?>">登陆</a></li>
+              <li><a href="<?php echo base_url("c_register"); ?>">注册</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -38,7 +38,7 @@
 					<?php endif;?>
 					<div style="text-align:right;">
 						 <button type="submit" class="btn">登陆</button>
-						<a href="<?=base_url("c_register"); ?>" class="btn">注册</a>
+						<a href="<?php echo base_url("c_register"); ?>" class="btn">注册</a>
 					</div>
 				</form>
 			</div>
@@ -64,7 +64,7 @@
 				<h1>Wlinke（蜗邻客）</h1>
 				<div class="row">
 					<div class="span3">
-						<img width="200" src="<?=base_url("images/login_im.png")?>" />
+						<img width="200" src="<?php echo base_url("images/login_im.png")?>" />
 						<hr>
 						<button class="btn btn-large btn-success disabled" style="width:98%">Android客户端下载</button>
 						<p>即将开放</p>

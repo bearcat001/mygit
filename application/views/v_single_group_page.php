@@ -4,10 +4,10 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> <a class="brand" href="<?=base_url("c_wlinke"); ?>">蜗临客</a>
+			</a> <a class="brand" href="<?php echo base_url("c_wlinke"); ?>">蜗临客</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active"><a href="<?=base_url("c_page_weibo"); ?>">首页</a></li>
+					<li class="active"><a href="<?php echo base_url(); ?>">首页</a></li>
 				</ul>
 				<ul class="nav pull-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -15,7 +15,7 @@
 						<ul class="dropdown-menu">
 							<!-- <li><a href="#">设置</a></li> -->
 							<!-- <li class="divider"></li> -->
-							<li><a href="<?=base_url('c_login/login_out');?>">登出</a></li>
+							<li><a href="<?php echo base_url('c_login/login_out');?>">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -35,9 +35,9 @@
 						<div class="modal-header">
 							<a class="close" data-dismiss="modal">×</a>
 							<h3>上传头像</h3>
-							<form enctype="multipart/form-data" action="<?=base_url("c_page_weibo/upload_avatar") ?>" method="post"> 
+							<form enctype="multipart/form-data" action="<?php echo base_url("c_page_weibo/upload_avatar") ?>" method="post"> 
 								<input type="file" name="userfile" size="20" />
-								<input type="hidden" name="user_id" value="<?=$user_data['user_id']?>" />
+								<input type="hidden" name="user_id" value="<?php echo $user_data['user_id']?>" />
 								<p>上传文件必须小于1MB</p>
 								<p id="preview_look">文件预览</p>
 								<input type="submit" value="上传" />
@@ -86,11 +86,11 @@
 					name="weibo_content" rows="3"></textarea>
 				<button type="submit" class="btn">发布</button>
 			</form>
-			<h3>群组成员 (<?=$user_data['this_group_data']['member_count']?>)</h3>
+			<h3>群组成员 (<?php echo $user_data['this_group_data']['member_count']?>)</h3>
 			<?php foreach($user_data['this_group_data']['group_members'] as $key=>$value):?>
 				<div class="span1"  style="text-align:center">
-					<img width="100%" src="<?=$value['user_avatar'];?>" /> 
-					<a><?=$value['display_name'];?></a>
+					<img width="100%" src="<?php echo $value['user_avatar'];?>" /> 
+					<a><?php echo $value['display_name'];?></a>
 				</div>
 			<?php endforeach;?>
 		</div>

@@ -13,3 +13,7 @@ function is_we_error($error){
     else
         return false;
 }
+
+function we_escape(&$tmp,$exchg=""){
+    return $tmp?$tmp:$exchg;
+}

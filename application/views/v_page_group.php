@@ -4,10 +4,10 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> <a class="brand" href="<?=base_url("c_wlinke"); ?>">蜗临客</a>
+			</a> <a class="brand" href="<?php echo base_url(); ?>">蜗临客</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active"><a href="<?=base_url("c_page_weibo"); ?>">首页</a></li>
+					<li class="active"><a href="<?php echo base_url("c_page_weibo"); ?>">首页</a></li>
 				</ul>
 				<ul class="nav pull-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -15,7 +15,7 @@
 						<ul class="dropdown-menu">
 							<!-- <li><a href="#">设置</a></li> -->
 							<!-- <li class="divider"></li> -->
-							<li><a href="<?=base_url('c_login/login_out');?>">登出</a></li>
+							<li><a href="<?php echo base_url('c_login/login_out');?>">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -35,9 +35,9 @@
 						<div class="modal-header">
 							<a class="close" data-dismiss="modal">×</a>
 							<h3>上传头像</h3>
-							<form enctype="multipart/form-data" action="<?=base_url("c_page_weibo/upload_avatar") ?>" method="post"> 
+							<form enctype="multipart/form-data" action="<?php echo base_url("c_page_weibo/upload_avatar") ?>" method="post"> 
 								<input type="file" name="userfile" size="20" />
-								<input type="hidden" name="user_id" value="<?=$user_data['user_id']?>" />
+								<input type="hidden" name="user_id" value="<?php echo $user_data['user_id']?>" />
 								<p>上传文件必须小于1MB</p>
 								<p id="preview_look">文件预览</p>
 								<input type="submit" value="上传" />
@@ -60,8 +60,8 @@
 			</div>
 			<div>
 				<ul class="nav nav-pills nav-stacked">
-					<li><a href="<?=base_url("c_page_weibo"); ?>"><i class="icon-home"></i>首页</a></li>
-					<li class="active"><a href="<?=base_url("c_page_group"); ?>"><i
+					<li><a href="<?php echo base_url("c_page_weibo"); ?>"><i class="icon-home"></i>首页</a></li>
+					<li class="active"><a href="<?php echo base_url("c_page_group"); ?>"><i
 							class="icon-heart"></i>群组</a></li>
 				</ul>
 			</div>
@@ -87,7 +87,7 @@
 							<?php foreach($user_data['group_datas'] as $key=>$value):?>
 								<div class="well span3">
 									<div class="row">
-										<div class="span2"><a href="<?=base_url("c_single_group_page/group/".$value['group_id']);?>"> <?=$value['group_name']; ?></a></div>
+										<div class="span2"><a href="<?php echo base_url("c_single_group_page/group/".$value['group_id']);?>"> <?php echo $value['group_name']; ?></a></div>
 										<div class="span1">
 											<?php if(!$value['is_in']):?>
 												<div class="span1">
@@ -100,19 +100,19 @@
 											<?php endif;?>
 										</div>
 										<div class="span3">
-											<?=$value['group_destription']; ?>
+											<?php echo $value['group_destription']; ?>
 										</div>
 										<div class="span3">
 											<br>
 										</div>
 										<div class="span1" style="text-align:center">
-											<p>群号: <a><?=$value['group_id']; ?></a></p>
+											<p>群号: <a><?php echo $value['group_id']; ?></a></p>
 										</div>
 										<div class="span1" style="text-align:center">
-											<p>类型: <a><?=$value['group_category'];?></a></p>
+											<p>类型: <a><?php echo $value['group_category'];?></a></p>
 										</div>
 										<div class="span1" style="text-align:center">
-											<p>成员: <a><?=$value['member_count'];?></a></p>
+											<p>成员: <a><?php echo $value['member_count'];?></a></p>
 										</div>
 									</div>
 								</div>	
@@ -129,7 +129,7 @@
 								<?php if($value['is_in']):?>
 								<div class="well span3">
 									<div class="row">
-										<div class="span2"><a href="<?=base_url("c_single_group_page/group/".$value['group_id']);?>"> <?=$value['group_name']; ?></a></div>
+										<div class="span2"><a href="<?php echo base_url("c_single_group_page/group/".$value['group_id']);?>"> <?php echo $value['group_name']; ?></a></div>
 										<div class="span1">
 											<?php if(!$value['is_in']):?>
 												<div class="span1">
@@ -142,19 +142,19 @@
 											<?php endif;?>
 										</div>
 										<div class="span3">
-											<?=$value['group_destription']; ?>
+											<?php echo $value['group_destription']; ?>
 										</div>
 										<div class="span3">
 											<br>
 										</div>
 										<div class="span1" style="text-align:center">
-											<p>群号: <a><?=$value['group_id']; ?></a></p>
+											<p>群号: <a><?php echo $value['group_id']; ?></a></p>
 										</div>
 										<div class="span1" style="text-align:center">
-											<p>类型: <a><?=$value['group_category'];?></a></p>
+											<p>类型: <a><?php echo $value['group_category'];?></a></p>
 										</div>
 										<div class="span1" style="text-align:center">
-											<p>成员: <a><?=$value['member_count'];?></a></p>
+											<p>成员: <a><?php echo $value['member_count'];?></a></p>
 										</div>
 									</div>
 								</div>
@@ -177,18 +177,18 @@
 							<div class="span3">
 					<div class="row">
 						<div class="span1">
-							<img width="50" src="<?=$value['user_avatar'];?>" />
+							<img width="50" src="<?php echo $value['user_avatar'];?>" />
 						</div>
 						<div class="span2">
 							<div class="row">
 								<div class="span2">
-									<a href="javascript:void(0);"><?=$value['display_name'];?></a>
+									<a href="javascript:void(0);"><?php echo $value['display_name'];?></a>
 								</div>
 								<div class="span2">
-									<h6><?=timespan($value['last_search_time'],now()).'前';?></h6>
+									<h6><?php echo timespan($value['last_search_time'],now()).'前';?></h6>
 								</div>
 								<div class="span2">
-									<span class="label"><?='第'.$value['search_count'].'次接触'; ?></span>
+									<span class="label"><?php echo '第'.$value['search_count'].'次接触'; ?></span>
 								</div>
 							</div>
 						</div>

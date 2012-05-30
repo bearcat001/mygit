@@ -2,10 +2,14 @@
 class WE_Error{
     var $error_num;
     var $error_message;
-    function __construct($params){
+    function __construct(){
+       
+    }
+    function set_error($params){
         $this->error_num=$params[0];
         $this->error_message=$params[1];
     }
+
     public function we_sigle_error(){
         return array('error'=>$error_message);
     }

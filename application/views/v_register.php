@@ -10,8 +10,8 @@
           <a class="brand" href="#">蜗临客</a>
            <div class="nav-collapse">
             <ul class="nav">
-              <li><a href="<?=base_url("c_wlinke"); ?>">登陆</a></li>
-              <li class="active"><a href="<?=base_url("c_register"); ?>">注册</a></li>
+              <li><a href="<?php echo base_url("c_wlinke"); ?>">登陆</a></li>
+              <li class="active"><a href="<?php echo base_url("c_register"); ?>">注册</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -22,7 +22,7 @@
 	<div class="row">
 		<div class="span4">
 			<div class="well">
-				<form action="<?=base_url("c_register/register_submit"); ?>" method="post">
+				<form action="<?php echo base_url("c_register/register_submit"); ?>" method="post">
 					<h2>用户注册</h2>
 					<label>邮箱</label> 
 					<input name="register_email" style="width: 98%" type="email" placeholder="请输入您的邮箱"> 

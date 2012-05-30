@@ -10,22 +10,16 @@
 			$this->rpc_url=base_url('xmlrpc');
 			$this->base_url=base_url();
 			$this->load->helper('date');
-			$this->user_data=$this->session->userdata('user_data');
-		}
+            $this->load->model('m_wlinke');
+            $this->user_data=$this->m_wlinke->is_user_login();
+        }
 
 		function index(){
-			if($this->user_data){
+			if(!is_we_error($this->user_data)){
 				$this->load->helper('ixr_xmlrpc');
 				$rpc = new IXR_Client( $this->rpc_url );
-				
-				//获得最新状态
-				$status = $rpc->query(
-						'we.getAllPublicWeibo',
-						$this->user_data['token'],
-						''
-				);
-				$feeds=$rpc->getResponse();
-				if(!array_key_exists('error', $feeds[0])){
+				$feeds=$this->m_wlinke->get_all_public_weibo();
+				if($feeds&&!array_key_exists('error', $feeds[0])){
 					$this->user_data['feeds']=$feeds;
 				}
 				
@@ -64,16 +58,9 @@
 		}
 		
 		function post_weibo(){
-			if($this->user_data&&$this->is_user_login($this->user_data['token'])){
-				$this->load->helper('ixr_xmlrpc');
-				$rpc = new IXR_Client( $this->rpc_url );
-				$status = $rpc->query(
-						'we.postWeibo',
-						$this->user_data['token'],
-						$this->input->post('weibo_content'),
-						"public"
-				);
-				$result=$rpc->getResponse();
+			if(!is_we_error($this->user_data)){
+				$weibo_content=$this->input->post('weibo_content');
+				$result=$this->m_wlinke->post_weibo($this->user_data['user_id'],$weibo_content);	
 				if(!array_key_exists('error',$result)){
 					redirect('c_page_weibo');
 				}
@@ -83,7 +70,7 @@
 		}
 		
 		function transpond_weibo_submit(){
-			if($this->user_data&&$this->is_user_login($this->user_data['token'])){
+			if(!is_we_error($this->user_data)){
 				$this->load->helper('ixr_xmlrpc');
 				$rpc = new IXR_Client( $this->rpc_url );
 				$status = $rpc->query(
@@ -102,7 +89,7 @@
 		}
 		
 		function join_group_submit(){
-			if($this->user_data&&$this->is_user_login($this->user_data['token'])){
+			if(!is_we_error($this->user_data)){
 				$this->load->helper('ixr_xmlrpc');
 				$rpc = new IXR_Client( $this->rpc_url );
 				$status = $rpc->query(
@@ -168,19 +155,4 @@
 			}
 		}
 		
-		function is_user_login($token){
-			$this->load->helper('ixr_xmlrpc');
-			$rpc = new IXR_Client( $this->rpc_url );
-			$status = $rpc->query(
-					'we.sayHello',
-					$token
-			);
-			$user_data=$rpc->getResponse();
-			if($user_data){
-				$this->session->set_userdata('user_data',serialize($user_data));
-				$this->user_data=$user_data;
-				return TRUE;
-			}else
-				return FALSE;
-		}
 	}

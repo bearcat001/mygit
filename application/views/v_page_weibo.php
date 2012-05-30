@@ -4,10 +4,10 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> <a class="brand" href="<?=base_url("c_wlinke"); ?>">蜗临客</a>
+			</a> <a class="brand" href="<?php echo base_url(); ?>">蜗临客</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active"><a href="<?=base_url("c_page_weibo"); ?>">首页</a></li>
+					<li class="active"><a href="<?php echo base_url("c_page_weibo"); ?>">首页</a></li>
 				</ul>
 				<ul class="nav pull-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -15,7 +15,7 @@
 						<ul class="dropdown-menu">
 							<!-- <li><a href="#">设置</a></li> -->
 							<!-- <li class="divider"></li> -->
-							<li><a href="<?=base_url('c_login/login_out');?>">登出</a></li>
+							<li><a href="<?php echo base_url('c_login/login_out');?>">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -35,9 +35,9 @@
 						<div class="modal-header">
 							<a class="close" data-dismiss="modal">×</a>
 							<h3>上传头像</h3>
-							<form enctype="multipart/form-data" action="<?=base_url("c_page_weibo/upload_avatar") ?>" method="post"> 
+							<form enctype="multipart/form-data" action="<?php echo base_url("c_page_weibo/upload_avatar") ?>" method="post"> 
 								<input type="file" name="userfile" size="20" />
-								<input type="hidden" name="user_id" value="<?=$user_data['user_id']?>" />
+								<input type="hidden" name="user_id" value="<?php echo $user_data['user_id']?>" />
 								<p>上传文件必须小于1MB</p>
 								<input type="submit" value="上传" />
 							</form>
@@ -59,8 +59,8 @@
 			</div>
 			<div>
 				<ul class="nav nav-pills nav-stacked">
-					<li class="active"><a href="<?=base_url("c_page_weibo"); ?>"><i class="icon-home"></i>首页</a></li>
-					<li><a href="<?=base_url("c_page_group"); ?>"><i class="icon-heart"></i>群组</a></li>
+					<li class="active"><a href="<?php echo base_url("c_page_weibo"); ?>"><i class="icon-home"></i>首页</a></li>
+					<li><a href="<?php echo base_url("c_page_group"); ?>"><i class="icon-heart"></i>群组</a></li>
 				</ul>
 			</div>
 		</div>
@@ -84,14 +84,14 @@
 					<?php foreach($user_data['feeds'] as $key=>$value):?>
 						<!-- 微博头像 -->
 				<div class="span1">
-					<img width="50" src="<?=$value['user_avatar'];?>" />
+					<img width="50" src="<?php echo $value['user_avatar'];?>" />
 				</div>
 				<!-- 微博内容 -->
 				<div class="span6">
 					<div class="row">
 						<!-- 博主名字及内容 -->
 						<div class="span6">
-							<a href="javascript:void(0);"><?=$value['display_name'];?></a>:<?=$value['feed_content'];?>
+							<a href="javascript:void(0);"><?php echo $value['display_name'];?></a>:<?php echo $value['feed_content'];?>
 								</div>
 						<div class="span6"></div>
 						<div class="span6">
@@ -102,20 +102,20 @@
 									<div class="span5 well">
 							<div class="row">
 								<div class="span5">
-									<a href="javascript:void(0);"><?=$value['source_feed']['display_name'];?></a>:<?=$value['source_feed']['feed_content'];?>
+									<a href="javascript:void(0);"><?php echo $value['source_feed']['display_name'];?></a>:<?php echo $value['source_feed']['feed_content'];?>
 											</div>
 								<div class="span5">
 									<br>
 								</div>
 								<div class="span5">
 									<div style="float: left;">
-										<a href="javascript:void(0);"><?=timespan($value['source_feed']['create_time'],now());?>前</a>
+										<a href="javascript:void(0);"><?php echo timespan($value['source_feed']['create_time'],now());?>前</a>
 									</div>
 									<div style="float: right;">
 										<a data-toggle="modal"
-											href="#transpond_<?=$value['feed_id'];?>_<?=$value['source_feed']['feed_id'];?>">转发(<?=$value['source_feed']['transpond_count']?>)</a>
+											href="#transpond_<?php echo $value['feed_id'];?>_<?php echo $value['source_feed']['feed_id'];?>">转发(<?php echo $value['source_feed']['transpond_count']?>)</a>
 										| <a href="javascript:void(0);" data-toggle="collapse"
-											data-target="#comment_<?php echo $value['feed_id'];?>_<?php echo $value['source_feed']['feed_id'];?>">评论(<?=$value['source_feed']['comment_count'];?>)</a>
+											data-target="#comment_<?php echo $value['feed_id'];?>_<?php echo $value['source_feed']['feed_id'];?>">评论(<?php echo $value['source_feed']['comment_count'];?>)</a>
 									</div>
 								</div>
 								<!-- 评论对话框 -->
@@ -128,7 +128,7 @@
 						</div>
 						<!-- 转发对话框 -->
 						<div class="modal fade"
-							id="transpond_<?=$value['feed_id'];?>_<?=$value['source_feed']['feed_id'];?>">
+							id="transpond_<?php echo $value['feed_id'];?>_<?php echo $value['source_feed']['feed_id'];?>">
 							<div class="modal-header">
 								<a class="close" data-dismiss="modal">×</a>
 								<h3>转发微博</h3>
@@ -151,18 +151,18 @@
 								<!-- 微博操作 -->
 						<div class="span6">
 							<div style="float: left;">
-								<a href="javascript:void(0);"><?=timespan($value['create_time'],now());?>前</a>
+								<a href="javascript:void(0);"><?php echo timespan($value['create_time'],now());?>前</a>
 							</div>
 							<div style="float: right;">
 									<?php if(isset($value['source_feed'])):?>
 										<a data-toggle="modal"
-									href="#transpond_<?=$value['feed_id'];?>_<?=$value['source_feed']['feed_id'];?>">转发(<?=$value['transpond_count'];?>)</a> |
+									href="#transpond_<?php echo $value['feed_id'];?>_<?php echo $value['source_feed']['feed_id'];?>">转发(<?php echo $value['transpond_count'];?>)</a> |
 									<?php else:?>
 										<a data-toggle="modal"
-									href="#transpond<?=$value['feed_id'];?>">转发(<?=$value['transpond_count'];?>)</a> |
+									href="#transpond<?php echo $value['feed_id'];?>">转发(<?php echo $value['transpond_count'];?>)</a> |
 									<?php endif;?>	
 										<a href="javascript:void(0);" data-toggle="collapse"
-									data-target="#comment<?=$value['feed_id'];?>">评论(<?=$value['comment_count'];?>)</a>
+									data-target="#comment<?php echo $value['feed_id'];?>">评论(<?php echo $value['comment_count'];?>)</a>
 							</div>
 						</div>
 						<!-- 评论对话框 -->
@@ -172,7 +172,7 @@
 						<!-- 转发对话框 -->
 								<?php if(isset($value['source_feed'])):?>
 									<div class="modal fade"
-							id="transpond_<?=$value['feed_id'];?>_<?=$value['source_feed']['feed_id'];?>">
+							id="transpond_<?php echo $value['feed_id'];?>_<?php echo $value['source_feed']['feed_id'];?>">
 								<?php else:?>
 									<div class="modal fade"
 								id="transpond<?php echo $value['feed_id'];?>">
@@ -200,8 +200,8 @@
 					<div class="span7">
 						<hr size="1" style="border: 1px solid #bbb;">
 					</div>
-					<div id="feed_id_<?=$value['feed_id'];?>"
-						style="visibility: hidden; display: none;"><?=$value['feed_id'];?></div>
+					<div id="feed_id_<?php echo $value['feed_id'];?>"
+						style="visibility: hidden; display: none;"><?php echo $value['feed_id'];?></div>
 					<?php endforeach;?>
 				<?php endif;?>
 				<div id="get_old_feed" class="span7" style="text-align: center">
@@ -220,18 +220,18 @@
 							<div class="span3">
 						<div class="row">
 							<div class="span1">
-								<img width="50" src="<?=$value['user_avatar'];?>" />
+								<img width="50" src="<?php echo $value['user_avatar'];?>" />
 							</div>
 							<div class="span2">
 								<div class="row">
 									<div class="span2">
-										<a href="javascript:void(0);"><?=$value['display_name'];?></a>
+										<a href="javascript:void(0);"><?php echo $value['display_name'];?></a>
 									</div>
 									<div class="span2">
-										<h6><?=timespan($value['last_search_time'],now()).'前';?></h6>
+										<h6><?php echo timespan($value['last_search_time'],now()).'前';?></h6>
 									</div>
 									<div class="span2">
-										<span class="label"><?='第'.$value['search_count'].'次接触'; ?></span>
+										<span class="label"><?php echo '第'.$value['search_count'].'次接触'; ?></span>
 									</div>
 								</div>
 							</div>
@@ -250,14 +250,14 @@
 					<?php foreach($user_data['group_datas'] as $key=>$value):?>
 							<div class="span3">
 						<div class="row">
-							<form action="<?=base_url("c_page_weibo/join_group_submit")?>"
+							<form action="<?php echo base_url("c_page_weibo/join_group_submit")?>"
 								method="post">
 								<div class="span2">
 									<a href="javascript:void(0);" rel="tooltip"
-										title="<?=$value['group_destription'];?>"><?=$value['group_name'];?></a>
+										title="<?php echo $value['group_destription'];?>"><?php echo $value['group_name'];?></a>
 								</div>
 								<div class="span2">
-									成员数：<span class="badge"><?=$value['member_count'];?></span>
+									成员数：<span class="badge"><?php echo $value['member_count'];?></span>
 								</div>
 								<input type="hidden" name="join_group_id"
 									value="<?php echo $value['group_id'];?>" />

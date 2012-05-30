@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="<?=base_url("css/bootstrap.css");?>" rel="stylesheet">
+    <link href="<?php echo base_url("css/bootstrap.css");?>" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -18,6 +18,6 @@
         padding: 9px 0;
       }
     </style>
-    <link href="<?=base_url("css/bootstrap-responsive.css");?>" rel="stylesheet">
+    <link href="<?php echo base_url("css/bootstrap-responsive.css");?>" rel="stylesheet">
   </head>
   <body>

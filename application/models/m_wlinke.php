@@ -1,4 +1,5 @@
 <?php
+
 //核心类，包含XML调用和WEB端调用
 class M_Wlinke extends CI_Model{
   
@@ -30,26 +31,26 @@ class M_Wlinke extends CI_Model{
         }
         //检查用户邮箱是否已经被注册
         if($this->m_user->check_exist('email',$email)){
-            $this->load->library('we_error',array(0,'existing_email'));
+            $this->we_error->set_error(array(0,'existing_email'));
             return $this->we_error;
         }
         $this->user_data['email']=$email;//邮箱
         //检查用户密码格式
         if(!valid_password($password)){
-            $this->load->library('we_error',array(0,'invalid_password'));
+            $this->we_error->set_error(array(0,'invalid_password'));
             return $this->we_error;
         }
         $this->user_data['password']=$password;
  
         //检查用户真实姓名
         if(!valid_real_name($real_name)){
-            $this->load->library('we_error',array(0,'invalid_real_name'));
+            $this->we_error->set_error(array(0,'invalid_real_name'));
             return $this->we_error;
         }
         $this->user_data['display_name']=$real_name;//真实名字
         //检查蓝牙地址
         if(!$bluetooth_mac||!valid_bluetooth_mac($bluetooth_mac)){
-            $this->load->library('we_error',array(0,'invalid_bluetooth_mac'));
+            $this->we_error->set_error(array(0,'invalid_bluetooth_mac'));
             return $this->we_error;
         }
         $bluetooth_mac=strtoupper($bluetooth_mac);//蓝牙地址
@@ -58,7 +59,7 @@ class M_Wlinke extends CI_Model{
         //检查蓝牙地址相应的用户ID，如果不是0，则返回错误，否则可以使用
         $bluetooth_id=$this->m_user->get_user_id_by_bluetooth_mac($bluetooth_mac);
         if($bluetooth_id){
-            $this->load->library('we_error',array(0,'existing_bluetooth_mac'));
+            $this->we_error->set_error(array(0,'existing_bluetooth_mac'));
             return $this->we_error;
         }else{
             $bluetooth_data=array(
@@ -79,11 +80,11 @@ class M_Wlinke extends CI_Model{
         $this->user_data['user_id']=$this->m_user->insert_user($this->user_data);
         //如果用户获得的ID与之前估计不同，则删除并报错
         if(!$this->user_data['user_id']){
-            $this->load->library('we_error',array(0,'insert_user_error'));
+            $this->we_error->set_error(array(0,'insert_user_error'));
             return $this->we_error;
         }else if(strstr($this->user_data['real_name'],$this->user_data['user_id'])){
             $this->m_user->delete_user($this->user_data['user_id']);
-            $this->load->library('we_error',array(0,'insert_user_sequence_error'));
+            $this->we_error->set_error(array(0,'insert_user_sequence_error'));
             return $this->we_error;
         }else{//更新蓝牙信息
             $bluetooth_data=array(
@@ -137,7 +138,7 @@ class M_Wlinke extends CI_Model{
         if($album_data['album_id'])
             return $album_data;
         else{
-            $this->load->library('we_error',array(0,'add_album_error'));
+            $this->we_error->set_error(array(0,'add_album_error'));
             return $this->we_error;
         }
     }
@@ -151,23 +152,75 @@ class M_Wlinke extends CI_Model{
     function user_login($email,$password){
         //检查邮箱地址是否正确
         $this->load->library('session');
-
         if(!valid_email($email)){
-            $this->load->library('we_error',array(0,'invalid_email'));
+            $this->we_error->set_error(array(0,'invalid_email'));
             return $this->we_error;
         }
         $this->load->model('m_user');
         $this->user_data=$this->m_user->validate_user($email,$password);
         if(!$this->user_data){
-            $this->load->library('we_error',array(0,'invalid_user_data'));
+            $this->we_error->set_error(array(0,'invalid_user_data'));
             return $this->we_error;
         }
-        //登录成功后重置session
-        $this->session->set_userdata('user_data',$this->user_data);
         //增加一个token字段
         $this->user_data['token']=$this->session->userdata('session_id');
         $this->user_data['relationship']="self";
+        //登录成功后重置session
+        $this->session->set_userdata('user_data',$this->user_data);
         return $this->user_data;
+    }
+
+    function add_group($user_id,$group_name="",$group_destription="",$group_category=""){
+        $group_data=array(
+                          'user_id'=>$user_id,
+                          'group_name'=>$group_name,
+                          'group_destription'=>$group_destription,
+                          'group_category'=>$group_category,
+                          'group_states'=>1,
+                          'member_count'=>1,
+                          'create_time'=>$this->current_time
+                          );
+        $this->load->model('m_group');
+        $group_id=$this->m_group->add_group($group_data);
+        if($group_id){
+            $group_member=array(
+                                'group_id'=>$group_id,
+                                'user_id'=>$user_id,
+                                'inviter_id'=>$user_id,
+                                'is_admin'=>1,
+                                'is_confirmed'=>1,
+                                'create_time'=>$this->current_time
+                                );
+            $this->m_group->add_group_member($group_member);
+            $group_data['group_id']=$group_id;
+            return $group_data;
+        }else{
+            $this->we_error->set_error(array(0,'unknown_error'));
+            return $this->we_error;
+        }
+
+    }
+
+    function user_logout($token=""){
+        if($token){
+            $this->load->library('session',array('token'=>$token));
+        }else{
+            $this->load->library('session');
+        }
+        $this->session->unset_userdata('user_data');
+        return true;
+    }
+
+    function get_recent_register_users_data($num=6){
+        $this->load->model('m_user');
+        $user_ids=$this->m_user->get_all_user_id(1,$num);
+        $recent_register_users=$this->m_user->get_user_datas_by_user_ids($user_ids);
+        if($recent_register_users)
+            return $recent_register_users;
+        else{
+            $this->we_error->set_error(array(0,'no_recent_users'));
+            return $this->we_error;
+        }
     }
 
     function is_user_login($token=""){
@@ -180,7 +233,56 @@ class M_Wlinke extends CI_Model{
         }
         if($this->user_data)
             return $this->user_data;
-        else
-            return false;
+        else{
+            $this->we_error->set_error(array(0,'not_login'));
+            return $this->we_error;
+        }
+    }
+	
+	function update_last_activity($user_id,$last_activity="",$latest_update=""){
+        $this->load->model('m_user');
+		$this->m_user->update_last_activity($user_id,$last_activity);
+		if(!$latest_update){
+			$this->m_user->add_user_meta($user_id,'latest_update',$latest_update);
+        }
+    }
+
+	function post_weibo($user_id,$feed_content="",$visibility="public",$feed_type="weibo",$transpond_id="",$create_time="",$picture_url="",$transpond_count=0,$comment_count=0){
+		$feed=array(
+					'user_id'=>$user_id,
+					'feed_type'=>$feed_type,
+                    'feed_content'=>$feed_content,
+                    'picture_url'=>$picture_url,
+                    'create_time'=>$create_time?$create_time:$this->current_time,
+                    'transpond_id'=>$transpond_id,
+                    'transpond_count'=>$transpond_count,
+                    'comment_count'=>$comment_count,
+                    'visibility'=>$visibility
+					);
+        $this->load->model('m_feed');
+        $feed_id=$this->m_feed->add_feed($feed);
+        if($feed_id){
+			$this->update_last_activity($user_id,$create_time,$feed_content);
+			$feed['feed_id']=$feed_id;
+			$this->load->model('m_user');
+			$feed=array_merge($feed,$this->m_user->get_user_data_by_user_id($user_id));
+            $this->m_user->increase_user_meta($user_id, 'weibo_count');
+            return $feed;
+        }else{
+            $this->we_error->set_error(array(0,'no_weibo'));
+            return $this->we_error;
+        }		
+    }
+	
+	function get_all_public_weibo($filter='old',$id=0,$page=1,$page_count=20){
+        $this->load->model('m_feed');
+		$public_weibos=$this->m_feed->get_all_public_feeds($filter,$id,$page,$page_count);
+		if(!$public_weibos){
+            $this->we_error->set_error(array(0,'no_weibo'));
+            return $this->we_error;
+        }else{
+            return $public_weibos;
+        }
     }
 }
+?>

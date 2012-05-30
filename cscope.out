@@ -1,4 +1,4 @@
-cscope 15 /var/www/wlinke               0001040993
+cscope 15 /var/www/wlinke               0000998119
 	@application/config/autoload.php
 
 1 <?
@@ -19,13 +19,13 @@ ex™
 	g$autŞßd
 ['lib¿r›s'] = 
 ¬¿y
-('database');
+('database','we_error');
 
 67 
 	g$autŞßd
 ['h–³r'] = 
 ¬¿y
-('url');
+('url','we_error');
 
 83 
 	g$autŞßd
@@ -58,6 +58,10 @@ ex™
 17 
 	g$cÚfig
 ['base_url'] = 'http://localhost/wlinke/';
+
+18 
+	g$cÚfig
+['database'] = 'wlinke';
 
 29 
 	g$cÚfig
@@ -143,7 +147,7 @@ FALSE
 
 248 
 	g$cÚfig
-['sess_expiration'] = 300000;
+['sess_expiration'] = 0;
 
 249 
 	g$cÚfig
@@ -181,7 +185,7 @@ TRUE
 
 255 
 	g$cÚfig
-['sess_time_to_update'] = 300000;
+['sess_time_to_update'] = 10000000;
 
 268 
 	g$cÚfig
@@ -1864,50 +1868,28 @@ ex‹nds
 4 
 ´iv©e
  
-	m$½c_u¾
+	m$ba£_u¾
 ;
 
 5 
 ´iv©e
  
-	m$ba£_u¾
-;
-
-6 
-´iv©e
- 
 	m$u£r_d©a
 ;
 
-8 
+7 
 funùiÚ
  
 	$__cÚ¡ruù
 (){
 
-9 
+8 
 ·»Á
 ::
 	`__cÚ¡ruù
 ();
 
-10 
-$this
-->
-lßd
-->
-	`lib¿ry
-('session');
-
-11 
-$this
-->
-½c_u¾
-=
-	`ba£_u¾
-('xmlrpc');
-
-12 
+9 
 $this
 ->
 ba£_u¾
@@ -1915,7 +1897,7 @@ ba£_u¾
 	`ba£_u¾
 ();
 
-13 
+10 
 $this
 ->
 lßd
@@ -1923,19 +1905,33 @@ lßd
 	`h–³r
 ('date');
 
-14 
+11 
+$this
+->
+lßd
+->
+	`lib¿ry
+('session');
+
+12 
+$this
+->
+lßd
+->
+	`mod–
+('m_wlinke');
+
+13 
 $this
 ->
 u£r_d©a
-=
-	`un£rŸlize
-($this->
-£ssiÚ
+=$this->
+m_wlške
 ->
-	`u£rd©a
-('user_data'));
+	`is_u£r_logš
+();
 
-17 
+16 
 funùiÚ
  
 	`šdex
@@ -1943,59 +1939,39 @@ funùiÚ
 $”rÜ
 =""){
 
-18 if(
+17 if(!
+	`is_we_”rÜ
+(
 $this
 ->
 u£r_d©a
-&&$this->
-	`is_u£r_logš
-($this->user_data['token'])){
+)){
 
-19 
+18 
 	`»dœeù
 ('c_page_weibo');
 
-21 
-$this
-->
-lßd
-->
-	`mod–
-('m_user');
-
-22 
-$u£r_ids
-=
-$this
-->
-m_u£r
-->
-	`g‘_®l_u£r_id
-(1,6);
-
-23 
+20 
 $d©a
 ['Ï‹¡_u£r_d©a']=
 $this
 ->
-m_u£r
+m_wlške
 ->
-	`g‘_u£r_d©as_by_u£r_ids
-(
-$u£r_ids
-);
+	`g‘_»ûÁ_»gi¡”_u£rs_d©a
+(6);
 
-24 if(
+21 if(
 $”rÜ
 )
 
-25 
+22 
 $d©a
 ['”rÜ']=
 $”rÜ
 ;
 
-26 
+23 
 $this
 ->
 lßd
@@ -2003,7 +1979,7 @@ lßd
 	`v›w
 ('v_header');
 
-27 
+24 
 $this
 ->
 lßd
@@ -2013,7 +1989,7 @@ lßd
 $d©a
 );
 
-28 
+25 
 $this
 ->
 lßd
@@ -2021,17 +1997,17 @@ lßd
 	`v›w
 ('v_footer');
 
-30 
+27 
 	}
 }
 
-32 
+29 
 funùiÚ
  
 	$logš_subm™
 (){
 
-33 
+30 
 $logš_ema
 =
 $this
@@ -2041,7 +2017,7 @@ $this
 	`po¡
 ('login_email');
 
-34 
+31 
 $logš_·sswÜd
 =
 $this
@@ -2051,83 +2027,41 @@ $this
 	`po¡
 ('login_password');
 
-35 
-$this
-->
-lßd
-->
-	`h–³r
-('ixr_xmlrpc');
-
-36 
-$½c
- = 
-Ãw
- 
-	`IXR_Cl›Á
-Ğ
-$this
-->
-½c_u¾
- );
-
-37 
-$¡©us
- = 
-$½c
-->
-	`qu”y
-(
-
-39 
-$logš_ema
-,
-
-40 
-$logš_·sswÜd
-
-
-42 
+32 
 $u£r_d©a
 =
-$½c
+$this
 ->
-	`g‘Re¥Ú£
-();
+m_wlške
+->
+	`u£r_logš
+(
+$logš_ema
+,
+$logš_·sswÜd
+);
 
-43 if(!
-	`¬¿y_key_exi¡s
-('”rÜ',
+33 if(!
+	`is_we_”rÜ
+(
 $u£r_d©a
 )){
 
-44 
-$this
-->
-£ssiÚ
-->
-	`£t_u£rd©a
-('u£r_d©a',
-	`£rŸlize
-(
-$u£r_d©a
-));
-
-45 
+34 
 	`»dœeù
 ('c_page_weibo');
 
-48 
+37 
 $this
 ->
 	`šdex
 ("è´¦å·æˆ–å¯†ç é”™è¯¯");
 
-50 
+39 
 	}
 }
 
-52 
+41 
 funùiÚ
  
 	$logš_çd
@@ -2135,15 +2069,15 @@ funùiÚ
 $”rÜ
 ){
 
-53 
+42 
 $d©a
 ['error_title']="ç™»é™†å¤±è´¥";
 
-54 
+43 
 $d©a
 ['error_message']="ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯";
 
-55 
+44 
 $this
 ->
 lßd
@@ -2151,7 +2085,7 @@ lßd
 	`v›w
 ('mobile/v_header');
 
-56 
+45 
 $this
 ->
 lßd
@@ -2161,7 +2095,7 @@ lßd
 $d©a
 );
 
-57 
+46 
 $this
 ->
 lßd
@@ -2169,127 +2103,43 @@ lßd
 	`v›w
 ('mobile/v_footer');
 
-58 
+47 
 	}
 }
 
-60 
+49 
 funùiÚ
  
-	$logš_out
+	$logout_subm™
 (){
 
-61 if(
+50 if(!
+	`is_we_”rÜ
+(
 $this
 ->
 u£r_d©a
-&&$this->
-	`is_u£r_logš
-($this->user_data['token'])){
+)){
 
-62 
+51 
 $this
 ->
-£ssiÚ
+m_wlške
 ->
-	`£ss_de¡roy
+	`u£r_logout
 ();
 
-63 
+52 
 	`»dœeù
 ('c_login');
 
-65 
+54 
 $this
 ->
 	`šdex
 ();
 
-67 
-	}
-}
-
-69 
-funùiÚ
- 
-	$is_u£r_logš
-(
-$tok’
-){
-
-70 
-$this
-->
-lßd
-->
-	`h–³r
-('ixr_xmlrpc');
-
-71 
-$½c
- = 
-Ãw
- 
-	`IXR_Cl›Á
-Ğ
-$this
-->
-½c_u¾
- );
-
-72 
-$¡©us
- = 
-$½c
-->
-	`qu”y
-(
-
-74 
-$tok’
-
-
-76 
-$u£r_d©a
-=
-$½c
-->
-	`g‘Re¥Ú£
-();
-
-77 if(
-$u£r_d©a
-){
-
-78 
-$this
-->
-£ssiÚ
-->
-	`£t_u£rd©a
-('u£r_d©a',
-	`£rŸlize
-(
-$u£r_d©a
-));
-
-79 
-$this
-->
-u£r_d©a
-=
-$u£r_d©a
-;
-
-80  
-TRUE
-;
-
-82  
-FALSE
-;
-
-83 
+56 
 	}
 }
 
@@ -2660,20 +2510,12 @@ funùiÚ
 10 
 $this
 ->
-lßd
-->
-	`lib¿ry
-('session');
-
-11 
-$this
-->
 ½c_u¾
 =
 	`ba£_u¾
 ('xmlrpc');
 
-12 
+11 
 $this
 ->
 ba£_u¾
@@ -2681,7 +2523,7 @@ ba£_u¾
 	`ba£_u¾
 ();
 
-13 
+12 
 $this
 ->
 lßd
@@ -2689,17 +2531,23 @@ lßd
 	`h–³r
 ('date');
 
+13 
+$this
+->
+lßd
+->
+	`mod–
+('m_wlinke');
+
 14 
 $this
 ->
 u£r_d©a
-=
-	`un£rŸlize
-($this->
-£ssiÚ
+=$this->
+m_wlške
 ->
-	`u£rd©a
-('user_data'));
+	`is_u£r_logš
+();
 
 17 
 funùiÚ
@@ -2707,13 +2555,13 @@ funùiÚ
 	$šdex
 (){
 
-18 if(
+18 if(!
+	`is_we_”rÜ
+(
 $this
 ->
 u£r_d©a
-&&$this->
-	`is_u£r_logš
-($this->user_data['token'])){
+)){
 
 19 
 $this
@@ -2735,35 +2583,23 @@ $this
 ½c_u¾
  );
 
-23 
-$¡©us
- = 
-$½c
-->
-	`qu”y
-(
-
-25 
-$this
-->
-u£r_d©a
-['token'],
-
-28 
+21 
 $ãeds
 =
-$½c
+$this
 ->
-	`g‘Re¥Ú£
+m_wlške
+->
+	`g‘_®l_public_weibo
 ();
 
-29 if(!
-	`¬¿y_key_exi¡s
-('”rÜ', 
+22 if(
 $ãeds
-[0])){
+&&!
+	`¬¿y_key_exi¡s
+('error', $feeds[0])){
 
-30 
+23 
 $this
 ->
 u£r_d©a
@@ -2771,7 +2607,7 @@ u£r_d©a
 $ãeds
 ;
 
-34 
+27 
 $¡©us
  = 
 $½c
@@ -2779,13 +2615,13 @@ $½c
 	`qu”y
 (
 
-36 
+29 
 $this
 ->
 u£r_d©a
 ['token'],
 
-41 
+34 
 $£¬ch_u£r_d©as
 =
 $½c
@@ -2793,13 +2629,13 @@ $½c
 	`g‘Re¥Ú£
 ();
 
-42 if(!
+35 if(!
 	`¬¿y_key_exi¡s
 ('”rÜ', 
 $£¬ch_u£r_d©as
 [0])){
 
-43 
+36 
 $this
 ->
 u£r_d©a
@@ -2807,7 +2643,7 @@ u£r_d©a
 $£¬ch_u£r_d©as
 ;
 
-46 
+39 
 $¡©us
  = 
 $½c
@@ -2815,13 +2651,13 @@ $½c
 	`qu”y
 (
 
-48 
+41 
 $this
 ->
 u£r_d©a
 ['token'],
 
-53 
+46 
 $group_d©as
 =
 $½c
@@ -2829,13 +2665,13 @@ $½c
 	`g‘Re¥Ú£
 ();
 
-54 if(!
+47 if(!
 	`¬¿y_key_exi¡s
 ('”rÜ', 
 $group_d©as
 [0])){
 
-55 
+48 
 $this
 ->
 u£r_d©a
@@ -2843,7 +2679,7 @@ u£r_d©a
 $group_d©as
 ;
 
-58 
+51 
 $d©a
 ['u£r_d©a']=
 $this
@@ -2851,7 +2687,7 @@ $this
 u£r_d©a
 ;
 
-59 
+52 
 $this
 ->
 lßd
@@ -2859,7 +2695,7 @@ lßd
 	`v›w
 ('v_header');
 
-60 
+53 
 $this
 ->
 lßd
@@ -2869,7 +2705,7 @@ lßd
 $d©a
 );
 
-61 
+54 
 $this
 ->
 lßd
@@ -2877,111 +2713,85 @@ lßd
 	`v›w
 ('v_footer');
 
-63 
+56 
 	`»dœeù
 ('c_login');
 
-65 
+58 
 	}
 }
 
-67 
+60 
 funùiÚ
  
 	$po¡_weibo
 (){
 
-68 if(
-$this
-->
-u£r_d©a
-&&$this->
-	`is_u£r_logš
-($this->user_data['token'])){
-
-69 
-$this
-->
-lßd
-->
-	`h–³r
-('ixr_xmlrpc');
-
-70 
-$½c
- = 
-Ãw
- 
-	`IXR_Cl›Á
-Ğ
-$this
-->
-½c_u¾
- );
-
-71 
-$¡©us
- = 
-$½c
-->
-	`qu”y
+61 if(!
+	`is_we_”rÜ
 (
-
-73 
 $this
 ->
 u£r_d©a
-['token'],
+)){
 
-74 
+62 
+$weibo_cÚ‹Á
+=
 $this
 ->
 šput
 ->
 	`po¡
-('weibo_content'),
+('weibo_content');
 
-77 
+63 
 $»suÉ
 =
-$½c
+$this
 ->
-	`g‘Re¥Ú£
-();
+m_wlške
+->
+	`po¡_weibo
+($this->
+u£r_d©a
+['u£r_id'],
+$weibo_cÚ‹Á
+);
 
-78 if(!
+64 if(!
 	`¬¿y_key_exi¡s
 ('”rÜ',
 $»suÉ
 )){
 
-79 
+65 
 	`»dœeù
 ('c_page_weibo');
 
-82 
+68 
 	`»dœeù
 ('c_login');
 
-84 
+70 
 	}
 }
 
-86 
+72 
 funùiÚ
  
 	$Œª¥Úd_weibo_subm™
 (){
 
-87 if(
+73 if(!
+	`is_we_”rÜ
+(
 $this
 ->
 u£r_d©a
-&&$this->
-	`is_u£r_logš
-($this->user_data['token'])){
+)){
 
-88 
+74 
 $this
 ->
 lßd
@@ -2989,7 +2799,7 @@ lßd
 	`h–³r
 ('ixr_xmlrpc');
 
-89 
+75 
 $½c
  = 
 Ãw
@@ -3001,7 +2811,7 @@ $this
 ½c_u¾
  );
 
-90 
+76 
 $¡©us
  = 
 $½c
@@ -3009,13 +2819,13 @@ $½c
 	`qu”y
 (
 
-92 
+78 
 $this
 ->
 u£r_d©a
 ['token'],
 
-93 
+79 
 $this
 ->
 šput
@@ -3023,7 +2833,7 @@ $this
 	`po¡
 ('transpond_weibo_id'),
 
-94 
+80 
 $this
 ->
 šput
@@ -3031,7 +2841,7 @@ $this
 	`po¡
 ('transpond_weibo_content'),
 
-97 if(
+83 if(
 	`is_¬¿y
 (
 $½c
@@ -3039,33 +2849,33 @@ $½c
 	`g‘Re¥Ú£
 ())){
 
-98 
+84 
 	`»dœeù
 ('c_page_weibo');
 
-101 
+87 
 	`»dœeù
 ('c_login');
 
-103 
+89 
 	}
 }
 
-105 
+91 
 funùiÚ
  
 	$još_group_subm™
 (){
 
-106 if(
+92 if(!
+	`is_we_”rÜ
+(
 $this
 ->
 u£r_d©a
-&&$this->
-	`is_u£r_logš
-($this->user_data['token'])){
+)){
 
-107 
+93 
 $this
 ->
 lßd
@@ -3073,7 +2883,7 @@ lßd
 	`h–³r
 ('ixr_xmlrpc');
 
-108 
+94 
 $½c
  = 
 Ãw
@@ -3085,7 +2895,7 @@ $this
 ½c_u¾
  );
 
-109 
+95 
 $¡©us
  = 
 $½c
@@ -3093,13 +2903,13 @@ $½c
 	`qu”y
 (
 
-111 
+97 
 $this
 ->
 u£r_d©a
 ['token'],
 
-112 
+98 
 $this
 ->
 šput
@@ -3107,7 +2917,7 @@ $this
 	`po¡
 ('join_group_id')
 
-114 
+100 
 $»suÉ
 =
 $½c
@@ -3115,31 +2925,31 @@ $½c
 	`g‘Re¥Ú£
 ();
 
-115 if(!
+101 if(!
 	`¬¿y_key_exi¡s
 ('”rÜ',
 $»suÉ
 )){
 
-116 
+102 
 	`»dœeù
 ('c_page_weibo');
 
-119 
+105 
 	`»dœeù
 ('c_login');
 
-121 
+107 
 	}
 }
 
-123 
+109 
 funùiÚ
  
 	$u¶ßd_av©¬
 () {
 
-124 
+110 
 $cÚfig
 ['u¶ßd_·th'] = 
 	`g‘cwd
@@ -3149,23 +2959,23 @@ $this
 u£r_d©a
 ['user_id']."/";
 
-125 
+111 
 $cÚfig
 ['allowed_types'] = 'gif|jpg|png';
 
-126 
+112 
 $cÚfig
 ['max_size'] = '1000';
 
-127 
+113 
 $cÚfig
 ['max_width'] = '1024';
 
-128 
+114 
 $cÚfig
 ['max_height'] = '768';
 
-129 
+115 
 $cÚfig
 ['fe_Çme'] = 
 $this
@@ -3175,7 +2985,7 @@ u£r_d©a
 	`time
 ();
 
-130 
+116 
 $this
 ->
 lßd
@@ -3185,7 +2995,7 @@ lßd
 $cÚfig
 );
 
-132 ià(! 
+118 ià(! 
 $this
 ->
 u¶ßd
@@ -3193,15 +3003,15 @@ u¶ßd
 	`do_u¶ßd
  ()) {
 
-133 
+119 
 echo
  '<script>alert("ä¸Šä¼ å¤±è´¥");</script>';
 
-134 
+120 
 	`»dœeù
 ("c_page_weibo");
 
-136 
+122 
 $this
 ->
 lßd
@@ -3209,7 +3019,7 @@ lßd
 	`mod–
 ('m_album');
 
-137 
+123 
 $u¶ßd_d©a
 =
 $this
@@ -3219,7 +3029,7 @@ u¶ßd
 	`d©a
 ();
 
-138 
+124 
 $piùu»_d©a
 ['®bum_id']=
 $this
@@ -3231,7 +3041,7 @@ m_®bum
 u£r_d©a
 ['user_id']);
 
-139 
+125 
 $piùu»_d©a
 ['u£r_id']=
 $this
@@ -3239,49 +3049,49 @@ $this
 u£r_d©a
 ['user_id'];
 
-140 
+126 
 $piùu»_d©a
 ['picture_name']="å¤´åƒ";
 
-141 
+127 
 $piùu»_d©a
 ['picture_destription']="ä¸ªäººå¤´åƒ";
 
-142 
+128 
 $piùu»_d©a
 ['fe_size']=
 $u¶ßd_d©a
 ['file_size']*1000;
 
-143 
+129 
 $u¶ßd_d©a
 ['file_ext']){
 
-144 ".gif":
+130 ".gif":
 $piùu»_d©a
 ['file_type']=1;;
 
-145 ".jpg":
+131 ".jpg":
 $piùu»_d©a
 ['file_type']=2;;
 
-146 ".²g":
+132 ".²g":
 $piùu»_d©a
 ['file_type']=3;;
 
-148 
+134 
 $piùu»_d©a
 ['ü—‹_time']=
 	`time
 ();
 
-149 
+135 
 $piùu»_d©a
 ['fe_Çme']=
 $u¶ßd_d©a
 ['file_name'];
 
-150 
+136 
 $piùu»_id
 =
 $this
@@ -3293,19 +3103,19 @@ m_®bum
 $piùu»_d©a
 );
 
-152 
+138 
 $av©¬_d©a
 =
 	`¬¿y
 (
 
-153 'u£r_id'=>
+139 'u£r_id'=>
 $this
 ->
 u£r_d©a
 ['user_id'],
 
-155 'm‘a_v®ue'=>
+141 'm‘a_v®ue'=>
 	`ba£_u¾
 ('u¶ßd')."/".
 $this
@@ -3315,7 +3125,7 @@ u£r_d©a
 $piùu»_d©a
 ['file_name']
 
-157 
+143 
 $this
 ->
 lßd
@@ -3323,7 +3133,7 @@ lßd
 	`mod–
 ('m_user');
 
-158 
+144 
 $this
 ->
 m_u£r
@@ -3333,17 +3143,17 @@ m_u£r
 $av©¬_d©a
 );
 
-159 
+145 
 $cÚfig
 =
 	`¬¿y
 ();
 
-160 
+146 
 $cÚfig
 ['image_library'] = 'gd2';
 
-161 
+147 
 $cÚfig
 ['sourû_image'] = 
 	`g‘cwd
@@ -3355,21 +3165,21 @@ u£r_d©a
 $piùu»_d©a
 ['file_name'];
 
-162 
+148 
 $cÚfig
 ['mašš_¿tio'] = 
 FALSE
 ;
 
-163 
+149 
 $cÚfig
 ['width'] = 140;
 
-164 
+150 
 $cÚfig
 ['height'] = 140;
 
-165 
+151 
 $this
 ->
 lßd
@@ -3379,7 +3189,7 @@ lßd
 $cÚfig
 );
 
-166 
+152 
 $this
 ->
 image_lib
@@ -3387,99 +3197,15 @@ image_lib
 	`»size
 ();
 
-167 
+153 
 echo
  '<script>alert("ä¸Šä¼ æˆåŠŸ");</script>';
 
-168 
+154 
 	`»dœeù
 ("c_page_weibo");
 
-170 
-	}
-}
-
-172 
-funùiÚ
- 
-	$is_u£r_logš
-(
-$tok’
-){
-
-173 
-$this
-->
-lßd
-->
-	`h–³r
-('ixr_xmlrpc');
-
-174 
-$½c
- = 
-Ãw
- 
-	`IXR_Cl›Á
-Ğ
-$this
-->
-½c_u¾
- );
-
-175 
-$¡©us
- = 
-$½c
-->
-	`qu”y
-(
-
-177 
-$tok’
-
-
-179 
-$u£r_d©a
-=
-$½c
-->
-	`g‘Re¥Ú£
-();
-
-180 if(
-$u£r_d©a
-){
-
-181 
-$this
-->
-£ssiÚ
-->
-	`£t_u£rd©a
-('u£r_d©a',
-	`£rŸlize
-(
-$u£r_d©a
-));
-
-182 
-$this
-->
-u£r_d©a
-=
-$u£r_d©a
-;
-
-183  
-TRUE
-;
-
-185  
-FALSE
-;
-
-186 
+156 
 	}
 }
 
@@ -3500,34 +3226,28 @@ ex‹nds
 4 
 ´iv©e
  
-	m$½c_u¾
+	m$ba£_u¾
 ;
 
 5 
 ´iv©e
  
-	m$ba£_u¾
-;
-
-6 
-´iv©e
- 
 	m$u£r_d©a
 ;
 
-8 
+7 
 funùiÚ
  
 	$__cÚ¡ruù
 (){
 
-9 
+8 
 ·»Á
 ::
 	`__cÚ¡ruù
 ();
 
-10 
+9 
 $this
 ->
 lßd
@@ -3535,15 +3255,7 @@ lßd
 	`lib¿ry
 ('session');
 
-11 
-$this
-->
-½c_u¾
-=
-	`ba£_u¾
-('xmlrpc');
-
-12 
+10 
 $this
 ->
 ba£_u¾
@@ -3551,7 +3263,7 @@ ba£_u¾
 	`ba£_u¾
 ();
 
-13 
+11 
 $this
 ->
 lßd
@@ -3559,19 +3271,25 @@ lßd
 	`h–³r
 ('date');
 
-14 
+12 
+$this
+->
+lßd
+->
+	`mod–
+('m_wlinke');
+
+13 
 $this
 ->
 u£r_d©a
-=
-	`un£rŸlize
-($this->
-£ssiÚ
+=$this->
+m_wlške
 ->
-	`u£rd©a
-('user_data'));
+	`is_u£r_logš
+();
 
-17 
+16 
 funùiÚ
  
 	`šdex
@@ -3579,23 +3297,23 @@ funùiÚ
 $”rÜ
 =""){
 
-18 
+17 
 $d©a
 =
 	`¬¿y
 ();
 
-19 if(
+18 if(
 $”rÜ
 )
 
-20 
+19 
 $d©a
 ['”rÜ']=
 $”rÜ
 ;
 
-21 
+20 
 $this
 ->
 lßd
@@ -3603,7 +3321,7 @@ lßd
 	`v›w
 ('v_header');
 
-22 
+21 
 $this
 ->
 lßd
@@ -3613,7 +3331,7 @@ lßd
 $d©a
 );
 
-23 
+22 
 $this
 ->
 lßd
@@ -3621,17 +3339,17 @@ lßd
 	`v›w
 ('v_footer');
 
-24 
+23 
 	}
 }
 
-26 
+25 
 funùiÚ
  
 	$»gi¡”_subm™
 (){
 
-27 if(
+26 if(
 $this
 ->
 šput
@@ -3639,41 +3357,23 @@ $this
 	`po¡
 ('register_password')!=$this->input->post('register_password_again'))
 
-29 
+28 
 $this
 ->
 	`»gi¡”_çd
 ("password_not_yes");
 
-32 
+31 
+$u£r_d©a
+=
 $this
 ->
-lßd
+m_wlške
 ->
-	`h–³r
-('ixr_xmlrpc');
-
-33 
-$½c
- = 
-Ãw
- 
-	`IXR_Cl›Á
-Ğ
-$this
-->
-½c_u¾
- );
-
-34 
-$¡©us
- = 
-$½c
-->
-	`qu”y
+	`add_u£r
 (
 
-36 
+32 
 $this
 ->
 šput
@@ -3681,7 +3381,7 @@ $this
 	`po¡
 ('register_email'),
 
-37 
+33 
 $this
 ->
 šput
@@ -3689,7 +3389,7 @@ $this
 	`po¡
 ('register_password'),
 
-38 
+34 
 $this
 ->
 šput
@@ -3697,7 +3397,7 @@ $this
 	`po¡
 ('register_real_name'),
 
-39 
+35 
 $this
 ->
 šput
@@ -3705,49 +3405,31 @@ $this
 	`po¡
 ('register_bluetooth_mac')
 
-41 
-$u£r_d©a
-=
-$½c
-->
-	`g‘Re¥Ú£
-();
-
-42 if(!
-	`¬¿y_key_exi¡s
-('”rÜ', 
+37 if(!
+	`is_we_”rÜ
+(
 $u£r_d©a
 )){
 
-43 
-$this
-->
-£ssiÚ
-->
-	`£t_u£rd©a
-('u£r_d©a',
-	`£rŸlize
-(
-$u£r_d©a
-));
-
-44 
+38 
 	`»dœeù
 ('c_page_weibo');
 
-46 
+40 
 $this
 ->
 	`»gi¡”_çd
 (
 $u£r_d©a
-['error']);
+->
+”rÜ_mes§ge
+);
 
-48 
+42 
 	}
 }
 
-50 
+44 
 funùiÚ
  
 	$»gi¡”_çd
@@ -3755,43 +3437,47 @@ funùiÚ
 $”rÜ
 ){
 
-51 
+45 
 $d©a
 ['error_title']="æ³¨å†Œå¤±è´¥";
 
-52 
+46 
 $”rÜ
 ){
 
-54 
+48 
 $d©a
 ['error_message']="ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´";
 
-57 
+51 
 $d©a
 ['error_message']="é‚®ç®±æ ¼å¼é”™è¯¯";
 
-60 
+54 
 $d©a
 ['error_message']="é‚®ç®±å·²å­˜åœ¨";
 
-63 
+57 
 $d©a
 ['error_message']="å¯†ç æ ¼å¼é”™è¯¯";
 
-66 
+60 
 $d©a
 ['error_message']="è¯·è¾“å‡ºçœŸå®å§“å";
 
-69 
+63 
 $d©a
 ['error_message']="è“ç‰™åœ°å€æ ¼å¼é”™è¯¯";
 
-72 
+66 
 $d©a
 ['error_message']="è“ç‰™åœ°å€å·²è¢«æ³¨å†Œ";
 
-75 
+69 
+$d©a
+['error_message']="ä¸çŸ¥é“æ€ä¹ˆäº†";
+
+71 
 $this
 ->
 	`šdex
@@ -3799,91 +3485,7 @@ $this
 $d©a
 ['error_message']);
 
-76 
-	}
-}
-
-78 
-funùiÚ
- 
-	$is_u£r_logš
-(
-$tok’
-){
-
-79 
-$this
-->
-lßd
-->
-	`h–³r
-('ixr_xmlrpc');
-
-80 
-$½c
- = 
-Ãw
- 
-	`IXR_Cl›Á
-Ğ
-$this
-->
-½c_u¾
- );
-
-81 
-$¡©us
- = 
-$½c
-->
-	`qu”y
-(
-
-83 
-$tok’
-
-
-85 
-$u£r_d©a
-=
-$½c
-->
-	`g‘Re¥Ú£
-();
-
-86 if(
-$u£r_d©a
-){
-
-87 
-$this
-->
-£ssiÚ
-->
-	`£t_u£rd©a
-('u£r_d©a',
-	`£rŸlize
-(
-$u£r_d©a
-));
-
-88 
-$this
-->
-u£r_d©a
-=
-$u£r_d©a
-;
-
-89  
-TRUE
-;
-
-91  
-FALSE
-;
-
-92 
+72 
 	}
 }
 
@@ -4396,32 +3998,82 @@ $¬gs
 ="") {
 
 9 
+$u£r_d©a
+=
+	`¬¿y
+(
+
+14 
+$this
+->
+£ssiÚ
+->
+	`£t_u£rd©a
+('u£r_d©a',
+$u£r_d©a
+);
+
+15 
 	`v¬_dump
 (
-	`func_g‘_¬gs
+$this
+->
+£ssiÚ
+->
+	`u£rd©a
+('session_id'));
+
+16 
+	`v¬_dump
+(
+$this
+->
+£ssiÚ
+->
+	`®l_u£rd©a
 ());
 
-10 
+17 
 	}
 }
 
-12 
+19 
 funùiÚ
  
-addU£r
+	$g‘U£rD©abySessiÚ
+(){
+
+20 
+$this
+->
+lßd
+->
+	`mod–
+('m_wlinke');
+
+21 
+	`v¬_dump
 (
-$ema
-="",
-$·sswÜd
-="",
-$»®_Çme
-="",
-$blu‘oÙh_mac
-="",
-$blu‘oÙh_Çme
+$this
+->
+m_wlške
+->
+	`g‘_u£r_d©a_by_£ssiÚ
+());
+
+22 
+	}
+}
+
+24 
+funùiÚ
+ 
+isU£rLogš
+(
+$tok’
 =""){
 
-13 
+25 
 $this
 ->
 lßd
@@ -4429,9 +4081,75 @@ lßd
 mod–
 ('m_wlinke');
 
-14 
+26 
 v¬_dump
-Ğ
+(
+$this
+->
+m_wlške
+->
+is_u£r_logš
+());
+
+29 
+funùiÚ
+ 
+u£rLogš
+(
+$ema
+="‹¡1@163.com",
+$·sswÜd
+="111111"){
+
+30 
+$this
+->
+lßd
+->
+mod–
+('m_wlinke');
+
+31 
+v¬_dump
+(
+$this
+->
+m_wlške
+->
+u£r_logš
+(
+$ema
+,
+$·sswÜd
+));
+
+33 
+funùiÚ
+ 
+addU£r
+(
+$ema
+="‹¡1@163.com",
+$·sswÜd
+="111111",
+$»®_Çme
+="‹¡1",
+$blu‘oÙh_mac
+="111111111111",
+$blu‘oÙh_Çme
+="test1"){
+
+34 
+$this
+->
+lßd
+->
+mod–
+('m_wlinke');
+
+35 
+v¬_dump
+(
 $this
 ->
 m_wlške
@@ -4449,37 +4167,123 @@ $blu‘oÙh_mac
 $blu‘oÙh_Çme
 ));
 
-17 
+38 
 funùiÚ
  
-	$g‘U£rR—lNamebyDi¥ÏyName
+addGroup
 (
-$di¥Ïy_Çme
-){
+$tok’
+,
+$group_Çme
+='‹¡',
+$group_de¡rtiÚ
+='‹¡',
+$group_ÿ‹gÜy
+='test'){
 
-18 
+39 
 $this
 ->
 lßd
 ->
-	`mod–
-('m_user');
+mod–
+('m_wlinke');
 
-19 
-	`v¬_dump
-Ğ
+40 
+v¬_dump
+(
 $this
 ->
-m_u£r
+m_wlške
 ->
-	`g‘_u£r_»®_Çme_by_di¥Ïy_Çme
+add_group
 (
-$di¥Ïy_Çme
+$tok’
+,
+$group_Çme
+,
+$group_de¡rtiÚ
+,
+$group_ÿ‹gÜy
 ));
 
-20 
-	}
-}
+42 
+funùiÚ
+ 
+g‘AÎPublicWeibo
+(
+$f‹r
+="Şd",
+$id
+=
+nuÎ
+,
+$·ge
+òuÎ,
+$·ge_couÁ
+=null){
+
+43 
+$this
+->
+lßd
+->
+mod–
+('m_wlinke');
+
+44 
+v¬_dump
+(
+$this
+->
+m_wlške
+->
+g‘_®l_public_weibo
+(
+$f‹r
+,
+$id
+,
+$·ge
+,
+$·ge_couÁ
+));
+
+46 
+funùiÚ
+ 
+upd©eLa¡Aùiv™y
+(
+$u£r_id
+,
+$Ï¡_aùiv™y
+=1,
+$Ï‹¡_upd©e
+=""){
+
+47 
+$this
+->
+lßd
+->
+mod–
+('m_wlinke');
+
+48 
+v¬_dump
+(
+$this
+->
+m_wlške
+->
+upd©e_Ï¡_aùiv™y
+(
+$u£r_id
+,
+$Ï¡_aùiv™y
+,
+$Ï‹¡_upd©e
+));
 
 	@application/controllers/mobile/c_ajax.php
 
@@ -8529,33 +8333,33 @@ ex‹nds
 	mWE_CÚŒŞËr
  {
 
-9 
+4 
 v¬
  
 	m$m‘hods
 ;
 
-15 
+5 
 v¬
  
-	m$cu¼’t
+	m$cu¼’t_time
 ;
 
-22 
+12 
 funùiÚ
  
 	$__cÚ¡ruù
 () {
 
-23 
+13 
 $this
 ->
-cu¼’t
+cu¼’t_time
 =
 	`time
 ();
 
-24 
+14 
 $this
 ->
 m‘hods
@@ -8563,7 +8367,7 @@ m‘hods
 	`¬¿y
  (
 
-56 
+46 
 ·»Á
 ::
 	`__cÚ¡ruù
@@ -8573,7 +8377,15 @@ $this
 m‘hods
  );
 
-81 
+47 
+$this
+->
+lßd
+->
+	`h–³r
+('we_error');
+
+50 
 funùiÚ
  
 	$add_u£r
@@ -8581,367 +8393,97 @@ funùiÚ
 $¬gs
 ){
 
-82 
+51 
+$ema
+=
+	`we_esÿ³
+(
+$¬gs
+[0]);
+
+52 
+$·sswÜd
+=
+	`we_esÿ³
+(
+$¬gs
+[1]);
+
+53 
+$»®_Çme
+=
+	`we_esÿ³
+(
+$¬gs
+[2]);
+
+54 
+$blu‘oÙh_mac
+=
+	`we_esÿ³
+(
+$¬gs
+[3]);
+
+55 
+$blu‘oÙh_Çme
+=
+	`we_esÿ³
+(
+$¬gs
+[4]);
+
+56 
 $this
 ->
 lßd
 ->
 	`mod–
-('m_user');
+('m_wlinke');
 
-83 
-$this
-->
-lßd
-->
-	`h–³r
-('album');
-
-85 
-$d©a
-['ema']=
-$¬gs
-[0];
-
-87 if(!
-	`v®id_ema
-(
-$d©a
-['email']))
-
-88  
-	`¬¿y
-("error"=>"invalid_email");
-
-90 if(
-$this
-->
-m_u£r
-->
-	`check_exi¡
-('ema',
-$d©a
-['email']))
-
-91  
-	`¬¿y
-("error"=>"existing_email");
-
-93 
-$d©a
-['·sswÜd']=
-$¬gs
-[1];
-
-95 if(!
-	`v®id_·sswÜd
-(
-$d©a
-['password']))
-
-96  
-	`¬¿y
-("error"=>"invalid_password");
-
-98 
-$d©a
-['»®_Çme']=
-$¬gs
-[2];
-
-100 if(!
-	`v®id_»®_Çme
-(
-$d©a
-['real_name']))
-
-101  
-	`¬¿y
-("error"=>"invalid_real_name");
-
-103 if(
-	`is£t
-(
-$¬gs
-[3]))
-
-104 
-$blu‘oÙh_mac
-=
-$¬gs
-[3];
-
-105  
-	`¬¿y
-("error"=>"invalid_bluetooth_mac");
-
-107 if(!
-	`v®id_blu‘oÙh_mac
-(
-$blu‘oÙh_mac
-))
-
-108  
-	`¬¿y
-("error"=>"invalid_bluetooth_mac");
-
-110 
-$blu‘oÙh_mac
-=
-	`¡¹ouµ”
-($bluetooth_mac);
-
-112 if(
-	`is£t
-(
-$¬gs
-[4]))
-
-113 
-$blu‘oÙh_Çme
-=
-$¬gs
-[4];
-
-115 
-$blu‘oÙh_Çme
-="";
-
-117 
-$d©a
-['blu‘oÙh_id']=
-$this
-->
-m_u£r
-->
-	`g‘_u£r_id_by_blu‘oÙh_mac
-(
-$blu‘oÙh_mac
-);
-
-119 if(
-$d©a
-['bluetooth_id']){
-
-120  
-	`¬¿y
-("error"=>"existing_bluetooth_mac");
-
-122 
-$d©a
-['blu‘oÙh_id']=
-$this
-->
-m_u£r
-->
-	`add_blu‘oÙh
-(
-	`¬¿y
-(
-
-123 'blu‘oÙh_mac'=>
-$blu‘oÙh_mac
-,
-
-124 'blu‘oÙh_Çme'=>
-$blu‘oÙh_Çme
-,
-
-125 'ü—‹_time'=>
-$this
-->
-cu¼’t
-
-
-129 
-$d©a
-['·sswÜd'] = 
-	`md5
-($data['password']);
-
-131 
-$d©a
-['display_name']=$data['real_name'];
-
-133 
-$num
+57 
+$u£r_d©a
 =
 $this
 ->
-m_u£r
-->
-	`check_exi¡
-('»®_Çme',
-$d©a
-['real_name']);
-
-134 
-$d©a
-['»®_Çme']=$d©a['»®_Çme'].'('.(
-$num
-+1).')';
-
-135 
-$d©a
-['ü—‹_time']=
-	`time
-();
-
-136 
-$d©a
-['user_type']='user';
-
-138 
-$»suÉ
-=
-$this
-->
-m_u£r
+m_wlške
 ->
 	`add_u£r
 (
-$d©a
-);
-
-140 if(
-$»suÉ
-){
-
-142 
-$this
-->
-m_u£r
-->
-	`add_blu‘oÙh
-(
-
-143 
-	`¬¿y
-(
-
-144 'u£r_id'=>
-$»suÉ
+$ema
 ,
-
-145 'blu‘oÙh_mac'=>
+$·sswÜd
+,
+$»®_Çme
+,
 $blu‘oÙh_mac
 ,
-
-146 'blu‘oÙh_Çme'=>
 $blu‘oÙh_Çme
-,
-
-147 'ü—‹_time'=>
-$this
-->
-cu¼’t
-
-
-151 
-$this
-->
-	`ü—‹_®bum
-(
-$»suÉ
-,'default','default‡lbum');
-
-152 
-	`ü—‹_u£r_dœ
-(
-$»suÉ
 );
 
-155 
-$this
-->
-m_u£r
-->
-	`add_u£r_m‘a
+58 if(
+	`is_we_”rÜ
 (
-	`¬¿y
-(
-
-156 'u£r_id'=>
-$»suÉ
-,
-
-158 'm‘a_v®ue'=>
-	`ba£_u¾
-().'upload/default.jpg'
-
-162 
-$this
-->
-m_u£r
-->
-	`add_u£r_m‘a
-(
-	`¬¿y
-(
-
-163 'u£r_id'=>
-$»suÉ
-,
-
-169 
-$this
-->
-m_u£r
-->
-	`add_u£r_m‘a
-(
-	`¬¿y
-(
-
-170 'u£r_id'=>
-$»suÉ
-,
-
-176 
-$this
-->
-m_u£r
-->
-	`add_u£r_m‘a
-(
-	`¬¿y
-(
-
-177 'u£r_id'=>
-$»suÉ
-,
-
-184 
-$this
-->
-	`£nd_nÙify
-(0, 
-$»suÉ
-, 'welcome','0','æ¬¢è¿åŠ å…¥èœ—ä¸´å®¢å¤§å®¶åº­ï¼');
-
-187 
 $u£r_d©a
-=
-$this
-->
-	`u£r_logš
+))
+
+59  
+	`we_sšgË_”rÜ
 (
-$¬gs
+$u£r_d©a
+->
+”rÜ_mes§ge
 );
 
-189  
+60  
 $u£r_d©a
 ;
 
-191  
-	`¬¿y
-("error"=>"unknown_error");
-
-192 
+61 
 	}
 }
 
-201 
+70 
 funùiÚ
  
 	$u£r_logš
@@ -8949,149 +8491,67 @@ funùiÚ
 $¬gs
 ){
 
-203 
+71 
+$ema
+=
+	`we_esÿ³
+(
+$¬gs
+[0]);
+
+72 
+$·sswÜd
+=
+	`we_esÿ³
+(
+$¬gs
+[1]);
+
+73 
 $this
 ->
 lßd
 ->
 	`mod–
-('m_user');
+('m_wlinke');
 
-204 
-$this
-->
-lßd
-->
-	`mod–
-('m_online');
-
-208 
-$this
-->
-lßd
-->
-	`driv”
-('ÿche',
-	`¬¿y
-('adapter'=>'file'));
-
-210 
-$d©a
-['ema']=
-$¬gs
-[0];
-
-211 
-$d©a
-['·sswÜd']=
-$¬gs
-[1];
-
-213 
+74 
 $u£r_d©a
 =
 $this
 ->
-m_u£r
+m_wlške
 ->
-	`v®id©e_u£r
+	`u£r_logš
 (
-$d©a
-);
-
-215 if(
-$u£r_d©a
-)
-
-216 
-$tok’
-=
-	`md5
-(
-$d©a
-['email']);
-
-217  
-	`¬¿y
-("error"=>"invalid_user_data");
-
-219 
-$u£r_d©a
-['tok’']=
-$tok’
-;
-
-221 
-$this
-->
-ÿche
-->
-	`§ve
-(
-$tok’
+$ema
 ,
-	`£rŸlize
-(
-$u£r_d©a
-),300);
-
-223 
-$d©a
-=
-	`¬¿y
-(
-
-224 'u£r_id'=>
-$u£r_d©a
-['user_id'],
-
-225 'di¥Ïy_Çme'=>
-$u£r_d©a
-['display_name'],
-
-226 'ü—‹_time'=>
-	`time
-(),
-
-229 
-$this
-->
-m_Úlše
-->
-	`add_Úlše
-(
-$d©a
+$·sswÜd
 );
 
-231 
-	`un£t
+75 if(
+	`is_we_”rÜ
 (
 $u£r_d©a
-['password']);
+))
 
-232 if(!
-	`is£t
+76  
+	`we_sšgË_”rÜ
 (
 $u£r_d©a
-['latest_update'])){
+->
+”rÜ_mes§ge
+);
 
-233 
-$u£r_d©a
-['latest_update']="";
-
-235 
-$u£r_d©a
-['relationship']="self";
-
-236  
+78  
 $u£r_d©a
 ;
 
-237 
+79 
 	}
 }
 
-243 
+85 
 funùiÚ
  
 	$add_ä›nd
@@ -9099,13 +8559,13 @@ funùiÚ
 $¬gs
 ){
 
-246 
+88 
 $tok’
 =
 $¬gs
 [0];
 
-249 
+91 
 $u£r_d©a
 =
 $this
@@ -9115,27 +8575,27 @@ $this
 $tok’
 );
 
-251 if(!
+93 if(!
 $u£r_d©a
 )
 
-252  
+94  
 	`¬¿y
 ('error'=>"not_login");
 
-254 if(
+96 if(
 	`is£t
 (
 $¬gs
 [1])&&$args[1]){
 
-255 
+97 
 $ä›nd_id
 =
 $¬gs
 [1];
 
-256 
+98 
 $this
 ->
 lßd
@@ -9143,7 +8603,7 @@ lßd
 	`mod–
 ('m_user');
 
-257 
+99 
 $ä›nd_d©a
 =
 $this
@@ -9155,49 +8615,49 @@ m_u£r
 $ä›nd_id
 );
 
-258 if(!
+100 if(!
 $ä›nd_d©a
 )
 
-259  
+101  
 	`¬¿y
 ('error'=>"not_user");
 
-262 if(
+104 if(
 	`is£t
 (
 $¬gs
 [2]))
 
-263 
+105 
 $cÚ‹Á
 =
 $¬gs
 [2];
 
-265 
+107 
 $cÚ‹Á
 ="";
 
-267 
+109 
 $nÙify_cÚ‹Á
 ['di¥Ïy_Çme']=
 $u£r_d©a
 ['display_name'];
 
-268 
+110 
 $nÙify_cÚ‹Á
 ['cÚ‹Á']=
 $cÚ‹Á
 ;
 
-269 
+111 
 $nÙify_cÚ‹Á
 =
 	`£rŸlize
 ($notify_content);
 
-271 
+113 
 $num
 =
 $this
@@ -9211,23 +8671,23 @@ $ä›nd_id
 $nÙify_cÚ‹Á
 );
 
-273 if(
+115 if(
 $num
 )
 
-274  
+116  
 $ä›nd_d©a
 ;
 
-276  
+118  
 	`¬¿y
 ("error"=>"unknown_error");
 
-277 
+119 
 	}
 }
 
-283 
+125 
 funùiÚ
  
 	$hªdË_nÙify
@@ -9235,13 +8695,13 @@ funùiÚ
 $¬gs
 ){
 
-286 
+128 
 $tok’
 =
 $¬gs
 [0];
 
-289 
+131 
 $u£r_d©a
 =
 $this
@@ -9251,47 +8711,47 @@ $this
 $tok’
 );
 
-291 if(!
+133 if(!
 $u£r_d©a
 )
 
-292  
+134  
 	`¬¿y
 ("error"=>"not_login");
 
-294 if(
+136 if(
 	`is£t
 (
 $¬gs
 [1])&&$args[1]){
 
-295 
+137 
 $nÙify_id
 =
 $¬gs
 [1];
 
-297  
+139  
 	`¬¿y
 ("error"=>"no_notify");
 
-300 if(
+142 if(
 	`is£t
 (
 $¬gs
 [2])){
 
-301 
+143 
 $choiû
 =
 $¬gs
 [2];
 
-303 
+145 
 $choiû
 =0;
 
-306 
+148 
 $this
 ->
 lßd
@@ -9299,7 +8759,7 @@ lßd
 	`mod–
 ('m_notify');
 
-308 
+150 
 $nÙify_d©a
 =
 $this
@@ -9311,15 +8771,15 @@ m_nÙify
 $nÙify_id
 );
 
-310 if(
+152 if(
 $nÙify_d©a
 ){
 
-311 if(
+153 if(
 $nÙify_d©a
 ['notify_type']=="welcome"){
 
-312 
+154 
 $this
 ->
 	`igniÜe_nÙify
@@ -9327,19 +8787,19 @@ $this
 $nÙify_id
 );
 
-313  
+155  
 $nÙify_d©a
 ;
 
-314 }if(
+156 }if(
 $nÙify_d©a
 ['notify_type']=="friend_application"){
 
-315 if(
+157 if(
 $choiû
 ){
 
-318 
+160 
 $this
 ->
 lßd
@@ -9347,25 +8807,25 @@ lßd
 	`mod–
 ('m_friend');
 
-319 
+161 
 $ä›nd_d©a
 =
 	`¬¿y
 ();
 
-320 
+162 
 $ä›nd_d©a
 ['u£r_id']=
 $nÙify_d©a
 ['from_id'];
 
-321 
+163 
 $ä›nd_d©a
 ['ä›nd_id']=
 $nÙify_d©a
 ['to_id'];
 
-322 
+164 
 $ä›nd_d©a
 ['ü—‹_time']=
 $this
@@ -9373,7 +8833,7 @@ $this
 cu¼’t
 ;
 
-323 
+165 
 $this
 ->
 m_ä›nd
@@ -9383,25 +8843,25 @@ m_ä›nd
 $ä›nd_d©a
 );
 
-324 
+166 
 $ä›nd_d©a
 =
 	`¬¿y
 ();
 
-325 
+167 
 $ä›nd_d©a
 ['u£r_id']=
 $nÙify_d©a
 ['to_id'];
 
-326 
+168 
 $ä›nd_d©a
 ['ä›nd_id']=
 $nÙify_d©a
 ['from_id'];
 
-327 
+169 
 $ä›nd_d©a
 ['ü—‹_time']=
 $this
@@ -9409,7 +8869,7 @@ $this
 cu¼’t
 ;
 
-328 
+170 
 $this
 ->
 m_ä›nd
@@ -9419,7 +8879,7 @@ m_ä›nd
 $ä›nd_d©a
 );
 
-330 
+172 
 $this
 ->
 	`igniÜe_nÙify
@@ -9427,11 +8887,11 @@ $this
 $nÙify_id
 );
 
-331  
+173  
 $nÙify_d©a
 ;
 
-333 
+175 
 $this
 ->
 	`igniÜe_nÙify
@@ -9439,19 +8899,19 @@ $this
 $nÙify_id
 );
 
-334  
+176  
 $nÙify_d©a
 ;
 
-338  
+180  
 	`¬¿y
 ("error"=>'no_notify');
 
-342 
+184 
 	}
 }
 
-349 
+191 
 funùiÚ
  
 	$add_group
@@ -9459,161 +8919,113 @@ funùiÚ
 $¬gs
 ){
 
-352 
+194 
 $tok’
 =
-$¬gs
-[0];
-
-355 
-$u£r_d©a
-=
-$this
-->
-	`g‘_u£r_by_tok’
+	`we_esÿ³
 (
-$tok’
-);
+$¬gs
+[0]);
 
-357 if(!
-$u£r_d©a
-)
+195 
+$group_Çme
+=
+	`we_esÿ³
+(
+$¬gs
+[1]);
 
-358  
-	`¬¿y
-("error"=>"not_login");
+196 
+$group_de¡rtiÚ
+=
+	`we_esÿ³
+(
+$¬gs
+[2]);
 
-360 
+197 
+$group_ÿ‹gÜy
+=
+	`we_esÿ³
+(
+$¬gs
+[3]);
+
+198 
 $this
 ->
 lßd
 ->
 	`mod–
-('m_group');
+('m_wlinke');
 
-362 
-$group
-['u£r_id']=
+199 
 $u£r_d©a
-['user_id'];
-
-364 
-$group
-['group_Çme']=
-$¬gs
-[1];
-
-366 
-$group
-['group_de¡rtiÚ']=
-$¬gs
-[2];
-
-368 
-$group
-['group_ÿ‹gÜy']=
-$¬gs
-[3];
-
-370 
-$group
-['group_states']=1;
-
-372 
-$group
-['member_count']=1;
-
-374 
-$group
-['ü—‹_time']=
-$this
-->
-cu¼’t
-;
-
-376 
-$»suÉ
 =
 $this
 ->
-m_group
+m_wlške
+->
+	`is_u£r_logš
+(
+$tok’
+);
+
+200 if(
+	`is_we_”rÜ
+(
+$u£r_d©a
+))
+
+201  
+	`we_sšgË_”rÜ
+(
+$u£r_d©a
+->
+”rÜ_mes§ge
+);
+
+203 
+$group_d©a
+=
+$this
+->
+m_wlške
 ->
 	`add_group
 (
-$group
-);
-
-378 if(
-$»suÉ
-){
-
-379 
-$group_memb”
-=
-	`¬¿y
-();
-
-380 
-$group_memb”
-['group_id']=
-$»suÉ
-;
-
-381 
-$group_memb”
-['u£r_id']=
 $u£r_d©a
-['user_id'];
-
-382 
-$group_memb”
-['inviter_id']=0;
-
-383 
-$group_memb”
-['is_admin']=1;
-
-384 
-$group_memb”
-['is_confirmed']=1;
-
-385 
-$group_memb”
-['ü—‹_time']=
-$this
-->
-cu¼’t
-;
-
-386 
-$this
-->
-m_group
-->
-	`add_group_memb”
-(
-$group_memb”
+['u£r_id'],
+$group_Çme
+,
+$group_de¡rtiÚ
+,
+$group_ÿ‹gÜy
 );
 
-387 
-$group
-['group_id']=
-$»suÉ
+204 if(
+	`is_we_”rÜ
+(
+$group_d©a
+))
+
+205  
+	`we_sšgË_”rÜ
+(
+$group_d©a
+->
+”rÜ_mes§ge
+);
+
+207  
+$group_d©a
 ;
 
-388  
-$group
-;
-
-390  
-	`¬¿y
-("error"=>"unknown_error");
-
-391 
+208 
 	}
 }
 
-398 
+215 
 funùiÚ
  
 	$još_group
@@ -9621,13 +9033,13 @@ funùiÚ
 $¬gs
 ){
 
-401 
+218 
 $tok’
 =
 $¬gs
 [0];
 
-404 
+221 
 $u£r_d©a
 =
 $this
@@ -9637,15 +9049,15 @@ $this
 $tok’
 );
 
-406 if(!
+223 if(!
 $u£r_d©a
 )
 
-407  
+224  
 	`¬¿y
 ("error"=>"not_login");
 
-409 
+226 
 $this
 ->
 lßd
@@ -9653,19 +9065,19 @@ lßd
 	`mod–
 ('m_group');
 
-410 
+227 
 $d©a
 =
 	`¬¿y
 ();
 
-412 
+229 
 $d©a
 ['group_id']=
 $¬gs
 [1];
 
-414 
+231 
 $group_d©a
 =
 $this
@@ -9677,21 +9089,21 @@ m_group
 $d©a
 ['group_id']);
 
-415 if(!
+232 if(!
 $group_d©a
 )
 
-416  
+233  
 	`¬¿y
 ('error',"no_group");
 
-418 
+235 
 $d©a
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-420 
+237 
 $row
 =
 $this
@@ -9703,29 +9115,29 @@ m_group
 $d©a
 ['user_id'],$data['group_id']);
 
-422 if(
+239 if(
 $row
 ){
 
-423  
+240  
 $row
 ['is_cÚfœmed']?
 	`¬¿y
 ('error'=>"be_in"):array('error'=>"wait_verify");
 
-426 
+243 
 $d©a
 ['inviter_id']=0;
 
-428 
+245 
 $d©a
 ['is_admin']=0;
 
-430 
+247 
 $d©a
 ['is_confirmed']=1;
 
-432 
+249 
 $d©a
 ['ü—‹_time']=
 $this
@@ -9733,7 +9145,7 @@ $this
 cu¼’t
 ;
 
-434 
+251 
 $»suÉ
 =
 $this
@@ -9745,11 +9157,11 @@ m_group
 $d©a
 );
 
-436 if(
+253 if(
 $»suÉ
 ){
 
-437 
+254 
 $this
 ->
 m_group
@@ -9759,7 +9171,7 @@ m_group
 $¬gs
 [1]);
 
-439 
+256 
 $ü—‹_u£r_id
 =
 $this
@@ -9771,7 +9183,7 @@ m_group
 $¬gs
 [1]);
 
-441 
+258 
 $this
 ->
 	`£nd_nÙify
@@ -9783,19 +9195,19 @@ $ü—‹_u£r_id
 $¬gs
 [2]);
 
-443  
+260  
 $group_d©a
 ;
 
-445  
+262  
 	`¬¿y
 ("error"=>"unknown_error");
 
-447 
+264 
 	}
 }
 
-453 
+270 
 funùiÚ
  
 	$group_check_š_by_blu‘oÙh_d©as
@@ -9803,13 +9215,13 @@ funùiÚ
 $¬gs
 ){
 
-456 
+273 
 $tok’
 =
 $¬gs
 [0];
 
-459 
+276 
 $u£r_d©a
 =
 $this
@@ -9819,21 +9231,21 @@ $this
 $tok’
 );
 
-461 if(!
+278 if(!
 $u£r_d©a
 )
 
-462  
+279  
 	`¬¿y
 (array("error"=>"not_login"));
 
-464 
+281 
 $group_id
 =
 $¬gs
 [1];
 
-466 
+283 
 $this
 ->
 lßd
@@ -9841,7 +9253,7 @@ lßd
 	`mod–
 ('m_user');
 
-467 
+284 
 $this
 ->
 lßd
@@ -9849,7 +9261,7 @@ lßd
 	`mod–
 ('m_group');
 
-469 if(
+286 if(
 	`is£t
 (
 $¬gs
@@ -9857,7 +9269,7 @@ $¬gs
 	`em±y
 ($args[2])){
 
-470 
+287 
 	`fÜ—ch
 (
 $¬gs
@@ -9869,7 +9281,7 @@ $key
 $v®ue
 ){
 
-471 
+288 
 $¬gs
 [2][
 $key
@@ -9879,7 +9291,7 @@ $key
 $v®ue
 ,"","0");
 
-473 
+290 
 $this
 ->
 m_u£r
@@ -9891,7 +9303,7 @@ $u£r_d©a
 $¬gs
 [2]);
 
-476 
+293 
 $blu‘oÙh_d©as
 =
 $this
@@ -9905,7 +9317,7 @@ $u£r_d©a
 cu¼’t
 );
 
-479 
+296 
 $u£r_d©as
 =
 $this
@@ -9917,7 +9329,7 @@ m_u£r
 $blu‘oÙh_d©as
 );
 
-482 
+299 
 $ab£Á_memb”_d©as
 =
 $this
@@ -9933,17 +9345,17 @@ $u£r_d©as
 $u£r_d©a
 ['user_id']);
 
-484 if(
+301 if(
 $group_id
 ==1){
 
-486 
+303 
 $ú‘
 =
 	`¬¿y
 ();
 
-487 
+304 
 	`fÜ—ch
 (
 $u£r_d©as
@@ -9955,19 +9367,19 @@ $key
 $v®ue
 ){
 
-488 
+305 
 $ú‘
 []=
 $v®ue
 ['display_name'];
 
-491 
+308 
 $»®_ú‘
 =
 	`¬¿y
 (
 
-499 
+316 
 $»®_ab£Á
 =
 	`¬¿y_diff
@@ -9977,13 +9389,13 @@ $»®_ú‘
 $ú‘
 );
 
-501 
+318 
 $ú‘
 =
 	`¬¿y
 ();
 
-502 
+319 
 	`fÜ—ch
 (
 $ab£Á_memb”_d©as
@@ -9995,19 +9407,19 @@ $key
 $v®ue
 ){
 
-503 
+320 
 $ú‘
 []=
 $v®ue
 ['display_name'];
 
-505 
+322 
 $ú‘
 =
 	`¬¿y_æ
 ($cnet);
 
-507 
+324 
 	`fÜ—ch
 (
 $»®_ab£Á
@@ -10017,7 +9429,7 @@ as
 $v®ue
 ){
 
-508 if(
+325 if(
 	`¬¿y_key_exi¡s
 (
 $v®ue
@@ -10025,47 +9437,47 @@ $v®ue
 $ú‘
 )){
 
-511 
+328 
 $ab£Á_memb”_d©as
 []=
 	`¬¿y
 (
 
-513 '»®_Çme'=>
+330 '»®_Çme'=>
 $v®ue
 ,
 
-514 'di¥Ïy_Çme'=>
+331 'di¥Ïy_Çme'=>
 $v®ue
 ,
 
-515 'Ï¡_aùiv™y'=>
+332 'Ï¡_aùiv™y'=>
 $this
 ->
 cu¼’t
 ,
 
-516 'ü—‹_time'=>
+333 'ü—‹_time'=>
 $this
 ->
 cu¼’t
 ,
 
-517 'u£r_av©¬'=>
+334 'u£r_av©¬'=>
 	`ba£_u¾
 ()."upload/default.jpg",
 
-527 if(
+344 if(
 $ab£Á_memb”_d©as
 ){
 
-528 
+345 
 $»suÉ
 =
 	`¬¿y
 ();
 
-530 
+347 
 $group_d©a
 =
 $this
@@ -10077,13 +9489,13 @@ m_group
 $group_id
 );
 
-531 
+348 
 $ãed_cÚ‹Á
 ="æˆ‘ç»™#".
 $group_d©a
 ['group_name']."#è¿›è¡Œç‚¹åï¼Œæ²¡åˆ°çš„æˆå‘˜æœ‰ï¼š";
 
-532 
+349 
 	`fÜ—ch
 (
 $ab£Á_memb”_d©as
@@ -10095,13 +9507,13 @@ $key
 $v®ue
 ){
 
-533 
+350 
 $ãed_cÚ‹Á
 .="@".
 $v®ue
 ['display_name'];
 
-534 
+351 
 $v®ue
 ['»ÏtiÚsh']=
 $this
@@ -10111,7 +9523,7 @@ $this
 $u£r_d©a
 ['user_id'], $value['user_id']);
 
-535 
+352 
 $»suÉ
 []=(
 ¬¿y
@@ -10119,15 +9531,15 @@ $»suÉ
 $v®ue
 ;
 
-537 if(
+354 if(
 $group_id
 ==1)
 
-538 
+355 
 $group_d©a
 ['member_count']=53;
 
-539 
+356 
 $ab£Á_¿‹
 =
 	`štv®
@@ -10139,13 +9551,13 @@ $group_d©a
 $ab£Á_memb”_d©as
 ))/intval($group_data['member_count'])*100);
 
-540 
+357 
 $ãed_cÚ‹Á
 .="ã€‚å‡ºå‹¤ç‡ä¸º".
 $ab£Á_¿‹
 ."%ã€‚";
 
-541 
+358 
 $this
 ->
 lßd
@@ -10153,27 +9565,27 @@ lßd
 	`mod–
 ("m_feed");
 
-542 
+359 
 $ãed_d©a
 =
 	`¬¿y
 (
 
-543 'u£r_id'=>
+360 'u£r_id'=>
 $u£r_d©a
 ['user_id'],
 
-545 'ãed_cÚ‹Á'=>
+362 'ãed_cÚ‹Á'=>
 $ãed_cÚ‹Á
 ,
 
-547 'ü—‹_time'=>
+364 'ü—‹_time'=>
 $this
 ->
 cu¼’t
 ,
 
-553 
+370 
 $ãed_id
 =
 $this
@@ -10185,11 +9597,11 @@ m_ãed
 $ãed_d©a
 );
 
-554 if(
+371 if(
 $ãed_id
 ){
 
-555 
+372 
 $this
 ->
 	`upd©e_Ï¡_aùiv™y
@@ -10201,7 +9613,7 @@ cu¼’t
 $ãed_cÚ‹Á
 );
 
-556 
+373 
 $this
 ->
 m_u£r
@@ -10211,11 +9623,11 @@ m_u£r
 $ãed_d©a
 ['user_id'], 'weibo_count');
 
-558  
+375  
 $»suÉ
 ;
 
-561 
+378 
 $this
 ->
 lßd
@@ -10223,7 +9635,7 @@ lßd
 	`mod–
 ("m_feed");
 
-562 
+379 
 $group_d©a
 =
 $this
@@ -10235,33 +9647,33 @@ m_group
 $group_id
 );
 
-563 
+380 
 $ãed_cÚ‹Á
 ="æˆ‘ç»™#".
 $group_d©a
 ['group_name']."#è¿›è¡Œç‚¹åï¼Œæˆå‘˜å…¨åˆ°ï¼Œå‡ºå‹¤ç‡ä¸º100%ï¼";
 
-564 
+381 
 $ãed_d©a
 =
 	`¬¿y
 (
 
-565 'u£r_id'=>
+382 'u£r_id'=>
 $u£r_d©a
 ['user_id'],
 
-567 'ãed_cÚ‹Á'=>
+384 'ãed_cÚ‹Á'=>
 $ãed_cÚ‹Á
 ,
 
-569 'ü—‹_time'=>
+386 'ü—‹_time'=>
 $this
 ->
 cu¼’t
 ,
 
-575 
+392 
 $ãed_id
 =
 $this
@@ -10273,11 +9685,11 @@ m_ãed
 $ãed_d©a
 );
 
-576 if(
+393 if(
 $ãed_id
 ){
 
-577 
+394 
 $this
 ->
 	`upd©e_Ï¡_aùiv™y
@@ -10289,7 +9701,7 @@ cu¼’t
 $ãed_cÚ‹Á
 );
 
-578 
+395 
 $this
 ->
 m_u£r
@@ -10299,15 +9711,15 @@ m_u£r
 $ãed_d©a
 ['user_id'], 'weibo_count');
 
-580  
+397  
 	`¬¿y
 (array("error"=>"no_absent"));
 
-583 
+400 
 	}
 }
 
-589 
+406 
 funùiÚ
  
 	$group_sign_š_by_blu‘oÙh_d©as
@@ -10315,13 +9727,13 @@ funùiÚ
 $¬gs
 ){
 
-592 
+409 
 $tok’
 =
 $¬gs
 [0];
 
-595 
+412 
 $u£r_d©a
 =
 $this
@@ -10331,21 +9743,21 @@ $this
 $tok’
 );
 
-597 if(!
+414 if(!
 $u£r_d©a
 )
 
-598  
+415  
 	`¬¿y
 (array("error"=>"not_login"));
 
-600 
+417 
 $group_id
 =
 $¬gs
 [1];
 
-602 
+419 
 $this
 ->
 lßd
@@ -10353,7 +9765,7 @@ lßd
 	`mod–
 ('m_user');
 
-603 
+420 
 $this
 ->
 lßd
@@ -10361,7 +9773,7 @@ lßd
 	`mod–
 ('m_group');
 
-605 if(
+422 if(
 	`is£t
 (
 $¬gs
@@ -10369,7 +9781,7 @@ $¬gs
 	`em±y
 ($args[2])){
 
-606 
+423 
 	`fÜ—ch
 (
 $¬gs
@@ -10381,7 +9793,7 @@ $key
 $v®ue
 ){
 
-607 
+424 
 $¬gs
 [2][
 $key
@@ -10391,7 +9803,7 @@ $key
 $v®ue
 ,"","0");
 
-609 
+426 
 $this
 ->
 m_u£r
@@ -10403,7 +9815,7 @@ $u£r_d©a
 $¬gs
 [2]);
 
-612 
+429 
 $blu‘oÙh_d©as
 =
 $this
@@ -10417,11 +9829,11 @@ $u£r_d©a
 cu¼’t
 );
 
-614 
+431 
 	}
 }
 
-621 
+438 
 funùiÚ
  
 	$g‘_®l_u£r_d©a
@@ -10429,13 +9841,13 @@ funùiÚ
 $¬gs
 ){
 
-624 
+441 
 $tok’
 =
 $¬gs
 [0];
 
-627 
+444 
 $u£r_d©a
 =
 $this
@@ -10445,15 +9857,15 @@ $this
 $tok’
 );
 
-629 if(!
+446 if(!
 $u£r_d©a
 )
 
-630  
+447  
 	`¬¿y
 (array('error'=>"not_login"));
 
-632 
+449 
 $this
 ->
 lßd
@@ -10461,19 +9873,19 @@ lßd
 	`mod–
 ('m_user');
 
-634 if(
+451 if(
 	`is£t
 (
 $¬gs
 [1])&&$args[1]){
 
-635 if(
+452 if(
 	`is£t
 (
 $¬gs
 [2])&&$args[2]){
 
-636 
+453 
 $u£r_ids
 =
 $this
@@ -10485,7 +9897,7 @@ m_u£r
 $¬gs
 [1],$args[2]);
 
-638 
+455 
 $u£r_ids
 =
 $this
@@ -10497,7 +9909,7 @@ m_u£r
 $¬gs
 [1]);
 
-641 
+458 
 $u£r_ids
 =
 $this
@@ -10507,7 +9919,7 @@ m_u£r
 	`g‘_®l_u£r_id
 ();
 
-644 
+461 
 $u£r_d©as
 =
 $this
@@ -10519,23 +9931,23 @@ m_u£r
 $u£r_ids
 );
 
-645 if(
+462 if(
 $u£r_d©as
 )
 
-646  
+463  
 $u£r_d©as
 ;
 
-648  
+465  
 	`¬¿y
 (array('error',"not_user"));
 
-650 
+467 
 	}
 }
 
-652 
+469 
 funùiÚ
  
 	$g‘_u£r_d©a_by_di¥Ïy_Çme
@@ -10543,13 +9955,13 @@ funùiÚ
 $¬gs
 ){
 
-654 
+471 
 $tok’
 =
 $¬gs
 [0];
 
-657 
+474 
 $u£r_d©a
 =
 $this
@@ -10559,15 +9971,15 @@ $this
 $tok’
 );
 
-659 if(!
+476 if(!
 $u£r_d©a
 )
 
-660  
+477  
 	`¬¿y
 (array('error'=>"not_login"));
 
-662 
+479 
 $this
 ->
 lßd
@@ -10575,13 +9987,13 @@ lßd
 	`mod–
 ('m_user');
 
-664 
+481 
 $di¥Ïy_Çme
 =
 $¬gs
 [1];
 
-666 
+483 
 $u£r_d©as
 =
 $this
@@ -10593,11 +10005,11 @@ m_u£r
 $di¥Ïy_Çme
 );
 
-668 if(
+485 if(
 $u£r_d©as
 ){
 
-669 
+486 
 	`fÜ—ch
 (
 $u£r_d©as
@@ -10609,7 +10021,7 @@ $key
 $v®ue
 ){
 
-670 
+487 
 $v®ue
 ['»ÏtiÚsh']=
 $this
@@ -10619,7 +10031,7 @@ $this
 $u£r_d©a
 ['user_id'], $value['user_id']);
 
-671 
+488 
 $u£r_d©as
 [
 $key
@@ -10627,19 +10039,19 @@ $key
 $v®ue
 ;
 
-673  
+490  
 $u£r_d©as
 ;
 
-675  
+492  
 	`¬¿y
 (array('error'=>"no_user"));
 
-677 
+494 
 	}
 }
 
-684 
+501 
 funùiÚ
  
 	$po¡_weibo
@@ -10647,155 +10059,103 @@ funùiÚ
 $¬gs
 ){
 
-685 
+503 
+$tok’
+=
+	`we_esÿ³
+(
+$¬gs
+[0]);
+
+504 
+$cÚ‹Á
+=
+	`we_esÿ³
+(
+$¬gs
+[1]);
+
+505 
+$visib™y
+=
+	`we_esÿ³
+(
+$¬gs
+[2]);
+
+506 
 $this
 ->
 lßd
 ->
 	`mod–
-('m_feed');
+('m_wlinke');
 
-688 
-$tok’
-=
-$¬gs
-[0];
-
-691 
+507 
 $u£r_d©a
 =
 $this
 ->
-	`g‘_u£r_by_tok’
+m_wlške
+->
+	`is_u£r_logš
 (
 $tok’
 );
 
-693 if(!
-$u£r_d©a
-)
-
-694  
-	`¬¿y
-("error"=>"not_login");
-
-697 
-$cÚ‹Á
-=
-$¬gs
-[1];
-
-699 
-$visib™y
-=
-$¬gs
-[2];
-
-701 
-$d©a
-=
-	`¬¿y
+508 if(
+	`is_we_”rÜ
 (
-
-702 'u£r_id'=>
 $u£r_d©a
-['user_id'],
+))
 
-704 'ãed_cÚ‹Á'=>
-$cÚ‹Á
-,
-
-706 'ü—‹_time'=>
-$this
-->
-cu¼’t
-,
-
-710 'visib™y'=>
-$visib™y
-
-
-713 
-$ãed_id
-=
-$this
-->
-m_ãed
-->
-	`add_ãed
+509  
+	`we_sšgË_”rÜ
 (
-$d©a
+$u£r_d©a
+->
+”rÜ_mes§ge
 );
 
-714 if(
-$ãed_id
-){
-
-715 
+510 
+$ãed
+=
 $this
 ->
-	`upd©e_Ï¡_aùiv™y
+m_wlške
+->
+	`po¡_weibo
 (
 $u£r_d©a
-['u£r_id'], $this->
-cu¼’t
-,
+['u£r_id'],
 $cÚ‹Á
+,
+$visib™y
 );
 
-716 
-$d©a
-=
-	`¬¿y_m”ge
+511 if(
+	`is_we_”rÜ
 (
-	`¬¿y
-('ãed_id'=>
-$ãed_id
-),$data);
+$ãed
+)){
 
-717 
-$d©a
-=
-	`¬¿y_m”ge
-($d©a,
-$this
-->
-m_u£r
-->
-	`g‘_u£r_d©a_by_u£r_id
-($data['user_id']));
-
-718 
-$this
-->
-lßd
-->
-	`mod–
-('m_user');
-
-719 
-$this
-->
-m_u£r
-->
-	`šü—£_u£r_m‘a
+512  
+	`we_sšgË_”rÜ
 (
-$d©a
-['user_id'], 'weibo_count');
+$ãed
+->
+”rÜ_mes§ge
+);
 
-720  
-$d©a
+514  
+$ãed
 ;
 
-723  
-	`¬¿y
-('error'=>"unknown_error");
-
-724 
+516 
 	}
 }
 
-731 
+523 
 funùiÚ
  
 	$Œª¥Úd_weibo
@@ -10803,13 +10163,13 @@ funùiÚ
 $¬gs
 ){
 
-734 
+526 
 $tok’
 =
 $¬gs
 [0];
 
-737 
+529 
 $u£r_d©a
 =
 $this
@@ -10819,15 +10179,15 @@ $this
 $tok’
 );
 
-739 if(!
+531 if(!
 $u£r_d©a
 )
 
-740  
+532  
 	`¬¿y
 ("error"=>"not_login");
 
-742 
+534 
 $this
 ->
 lßd
@@ -10835,53 +10195,53 @@ lßd
 	`mod–
 ('m_feed');
 
-745 
+537 
 $Œª¥Úd_id
 =
 $¬gs
 [1];
 
-748 
+540 
 $cÚ‹Á
 =
 $¬gs
 [2];
 
-750 
+542 
 $visib™y
 =
 $¬gs
 [3];
 
-752 
+544 
 $d©a
 =
 	`¬¿y
 (
 
-753 'u£r_id'=>
+545 'u£r_id'=>
 $u£r_d©a
 ['user_id'],
 
-755 'ãed_cÚ‹Á'=>
+547 'ãed_cÚ‹Á'=>
 $cÚ‹Á
 ,
 
-757 'ü—‹_time'=>
+549 'ü—‹_time'=>
 $this
 ->
 cu¼’t
 ,
 
-758 'Œª¥Úd_id'=>
+550 'Œª¥Úd_id'=>
 $Œª¥Úd_id
 ,
 
-761 'visib™y'=>
+553 'visib™y'=>
 $visib™y
 
 
-764 
+556 
 $ãed_id
 =
 $this
@@ -10893,11 +10253,11 @@ m_ãed
 $d©a
 );
 
-766 if(
+558 if(
 $ãed_id
 ){
 
-767 
+559 
 $this
 ->
 	`upd©e_Ï¡_aùiv™y
@@ -10907,7 +10267,7 @@ $u£r_d©a
 cu¼’t
 );
 
-768 
+560 
 $this
 ->
 m_ãed
@@ -10917,7 +10277,7 @@ m_ãed
 $Œª¥Úd_id
 );
 
-769 
+561 
 $d©a
 =
 	`¬¿y_m”ge
@@ -10927,7 +10287,7 @@ $d©a
 $ãed_id
 ),$data);
 
-770 
+562 
 $d©a
 ['sourû_ãed']=
 $this
@@ -10939,7 +10299,7 @@ m_ãed
 $ãed_id
 );
 
-771 
+563 
 $this
 ->
 m_u£r
@@ -10949,19 +10309,19 @@ m_u£r
 $u£r_d©a
 ['user_id'], 'weibo_count');
 
-772  
+564  
 $d©a
 ;
 
-775  
+567  
 	`¬¿y
 ("error"=>"unknown_error");
 
-776 
+568 
 	}
 }
 
-783 
+575 
 funùiÚ
  
 	$g‘_®l_public_weibo
@@ -10969,101 +10329,125 @@ funùiÚ
 $¬gs
 ){
 
-786 
+577 
 $tok’
 =
-$¬gs
-[0];
-
-789 
-$u£r_d©a
-=
-$this
-->
-	`g‘_u£r_by_tok’
-(
-$tok’
-);
-
-791 if(!
-$u£r_d©a
-)
-
-792  
-	`¬¿y
-(array("error"=>"not_login"));
-
-794 if(
-	`is£t
+	`we_esÿ³
 (
 $¬gs
-[1])&&$args[1])
+[0]);
 
-795 
+578 
 $f‹r
 =
-$¬gs
-[1];
-
-797 
-$f‹r
-="old";
-
-799 if(
-	`is£t
+	`we_esÿ³
 (
 $¬gs
-[2])&&$args[2])
+[1],"old");
 
-800 
+579  
+$f‹r
+;
+
+580 
 $id
 =
+	`we_esÿ³
+(
 $¬gs
-[2];
+[2],0);
 
-802 
-$id
-="";
+581 
+$·ge
+=
+	`we_esÿ³
+(
+$¬gs
+[3],1);
 
-804 
+582 
+$·ge_couÁ
+=
+	`we_esÿ³
+(
+$¬gs
+[4],20);
+
+583 
 $this
 ->
 lßd
 ->
 	`mod–
-('m_feed');
+('m_wlinke');
 
-806 
-$ãeds
+584 
+$u£r_d©a
 =
 $this
 ->
-m_ãed
+m_wlške
 ->
-	`g‘_®l_public_ãeds
+	`is_u£r_logš
+(
+$tok’
+);
+
+585 if(
+	`is_we_”rÜ
+(
+$u£r_d©a
+))
+
+586  
+	`we_sšgË_”rÜ
+(
+$u£r_d©a
+->
+”rÜ_mes§ge
+);
+
+587 
+$public_weibos
+=
+$this
+->
+m_wlške
+->
+	`g‘_®l_public_weibo
 (
 $f‹r
-, 
+,
 $id
-, "", "");
+,
+$·ge
+,
+$·ge_couÁ
+);
 
-808 if(!
-$ãeds
-)
+588 if(
+	`is_we_”rÜ
+(
+$public_weibos
+))
 
-809  
-	`¬¿y
-(array("error"=>"no_weibo"));
+589  
+	`we_sšgË_”rÜ
+(
+$public_weibos
+->
+”rÜ_mes§ge
+);
 
-811  
-$ãeds
+591  
+$public_weibos
 ;
 
-812 
+592 
 	}
 }
 
-819 
+599 
 funùiÚ
  
 	$g‘_u£r_weibo
@@ -11071,13 +10455,13 @@ funùiÚ
 $¬gs
 ){
 
-822 
+602 
 $tok’
 =
 $¬gs
 [0];
 
-825 
+605 
 $u£r_d©a
 =
 $this
@@ -11087,65 +10471,65 @@ $this
 $tok’
 );
 
-827 if(!
+607 if(!
 $u£r_d©a
 )
 
-828  
+608  
 	`¬¿y
 (array("error"=>"not_login"));
 
-830 if(
+610 if(
 	`is£t
 (
 $¬gs
 [1])&&$args[1])
 
-831 
+611 
 $u£r_id
 =
 $¬gs
 [1];
 
-833 
+613 
 $u£r_id
 =
 $u£r_d©a
 ['user_id'];
 
-835 if(
+615 if(
 	`is£t
 (
 $¬gs
 [2])&&$args[2])
 
-836 
+616 
 $·ge
 =
 $¬gs
 [2];
 
-838 
+618 
 $·ge
 ="";
 
-840 if(
+620 if(
 	`is£t
 (
 $¬gs
 [3])&&$args[3])
 
-841 
+621 
 $·ge_couÁ
 =
 $¬gs
 [3];
 
-843 
+623 
 $·ge_couÁ
 ="";
 
-845 
+625 
 $»ÏtiÚsh
 =
 $this
@@ -11157,7 +10541,7 @@ $u£r_d©a
 $u£r_id
 );
 
-848 
+628 
 $this
 ->
 lßd
@@ -11165,7 +10549,7 @@ lßd
 	`mod–
 ('m_feed');
 
-850 
+630 
 $ãeds
 =
 $this
@@ -11183,23 +10567,23 @@ $·ge
 $·ge_couÁ
 );
 
-852 if(
+632 if(
 $ãeds
 ){
 
-853  
+633  
 $ãeds
 ;
 
-855  
+635  
 	`¬¿y
 (array("error"=>"no_weibo"));
 
-858 
+638 
 	}
 }
 
-865 
+645 
 funùiÚ
  
 	$g‘_ä›nds_weibo
@@ -11207,13 +10591,13 @@ funùiÚ
 $¬gs
 ){
 
-868 
+648 
 $tok’
 =
 $¬gs
 [0];
 
-871 
+651 
 $u£r_d©a
 =
 $this
@@ -11223,47 +10607,47 @@ $this
 $tok’
 );
 
-873 if(!
+653 if(!
 $u£r_d©a
 )
 
-874  
+654  
 	`¬¿y
 (array("error"=>"not_login"));
 
-876 if(
+656 if(
 	`is£t
 (
 $¬gs
 [1]))
 
-877 
+657 
 $·ge
 =
 $¬gs
 [1];
 
-879 
+659 
 $·ge
 ="";
 
-881 if(
+661 if(
 	`is£t
 (
 $¬gs
 [2]))
 
-882 
+662 
 $·ge_couÁ
 =
 $¬gs
 [2];
 
-884 
+664 
 $·ge_couÁ
 ="";
 
-886 
+666 
 $this
 ->
 lßd
@@ -11271,7 +10655,7 @@ lßd
 	`mod–
 ('m_friend');
 
-888 
+668 
 $ä›nd_ids
 =
 $this
@@ -11283,17 +10667,17 @@ m_ä›nd
 $u£r_d©a
 ['user_id']);
 
-890 if(
+670 if(
 	`em±y
 (
 $ä›nd_ids
 ))
 
-891  
+671  
 	`¬¿y
 (array("error"=>"no_friend"));
 
-893 
+673 
 $this
 ->
 lßd
@@ -11301,7 +10685,7 @@ lßd
 	`mod–
 ('m_feed');
 
-895 
+675 
 $ãeds
 =
 $this
@@ -11317,25 +10701,25 @@ $·ge
 $·ge_couÁ
 );
 
-897 if(
+677 if(
 	`em±y
 (
 $ãeds
 ))
 
-898  
+678  
 	`¬¿y
 (array("error"=>"no_weibo"));
 
-899  
+679  
 $ãeds
 ;
 
-902 
+682 
 	}
 }
 
-909 
+689 
 funùiÚ
  
 	$u¶ßd_pœtu»
@@ -11343,7 +10727,7 @@ funùiÚ
 $¬gs
 ){
 
-910 
+690 
 $this
 ->
 lßd
@@ -11351,7 +10735,7 @@ lßd
 	`mod–
 ('m_album');
 
-911 
+691 
 $this
 ->
 lßd
@@ -11359,13 +10743,13 @@ lßd
 	`h–³r
 ('file');
 
-913 
+693 
 $tok’
 =
 $¬gs
 [0];
 
-916 
+696 
 $u£r_d©a
 =
 $this
@@ -11375,21 +10759,21 @@ $this
 $tok’
 );
 
-918 if(!
+698 if(!
 $u£r_d©a
 )
 
-919  
+699  
 	`¬¿y
 ("error"=>"not_login");
 
-921 
+701 
 $d©a
 ['®bum_id']=
 $¬gs
 [1];
 
-923 if(
+703 if(
 $u£r_d©a
 ['u£r_id']!=
 $this
@@ -11401,7 +10785,7 @@ m_®bum
 $d©a
 ['album_id'])){
 
-924 
+704 
 $d©a
 ['®bum_id']=
 $this
@@ -11413,25 +10797,25 @@ m_®bum
 $u£r_d©a
 ['user_id']);
 
-927 
+707 
 $d©a
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-929 
+709 
 $d©a
 ['piùu»_Çme']=
 $¬gs
 [2];
 
-931 
+711 
 $d©a
 ['piùu»_de¡rtiÚ']=
 $¬gs
 [3];
 
-933 
+713 
 $b™s
 =
 	`ba£64_decode
@@ -11439,19 +10823,19 @@ $b™s
 $¬gs
 [4]);
 
-935 
+715 
 $d©a
 ['fe_size']=
 $¬gs
 [5];
 
-937 
+717 
 $d©a
 ['fe_ty³']=
 $¬gs
 [6];
 
-939 
+719 
 $d©a
 ['ü—‹_time']=
 $this
@@ -11459,29 +10843,29 @@ $this
 cu¼’t
 ;
 
-941 
+721 
 $d©a
 ['file_type']){
 
-942 1:
+722 1:
 $img_ty³
 ="gif";;
 
-943 2:
+723 2:
 $img_ty³
 ="jpg";;
 
-944 3:
+724 3:
 $img_ty³
 ="png";;
 
-947 
+727 
 $d©a
 ['fe_Çme']=$d©a['u£r_id'].'_'.$d©a['ü—‹_time'].'.'.
 $img_ty³
 ;
 
-950 
+730 
 	`wr™e_fe
 ('u¶ßd/'.
 $d©a
@@ -11489,7 +10873,7 @@ $d©a
 $b™s
 );
 
-953 
+733 
 $piùu»_id
 =
 $this
@@ -11501,15 +10885,15 @@ m_®bum
 $d©a
 );
 
-955  
+735  
 	`¬¿y
 ("success"=>"success");
 
-957 
+737 
 	}
 }
 
-964 
+744 
 funùiÚ
  
 	$u¶ßd_av©¬
@@ -11517,7 +10901,7 @@ funùiÚ
 $¬gs
 ){
 
-965 
+745 
 $this
 ->
 lßd
@@ -11527,7 +10911,7 @@ lßd
 	`¬¿y
 ('m_album','m_user'));
 
-966 
+746 
 $this
 ->
 lßd
@@ -11535,13 +10919,13 @@ lßd
 	`h–³r
 ('file');
 
-968 
+748 
 $tok’
 =
 $¬gs
 [0];
 
-971 
+751 
 $u£r_d©a
 =
 $this
@@ -11551,21 +10935,21 @@ $this
 $tok’
 );
 
-973 if(!
+753 if(!
 $u£r_d©a
 )
 
-974  
+754  
 	`¬¿y
 ("error"=>"not_login");
 
-976 
+756 
 $d©a
 ['®bum_id']=
 $¬gs
 [1];
 
-978 if(
+758 if(
 $u£r_d©a
 ['u£r_id']!=
 $this
@@ -11577,7 +10961,7 @@ m_®bum
 $d©a
 ['album_id'])){
 
-979 
+759 
 $d©a
 ['®bum_id']=
 $this
@@ -11589,25 +10973,25 @@ m_®bum
 $u£r_d©a
 ['user_id']);
 
-982 
+762 
 $d©a
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-984 
+764 
 $d©a
 ['piùu»_Çme']=
 $¬gs
 [2];
 
-986 
+766 
 $d©a
 ['piùu»_de¡rtiÚ']=
 $¬gs
 [3];
 
-989 
+769 
 $b™s
 =
 	`ba£64_decode
@@ -11615,19 +10999,19 @@ $b™s
 $¬gs
 [4]);
 
-991 
+771 
 $d©a
 ['fe_size']=
 $¬gs
 [5];
 
-993 
+773 
 $d©a
 ['fe_ty³']=
 $¬gs
 [6];
 
-995 
+775 
 $d©a
 ['ü—‹_time']=
 $this
@@ -11635,35 +11019,35 @@ $this
 cu¼’t
 ;
 
-997 
+777 
 $d©a
 ['file_type']){
 
-998 1:
+778 1:
 $img_ty³
 ="gif";;
 
-999 2:
+779 2:
 $img_ty³
 ="jpg";;
 
-1000 3:
+780 3:
 $img_ty³
 ="png";;
 
-1003 
+783 
 $d©a
 ['fe_Çme']=$d©a['u£r_id'].'_'.$d©a['ü—‹_time'].'.'.
 $img_ty³
 ;
 
-1005 
+785 
 $fe_·th
 ='u¶ßd/'.
 $d©a
 ['user_id'].'/'.$data['file_name'];
 
-1008 
+788 
 	`wr™e_fe
 (
 $fe_·th
@@ -11671,7 +11055,7 @@ $fe_·th
 $b™s
 );
 
-1011 
+791 
 $piùu»_id
 =
 $this
@@ -11683,23 +11067,23 @@ m_®bum
 $d©a
 );
 
-1013 
+793 
 $d©a
 =
 	`¬¿y
 (
 
-1014 'u£r_id'=>
+794 'u£r_id'=>
 $u£r_d©a
 ['user_id'],
 
-1016 'm‘a_v®ue'=>
+796 'm‘a_v®ue'=>
 	`ba£_u¾
 ().
 $fe_·th
 
 
-1019 
+799 
 $this
 ->
 m_u£r
@@ -11709,15 +11093,15 @@ m_u£r
 $d©a
 );
 
-1021  
+801  
 	`¬¿y
 ("success"=>"success");
 
-1022 
+802 
 	}
 }
 
-1029 
+809 
 funùiÚ
  
 	$g‘_Ã¬_by_blu‘oÙh_d©as
@@ -11725,13 +11109,13 @@ funùiÚ
 $¬gs
 ){
 
-1032 
+812 
 $tok’
 =
 $¬gs
 [0];
 
-1035 
+815 
 $u£r_d©a
 =
 $this
@@ -11741,15 +11125,15 @@ $this
 $tok’
 );
 
-1037 if(!
+817 if(!
 $u£r_d©a
 )
 
-1038  
+818  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1040 
+820 
 $this
 ->
 lßd
@@ -11757,13 +11141,13 @@ lßd
 	`mod–
 ('m_user');
 
-1043 if(
+823 if(
 	`is£t
 (
 $¬gs
 [1])&&$args[1]){
 
-1044 
+824 
 $this
 ->
 m_u£r
@@ -11775,7 +11159,7 @@ $u£r_d©a
 $¬gs
 [1]);
 
-1048 
+828 
 $blu‘oÙh_d©as
 =
 $this
@@ -11789,7 +11173,7 @@ $u£r_d©a
 cu¼’t
 );
 
-1051 
+831 
 $u£r_d©as
 =
 $this
@@ -11801,7 +11185,7 @@ m_u£r
 $blu‘oÙh_d©as
 );
 
-1054 
+834 
 $this
 ->
 lßd
@@ -11809,7 +11193,7 @@ lßd
 	`mod–
 ('m_place');
 
-1055 
+835 
 $this
 ->
 lßd
@@ -11817,7 +11201,7 @@ lßd
 	`mod–
 ('m_event');
 
-1056 
+836 
 	`fÜ—ch
 (
 $u£r_d©as
@@ -11829,11 +11213,11 @@ $key
 $v®ue
 ){
 
-1057 if(
+837 if(
 $v®ue
 ['user_id']==0){
 
-1058 
+838 
 $¶aû
 =
 $this
@@ -11845,11 +11229,11 @@ m_¶aû
 $v®ue
 ['bluetooth_id']);
 
-1059 if(
+839 if(
 $¶aû
 ){
 
-1060 
+840 
 $»ûÁ_ev’t
 =
 $this
@@ -11863,53 +11247,53 @@ $¶aû
 cu¼’t
 );
 
-1061 if(
+841 if(
 $»ûÁ_ev’t
 ){
 
-1062 
+842 
 $¶aû
 ['»ûÁ_ev’t']=
 $»ûÁ_ev’t
 ['event_name'];
 
-1064 
+844 
 $¶aû
 ['recent_event']="ç©ºé—²çŠ¶æ€";
 
-1066 
+846 
 $¶aû
 ['¶aû_av©¬']=
 	`ba£_u¾
 ().'upload/place_default.jpg';
 
-1067 
+847 
 $¶aû
 ['Ï¡_£¬ch_time']=
 $v®ue
 ['last_search_time'];
 
-1068 
+848 
 $¶aû
 ['£¬ch_couÁ']=
 $v®ue
 ['search_count'];
 
-1069 
+849 
 $v®ue
 =
 $¶aû
 ;
 
-1070 
+850 
 $v®ue
 ['type']='place';
 
-1072 
+852 
 $v®ue
 ['type']='user';
 
-1075 
+855 
 $v®ue
 ['»ÏtiÚsh']=
 $this
@@ -11919,11 +11303,11 @@ $this
 $u£r_d©a
 ['user_id'], $value['user_id']);
 
-1076 
+856 
 $v®ue
 ['type']='user';
 
-1078 
+858 
 $u£r_d©as
 [
 $key
@@ -11931,23 +11315,23 @@ $key
 $v®ue
 ;
 
-1081 if(
+861 if(
 $u£r_d©as
 )
 
-1082  
+862  
 $u£r_d©as
 ;
 
-1084  
+864  
 	`¬¿y
 (array("error"=>"no_user"));
 
-1085 
+865 
 	}
 }
 
-1092 
+872 
 funùiÚ
  
 	$g‘_group_d©as_by_ÿ‹gÜy
@@ -11955,13 +11339,13 @@ funùiÚ
 $¬gs
 ){
 
-1095 
+875 
 $tok’
 =
 $¬gs
 [0];
 
-1098 
+878 
 $u£r_d©a
 =
 $this
@@ -11971,15 +11355,15 @@ $this
 $tok’
 );
 
-1100 if(!
+880 if(!
 $u£r_d©a
 )
 
-1101  
+881  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1103 
+883 
 $this
 ->
 lßd
@@ -11987,7 +11371,7 @@ lßd
 	`mod–
 ('m_group');
 
-1105 
+885 
 $ÿ‹gÜy
 =(
 	`is£t
@@ -11995,7 +11379,7 @@ $ÿ‹gÜy
 $¬gs
 [1])&&$args[1])?$args[1]:0;
 
-1107 
+887 
 $·ge
 =
 	`is£t
@@ -12003,7 +11387,7 @@ $·ge
 $¬gs
 [2])?$args[2]:0;
 
-1109 
+889 
 $·ge_couÁ
 =
 	`is£t
@@ -12011,7 +11395,7 @@ $·ge_couÁ
 $¬gs
 [3])?$args[3]:0;
 
-1111 
+891 
 $group_d©as
 =
 $this
@@ -12027,11 +11411,11 @@ $·ge
 $·ge_couÁ
 );
 
-1113 if(
+893 if(
 $group_d©as
 ){
 
-1114 
+894 
 	`fÜ—ch
 (
 $group_d©as
@@ -12043,7 +11427,7 @@ $key
 $v®ue
 ){
 
-1115 
+895 
 $u£r_¡©us
 =
 $this
@@ -12057,25 +11441,25 @@ $u£r_d©a
 $v®ue
 ['group_id']);
 
-1116 if(
+896 if(
 $u£r_¡©us
 ){
 
-1117 
+897 
 $v®ue
 ['is_in']=1;
 
-1118 
+898 
 $v®ue
 ['is_cÚfœmed']=
 $u£r_¡©us
 ['is_confirmed'];
 
-1121 
+901 
 $v®ue
 ['is_in']=0;
 
-1123 
+903 
 $group_d©as
 [
 $key
@@ -12083,19 +11467,19 @@ $key
 $v®ue
 ;
 
-1125  
+905  
 $group_d©as
 ;
 
-1128  
+908  
 	`¬¿y
 (array("error"=>"no_group"));
 
-1130 
+910 
 	}
 }
 
-1137 
+917 
 funùiÚ
  
 	$g‘_group_d©as_by_u£r_id
@@ -12103,13 +11487,13 @@ funùiÚ
 $¬gs
 ){
 
-1140 
+920 
 $tok’
 =
 $¬gs
 [0];
 
-1143 
+923 
 $u£r_d©a
 =
 $this
@@ -12119,15 +11503,15 @@ $this
 $tok’
 );
 
-1145 if(!
+925 if(!
 $u£r_d©a
 )
 
-1146  
+926  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1147 
+927 
 $this
 ->
 lßd
@@ -12135,13 +11519,13 @@ lßd
 	`mod–
 ('m_group');
 
-1149 
+929 
 $u£r_id
 =
 $u£r_d©a
 ['user_id'];
 
-1151 
+931 
 $is_admš
 =
 	`is£t
@@ -12149,7 +11533,7 @@ $is_admš
 $¬gs
 [1])?$args[1]:'';
 
-1153 
+933 
 $·ge
 =
 	`is£t
@@ -12157,7 +11541,7 @@ $·ge
 $¬gs
 [2])?$args[2]:'';
 
-1155 
+935 
 $·ge_couÁ
 =
 	`is£t
@@ -12165,13 +11549,13 @@ $·ge_couÁ
 $¬gs
 [3])?$args[3]:'';
 
-1157 
+937 
 $group_d©as
 =
 	`¬¿y
 ();
 
-1159 
+939 
 $group_d©as
 =
 $this
@@ -12189,23 +11573,23 @@ $·ge
 $·ge_couÁ
 );
 
-1161 if(
+941 if(
 $group_d©as
 )
 
-1162  
+942  
 $group_d©as
 ;
 
-1164  
+944  
 	`¬¿y
 (array("error"=>"no_group"));
 
-1165 
+945 
 	}
 }
 
-1167 
+947 
 funùiÚ
  
 	$g‘_hi¡Üy_Ã¬_u£r_d©as
@@ -12213,13 +11597,13 @@ funùiÚ
 $¬gs
 ){
 
-1169 
+949 
 $tok’
 =
 $¬gs
 [0];
 
-1172 
+952 
 $u£r_d©a
 =
 $this
@@ -12229,63 +11613,63 @@ $this
 $tok’
 );
 
-1174 if(!
+954 if(!
 $u£r_d©a
 )
 
-1175  
+955  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1177 if(
+957 if(
 	`is£t
 (
 $¬gs
 [1])&&$args[1])
 
-1178 
+958 
 $sÜt
 =
 $¬gs
 [1];
 
-1180 
+960 
 $sÜt
 ="search_count";
 
-1182 if(
+962 if(
 	`is£t
 (
 $¬gs
 [2])&&$args[2])
 
-1183 
+963 
 $·ge
 =
 $¬gs
 [2];
 
-1185 
+965 
 $·ge
 =1;
 
-1187 if(
+967 if(
 	`is£t
 (
 $¬gs
 [3])&&$args[3])
 
-1188 
+968 
 $·ge_couÁ
 =
 $¬gs
 [3];
 
-1190 
+970 
 $·ge_couÁ
 =20;
 
-1192 
+972 
 $this
 ->
 lßd
@@ -12293,7 +11677,7 @@ lßd
 	`mod–
 ('m_user');
 
-1195 
+975 
 $blu‘oÙh_d©as
 =
 $this
@@ -12311,7 +11695,7 @@ $·ge
 $·ge_couÁ
 );
 
-1198 
+978 
 $u£r_d©as
 =
 $this
@@ -12323,7 +11707,7 @@ m_u£r
 $blu‘oÙh_d©as
 );
 
-1201 
+981 
 $this
 ->
 lßd
@@ -12331,7 +11715,7 @@ lßd
 	`mod–
 ('m_place');
 
-1202 
+982 
 $this
 ->
 lßd
@@ -12339,7 +11723,7 @@ lßd
 	`mod–
 ('m_event');
 
-1203 
+983 
 	`fÜ—ch
 (
 $u£r_d©as
@@ -12351,11 +11735,11 @@ $key
 $u£r_d©a
 ){
 
-1204 if(
+984 if(
 $u£r_d©a
 ['user_id']==0){
 
-1205 
+985 
 $¶aû
 =
 $this
@@ -12367,11 +11751,11 @@ m_¶aû
 $u£r_d©a
 ['bluetooth_id']);
 
-1206 if(
+986 if(
 $¶aû
 ){
 
-1207 
+987 
 $»ûÁ_ev’t
 =
 $this
@@ -12385,47 +11769,47 @@ $¶aû
 cu¼’t
 );
 
-1208 if(
+988 if(
 $»ûÁ_ev’t
 ){
 
-1209 
+989 
 $¶aû
 ['»ûÁ_ev’t']=
 $»ûÁ_ev’t
 ;
 
-1211 
+991 
 $¶aû
 ['Ï¡_£¬ch_time']=
 $u£r_d©a
 ['last_search_time'];
 
-1212 
+992 
 $¶aû
 ['£¬ch_couÁ']=
 $u£r_d©a
 ['search_count'];
 
-1213 
+993 
 $u£r_d©a
 =
 $¶aû
 ;
 
-1214 
+994 
 $u£r_d©a
 ['type']='place';
 
-1216 
+996 
 $u£r_d©a
 ['type']='user';
 
-1219 
+999 
 $u£r_d©a
 ['type']='user';
 
-1221 
+1001 
 $u£r_d©as
 [
 $key
@@ -12433,23 +11817,23 @@ $key
 $u£r_d©a
 ;
 
-1224 if(
+1004 if(
 $u£r_d©as
 )
 
-1225  
+1005  
 $u£r_d©as
 ;
 
-1227  
+1007  
 	`¬¿y
 (array("error"=>"no_user"));
 
-1228 
+1008 
 	}
 }
 
-1235 
+1015 
 funùiÚ
  
 	$add_ev’t
@@ -12457,13 +11841,13 @@ funùiÚ
 $¬gs
 ){
 
-1238 
+1018 
 $tok’
 =
 $¬gs
 [0];
 
-1241 
+1021 
 $u£r_d©a
 =
 $this
@@ -12473,65 +11857,65 @@ $this
 $tok’
 );
 
-1243 if(!
+1023 if(!
 $u£r_d©a
 )
 
-1244  
+1024  
 	`¬¿y
 ("error"=>"not_login");
 
-1247 
+1027 
 $d©a
 ['ev’t_Çme']=
 $¬gs
 [1];
 
-1249 
+1029 
 $d©a
 ['ev’t_de¡rtiÚ']=
 $¬gs
 [2];
 
-1251 
+1031 
 $d©a
 ['¡¬t_time']=
 $¬gs
 [3];
 
-1253 
+1033 
 $d©a
 ['’d_time']=
 $¬gs
 [4];
 
-1255 
+1035 
 $d©a
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-1257 if(
+1037 if(
 	`is£t
 (
 $¬gs
 [5])&&$args[5])
 
-1258 
+1038 
 $d©a
 ['¶aû_id']=
 $¬gs
 [5];
 
-1259 
+1039 
 $d©a
 ['status_count']=0;
 
-1261 
+1041 
 $d©a
 ['member_count']=1;
 
-1263 
+1043 
 $this
 ->
 lßd
@@ -12539,7 +11923,7 @@ lßd
 	`mod–
 ('m_event');
 
-1264 
+1044 
 $num
 =
 $this
@@ -12551,31 +11935,31 @@ m_ev’t
 $d©a
 );
 
-1265 if(
+1045 if(
 $num
 ){
 
-1266 
+1046 
 $ev’t_memb”
 ['ev’t_id']=
 $num
 ;
 
-1267 
+1047 
 $ev’t_memb”
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-1268 
+1048 
 $ev’t_memb”
 ['is_admin']=1;
 
-1269 
+1049 
 $ev’t_memb”
 ['is_confirmed']=1;
 
-1270 
+1050 
 $this
 ->
 m_ev’t
@@ -12585,25 +11969,25 @@ m_ev’t
 $ev’t_memb”
 );
 
-1271 
+1051 
 $d©a
 ['ev’t_id']=
 $num
 ;
 
-1272  
+1052  
 $d©a
 ;
 
-1274  
+1054  
 	`¬¿y
 ("error"=>"unknown_error");
 
-1277 
+1057 
 	}
 }
 
-1279 
+1059 
 funùiÚ
  
 	$add_¶aû
@@ -12611,13 +11995,13 @@ funùiÚ
 $¬gs
 ){
 
-1282 
+1062 
 $tok’
 =
 $¬gs
 [0];
 
-1285 
+1065 
 $u£r_d©a
 =
 $this
@@ -12627,97 +12011,97 @@ $this
 $tok’
 );
 
-1287 if(!
+1067 if(!
 $u£r_d©a
 )
 
-1288  
+1068  
 	`¬¿y
 ("error"=>"not_login");
 
-1290 
+1070 
 $¶aû
 ['¶aû_Çme']=
 $¬gs
 [1];
 
-1291 
+1071 
 $¶aû
 ['¶aû_de¡rtiÚ']=
 $¬gs
 [2];
 
-1292 
+1072 
 $¶aû
 ['¶aû_ÿ‹gÜy']=
 $¬gs
 [3];
 
-1293 
+1073 
 $¶aû
 ['place_states']=1;
 
-1294 
+1074 
 $¶aû
 ['member_count']=1;
 
-1296 if(
+1076 if(
 	`is£t
 (
 $¬gs
 [4])&&$args[4]){
 
-1297 
+1077 
 $wifi_mac
 =
 $¬gs
 [4];
 
-1298 if(!
+1078 if(!
 	`v®id_blu‘oÙh_mac
 (
 $wifi_mac
 ))
 
-1299  
+1079  
 	`¬¿y
 ("error"=>"invalid_wifi_mac");
 
-1300 
+1080 
 $wifi_mac
 =
 	`¡¹ouµ”
 ($wifi_mac);
 
-1303 if(
+1083 if(
 	`is£t
 (
 $¬gs
 [5])&&$args[5]){
 
-1304 
+1084 
 $blu‘oÙh_mac
 =
 $¬gs
 [5];
 
-1305 if(!
+1085 if(!
 	`v®id_blu‘oÙh_mac
 (
 $blu‘oÙh_mac
 ))
 
-1306  
+1086  
 	`¬¿y
 ("error"=>"invalid_bluetooth_mac");
 
-1307 
+1087 
 $blu‘oÙh_mac
 =
 	`¡¹ouµ”
 ($bluetooth_mac);
 
-1309 
+1089 
 $this
 ->
 lßd
@@ -12725,7 +12109,7 @@ lßd
 	`mod–
 ('m_user');
 
-1310 
+1090 
 $blu‘oÙh_id
 =
 $this
@@ -12737,15 +12121,15 @@ m_u£r
 $blu‘oÙh_mac
 );
 
-1312 if(
+1092 if(
 $blu‘oÙh_id
 ){
 
-1313  
+1093  
 	`¬¿y
 ("error"=>"existing_bluetooth_mac");
 
-1315 
+1095 
 $blu‘oÙh_id
 =
 $this
@@ -12757,23 +12141,23 @@ m_u£r
 	`¬¿y
 (
 
-1317 'blu‘oÙh_mac'=>
+1097 'blu‘oÙh_mac'=>
 $blu‘oÙh_mac
 ,
 
-1319 'ü—‹_time'=>
+1099 'ü—‹_time'=>
 $this
 ->
 cu¼’t
 
 
-1322 
+1102 
 $¶aû
 ['blu‘oÙh_id']=
 $blu‘oÙh_id
 ;
 
-1324 
+1104 
 $¶aû
 ['ü—‹_time']=
 $this
@@ -12781,7 +12165,7 @@ $this
 cu¼’t
 ;
 
-1326 
+1106 
 $this
 ->
 lßd
@@ -12789,7 +12173,7 @@ lßd
 	`mod–
 ('m_place');
 
-1327 
+1107 
 $num
 =
 $this
@@ -12801,31 +12185,31 @@ m_¶aû
 $¶aû
 );
 
-1328 if(
+1108 if(
 $num
 ){
 
-1329 
+1109 
 $¶aû_memb”
 ['¶aû_id']=
 $num
 ;
 
-1330 
+1110 
 $¶aû_memb”
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-1331 
+1111 
 $¶aû_memb”
 ['is_admin']=1;
 
-1332 
+1112 
 $¶aû_memb”
 ['is_confirmed']=1;
 
-1333 
+1113 
 $¶aû_memb”
 ['ü—‹_time']=
 $this
@@ -12833,7 +12217,7 @@ $this
 cu¼’t
 ;
 
-1334 
+1114 
 $this
 ->
 m_¶aû
@@ -12843,25 +12227,25 @@ m_¶aû
 $¶aû_memb”
 );
 
-1335 
+1115 
 $¶aû
 ['¶aû_id']=
 $num
 ;
 
-1336  
+1116  
 $¶aû
 ;
 
-1338 
+1118 
 	`¬¿y
 ("error"=>"unknown_error");
 
-1340 
+1120 
 	}
 }
 
-1342 
+1122 
 funùiÚ
  
 	$add_¶aû_memb”
@@ -12869,13 +12253,13 @@ funùiÚ
 $¬gs
 ){
 
-1344 
+1124 
 $tok’
 =
 $¬gs
 [0];
 
-1347 
+1127 
 $u£r_d©a
 =
 $this
@@ -12885,35 +12269,35 @@ $this
 $tok’
 );
 
-1349 if(!
+1129 if(!
 $u£r_d©a
 )
 
-1350  
+1130  
 	`¬¿y
 ("error"=>"not_login");
 
-1351 
+1131 
 $d©a
 ['¶aû_id']=
 $¬gs
 [1];
 
-1352 
+1132 
 $d©a
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-1353 
+1133 
 $d©a
 ['is_admin']=0;
 
-1354 
+1134 
 $d©a
 ['is_confirmed']=0;
 
-1355 
+1135 
 $d©a
 ['ü—‹_time']=
 $this
@@ -12921,7 +12305,7 @@ $this
 cu¼’t
 ;
 
-1357 
+1137 
 $this
 ->
 lßd
@@ -12929,7 +12313,7 @@ lßd
 	`mod–
 ('m_place');
 
-1358 
+1138 
 $num
 =
 $this
@@ -12941,17 +12325,17 @@ m_¶aû
 $d©a
 );
 
-1360 if(
+1140 if(
 $num
 ){
 
-1361 
+1141 
 $d©a
 ['¶aû_memb”_id']=
 $num
 ;
 
-1362 
+1142 
 $this
 ->
 m_¶aû
@@ -12961,19 +12345,19 @@ m_¶aû
 $d©a
 ['place_id']);
 
-1363  
+1143  
 	`¬¿y
 ("success"=>"success");
 
-1365  
+1145  
 	`¬¿y
 ("error"=>"unknown_error");
 
-1367 
+1147 
 	}
 }
 
-1369 
+1149 
 funùiÚ
  
 	$g‘_¶aû_d©as_by_ÿ‹gÜy
@@ -12981,13 +12365,13 @@ funùiÚ
 $¬gs
 ){
 
-1371 
+1151 
 $tok’
 =
 $¬gs
 [0];
 
-1374 
+1154 
 $u£r_d©a
 =
 $this
@@ -12997,15 +12381,15 @@ $this
 $tok’
 );
 
-1376 if(!
+1156 if(!
 $u£r_d©a
 )
 
-1377  
+1157  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1379 
+1159 
 $this
 ->
 lßd
@@ -13013,7 +12397,7 @@ lßd
 	`mod–
 ('m_place');
 
-1381 
+1161 
 $ÿ‹gÜy
 =(
 	`is£t
@@ -13021,7 +12405,7 @@ $ÿ‹gÜy
 $¬gs
 [1])&&$args[1])?$args[1]:0;
 
-1383 
+1163 
 $·ge
 =(
 	`is£t
@@ -13029,7 +12413,7 @@ $·ge
 $¬gs
 [2])&&$args[2])?$args[2]:0;
 
-1385 
+1165 
 $·ge_couÁ
 =(
 	`is£t
@@ -13037,7 +12421,7 @@ $·ge_couÁ
 $¬gs
 [3])&&$args[3])?$args[3]:0;
 
-1387 
+1167 
 $¶aû_d©as
 =
 $this
@@ -13053,11 +12437,11 @@ $·ge
 $·ge_couÁ
 );
 
-1390 if(
+1170 if(
 $¶aû_d©as
 ){
 
-1391 
+1171 
 $this
 ->
 lßd
@@ -13065,7 +12449,7 @@ lßd
 	`mod–
 ('m_event');
 
-1392 
+1172 
 	`fÜ—ch
 (
 $¶aû_d©as
@@ -13077,7 +12461,7 @@ $key
 $v®ue
 ){
 
-1393 
+1173 
 $»ûÁ_ev’t
 =
 $this
@@ -13091,17 +12475,17 @@ $v®ue
 cu¼’t
 );
 
-1394 if(
+1174 if(
 $»ûÁ_ev’t
 ){
 
-1395 
+1175 
 $v®ue
 ['»ûÁ_ev’t']=
 $»ûÁ_ev’t
 ;
 
-1396 
+1176 
 $¶aû_d©as
 [
 $key
@@ -13109,19 +12493,19 @@ $key
 $v®ue
 ;
 
-1399  
+1179  
 $¶aû_d©as
 ;
 
-1401  
+1181  
 	`¬¿y
 (array("error"=>"no_place"));
 
-1402 
+1182 
 	}
 }
 
-1404 
+1184 
 funùiÚ
  
 	$g‘_¶aû_»ûÁ_memb”s
@@ -13129,13 +12513,13 @@ funùiÚ
 $¬gs
 ){
 
-1406 
+1186 
 $tok’
 =
 $¬gs
 [0];
 
-1409 
+1189 
 $u£r_d©a
 =
 $this
@@ -13145,15 +12529,15 @@ $this
 $tok’
 );
 
-1411 if(!
+1191 if(!
 $u£r_d©a
 )
 
-1412  
+1192  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1414 
+1194 
 $this
 ->
 lßd
@@ -13161,13 +12545,13 @@ lßd
 	`mod–
 ('m_place');
 
-1416 
+1196 
 $¶aû_id
 =
 $¬gs
 [1];
 
-1418 
+1198 
 $memb”s
 =
 $this
@@ -13179,11 +12563,11 @@ m_¶aû
 $¶aû_id
 );
 
-1420 if(
+1200 if(
 $memb”s
 ){
 
-1421 
+1201 
 $this
 ->
 lßd
@@ -13191,7 +12575,7 @@ lßd
 	`mod–
 ('m_user');
 
-1422 
+1202 
 $memb”s
 =
 $this
@@ -13201,19 +12585,19 @@ m_u£r
 	`g‘_u£r_d©as_by_u£r_ids
 ($members);
 
-1423  
+1203  
 $memb”s
 ;
 
-1425  
+1205  
 	`¬¿y
 (array("error"=>"no_member"));
 
-1426 
+1206 
 	}
 }
 
-1428 
+1208 
 funùiÚ
  
 	$g‘_group_memb”s_by_group_id
@@ -13221,13 +12605,13 @@ funùiÚ
 $¬gs
 ){
 
-1430 
+1210 
 $tok’
 =
 $¬gs
 [0];
 
-1433 
+1213 
 $u£r_d©a
 =
 $this
@@ -13237,15 +12621,15 @@ $this
 $tok’
 );
 
-1435 if(!
+1215 if(!
 $u£r_d©a
 )
 
-1436  
+1216  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1438 
+1218 
 $this
 ->
 lßd
@@ -13253,13 +12637,13 @@ lßd
 	`mod–
 ('m_group');
 
-1440 
+1220 
 $group_id
 =
 $¬gs
 [1];
 
-1442 
+1222 
 $memb”s
 =
 $this
@@ -13273,23 +12657,23 @@ $group_id
 $u£r_d©a
 ['user_id']);
 
-1444 if(
+1224 if(
 $memb”s
 ){
 
-1445  
+1225  
 $memb”s
 ;
 
-1447  
+1227  
 	`¬¿y
 (array("error"=>"no_member"));
 
-1448 
+1228 
 	}
 }
 
-1450 
+1230 
 funùiÚ
  
 	$g‘_group_d©a_by_group_id
@@ -13297,13 +12681,13 @@ funùiÚ
 $¬gs
 ){
 
-1452 
+1232 
 $tok’
 =
 $¬gs
 [0];
 
-1455 
+1235 
 $u£r_d©a
 =
 $this
@@ -13313,15 +12697,15 @@ $this
 $tok’
 );
 
-1457 if(!
+1237 if(!
 $u£r_d©a
 )
 
-1458  
+1238  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1459 
+1239 
 $this
 ->
 lßd
@@ -13329,13 +12713,13 @@ lßd
 	`mod–
 ('m_group');
 
-1461 
+1241 
 $group_id
 =
 $¬gs
 [1];
 
-1463 
+1243 
 $group_d©a
 =
 $this
@@ -13347,11 +12731,11 @@ m_group
 $group_id
 );
 
-1465 if(
+1245 if(
 $group_d©a
 ){
 
-1466 
+1246 
 $memb”s
 =
 $this
@@ -13365,29 +12749,29 @@ $group_id
 $u£r_d©a
 ['user_id']);
 
-1467 if(
+1247 if(
 $memb”s
 )
 
-1468 
+1248 
 $group_d©a
 ['group_memb”s']=
 $memb”s
 ;
 
-1469  
+1249  
 $group_d©a
 ;
 
-1472  
+1252  
 	`¬¿y
 ("error"=>"no_group");
 
-1474 
+1254 
 	}
 }
 
-1476 
+1256 
 funùiÚ
  
 	$comm’t_weibo
@@ -13395,13 +12779,13 @@ funùiÚ
 $¬gs
 ){
 
-1479 
+1259 
 $tok’
 =
 $¬gs
 [0];
 
-1482 
+1262 
 $u£r_d©a
 =
 $this
@@ -13411,37 +12795,37 @@ $this
 $tok’
 );
 
-1484 if(!
+1264 if(!
 $u£r_d©a
 )
 
-1485  
+1265  
 	`¬¿y
 ("error"=>"not_login");
 
-1487 
+1267 
 $comm’t
 ['u£r_id']=
 $u£r_d©a
 ['user_id'];
 
-1488 
+1268 
 $comm’t
 ['comment_type']='weibo';
 
-1489 
+1269 
 $comm’t
 ['comm’t_ty³_id']=
 $¬gs
 [1];
 
-1490 
+1270 
 $comm’t
 ['comm’t_cÚ‹Á']=
 $¬gs
 [2];
 
-1491 
+1271 
 $comm’t
 ['ü—‹_time']=
 $this
@@ -13449,7 +12833,7 @@ $this
 cu¼’t
 ;
 
-1493 
+1273 
 $this
 ->
 lßd
@@ -13457,7 +12841,7 @@ lßd
 	`mod–
 ('m_comment');
 
-1495 
+1275 
 $num
 =
 $this
@@ -13469,11 +12853,11 @@ m_comm’t
 $comm’t
 );
 
-1497 if(
+1277 if(
 $num
 ){
 
-1500 
+1280 
 $this
 ->
 lßd
@@ -13481,7 +12865,7 @@ lßd
 	`mod–
 ('m_feed');
 
-1501 
+1281 
 $ãed
 =
 $this
@@ -13493,7 +12877,7 @@ m_ãed
 $comm’t
 ['comment_type_id']);
 
-1502 
+1282 
 $this
 ->
 m_ãed
@@ -13503,7 +12887,7 @@ m_ãed
 $ãed
 ['feed_id']);
 
-1505 
+1285 
 $this
 ->
 	`£nd_nÙify
@@ -13513,25 +12897,25 @@ $u£r_d©a
 $ãed
 ['user_id'], 'comment_weibo',$feed['feed_id'],$user_data['display_name'].'è¯„è®ºäº†æ‚¨çš„å¾®åš');
 
-1507 
+1287 
 $comm’t
 ['comm’t_id']=
 $num
 ;
 
-1509  
+1289  
 $comm’t
 ;
 
-1511  
+1291  
 	`¬¿y
 ("error"=>"unknown_error");
 
-1513 
+1293 
 	}
 }
 
-1515 
+1295 
 funùiÚ
  
 	$§y_h–lo
@@ -13539,7 +12923,7 @@ funùiÚ
 $¬gs
 ){
 
-1516 
+1296 
 $u£r_d©a
 =
 $this
@@ -13549,15 +12933,15 @@ $this
 $¬gs
 );
 
-1517  
+1297  
 $u£r_d©a
 ;
 
-1518 
+1298 
 	}
 }
 
-1521 
+1301 
 funùiÚ
  
 	$u£r_k“p_®ive
@@ -13565,13 +12949,13 @@ funùiÚ
 $¬gs
 ){
 
-1523 
+1303 
 $tok’
 =
 $¬gs
 [0];
 
-1526 
+1306 
 $u£r_d©a
 =
 $this
@@ -13581,15 +12965,15 @@ $this
 $tok’
 );
 
-1528 if(!
+1308 if(!
 $u£r_d©a
 )
 
-1529  
+1309  
 	`¬¿y
 (array("error"=>"not_login"));
 
-1532 
+1312 
 $this
 ->
 lßd
@@ -13597,11 +12981,11 @@ lßd
 	`mod–
 ('m_notify');
 
-1534 
+1314 
 	}
 }
 
-1541 
+1321 
 funùiÚ
  
 	$g‘_u£r_by_tok’
@@ -13609,7 +12993,7 @@ funùiÚ
 $tok’
 ){
 
-1543 
+1323 
 $this
 ->
 lßd
@@ -13619,7 +13003,7 @@ lßd
 	`¬¿y
 ('adapter' => 'file'));
 
-1544 
+1324 
 $this
 ->
 lßd
@@ -13627,7 +13011,7 @@ lßd
 	`mod–
 ('m_online');
 
-1546 
+1326 
 $u£r_d©a
 =
 $this
@@ -13639,17 +13023,17 @@ $this
 $tok’
 );
 
-1547 if(
+1327 if(
 $u£r_d©a
 ){
 
-1550 
+1330 
 $u£r_d©a
 =
 	`un£rŸlize
 ($user_data);
 
-1552 
+1332 
 $this
 ->
 lßd
@@ -13657,7 +13041,7 @@ lßd
 	`mod–
 ('m_user');
 
-1554 
+1334 
 $Ãw_u£r_d©a
 =
 $this
@@ -13669,7 +13053,7 @@ m_u£r
 $u£r_d©a
 ['user_id']);
 
-1555 
+1335 
 $u£r_d©a
 =
 	`¬¿y_m”ge
@@ -13677,7 +13061,7 @@ $u£r_d©a
 $Ãw_u£r_d©a
 );
 
-1558 
+1338 
 $this
 ->
 	`upd©e_Ï¡_aùiv™y
@@ -13687,27 +13071,27 @@ $u£r_d©a
 cu¼’t
 );
 
-1561 
+1341 
 $d©a
 =
 	`¬¿y
 (
 
-1562 'u£r_id'=>
+1342 'u£r_id'=>
 $u£r_d©a
 ['user_id'],
 
-1563 'di¥Ïy_Çme'=>
+1343 'di¥Ïy_Çme'=>
 $u£r_d©a
 ['display_name'],
 
-1564 'ü—‹_time'=>
+1344 'ü—‹_time'=>
 $this
 ->
 cu¼’t
 ,
 
-1567 
+1347 
 $this
 ->
 m_Úlše
@@ -13717,13 +13101,13 @@ m_Úlše
 $d©a
 );
 
-1569 
+1349 
 $u£r_d©a
 =
 	`£rŸlize
 ($user_data);
 
-1571 
+1351 
 $this
 ->
 ÿche
@@ -13735,21 +13119,21 @@ $tok’
 $u£r_d©a
 ,3000000);
 
-1572  
+1352  
 	`un£rŸlize
 (
 $u£r_d©a
 );
 
-1575  
+1355  
 FALSE
 ;
 
-1576 
+1356 
 	}
 }
 
-1583 
+1363 
 funùiÚ
  
 upd©e_Ï¡_aùiv™y
@@ -13761,7 +13145,7 @@ $Ï¡_aùiv™y
 $Ï‹¡_upd©e
 =""){
 
-1584 
+1364 
 $this
 ->
 lßd
@@ -13769,7 +13153,7 @@ lßd
 mod–
 ('m_user');
 
-1585 
+1365 
 	g$this
 ->
 	gm_u£r
@@ -13781,29 +13165,29 @@ $u£r_id
 $Ï¡_aùiv™y
 );
 
-1586 if(!
+1366 if(!
 em±y
 (
 $Ï‹¡_upd©e
 )){
 
-1587 
+1367 
 	g$d©a
 ['u£r_id']=
 $u£r_id
 ;
 
-1588 
+1368 
 	g$d©a
 ['meta_key']='latest_update';
 
-1589 
+1369 
 	g$d©a
 ['m‘a_v®ue']=
 $Ï‹¡_upd©e
 ;
 
-1590 
+1370 
 	g$this
 ->
 	gm_u£r
@@ -13813,7 +13197,7 @@ add_u£r_m‘a
 $d©a
 );
 
-1602 
+1382 
 funùiÚ
  
 	$ü—‹_®bum
@@ -13829,7 +13213,7 @@ $®bum_·sswÜd
 NULL
 ){
 
-1603 
+1383 
 $this
 ->
 lßd
@@ -13837,45 +13221,45 @@ lßd
 	`mod–
 ('m_album');
 
-1604 
+1384 
 $d©a
 ['®bum_Çme']=
 $®bum_Çme
 ;
 
-1605 
+1385 
 $d©a
 ['u£r_id']=
 $u£r_id
 ;
 
-1606 
+1386 
 $d©a
 ['®bum_de¡rtiÚ']=
 $®bum_de¡rtiÚ
 ;
 
-1607 
+1387 
 $d©a
 ['ü—‹_time']=
 	`time
 ();
 
-1608 
+1388 
 $d©a
 ['picture_count']=0;
 
-1609 
+1389 
 $d©a
 ['album_visible']=0;
 
-1610 if(!
+1390 if(!
 	`is_nuÎ
 (
 $®bum_·sswÜd
 ))
 
-1611 
+1391 
 $d©a
 ['®bum_·sswÜd']=
 	`md5
@@ -13883,7 +13267,7 @@ $d©a
 $®bum_·sswÜd
 );
 
-1613 
+1393 
 $num
 =
 $this
@@ -13895,15 +13279,15 @@ m_®bum
 $d©a
 );
 
-1614  
+1394  
 $num
 ;
 
-1615 
+1395 
 	}
 }
 
-1624 
+1404 
 funùiÚ
  
 	$£nd_nÙify
@@ -13919,7 +13303,7 @@ $nÙify_ty³_id
 $nÙify_cÚ‹Á
 ){
 
-1625 
+1405 
 $this
 ->
 lßd
@@ -13927,41 +13311,41 @@ lßd
 	`mod–
 ('m_notify');
 
-1626 
+1406 
 $d©a
 ['äom_id']=
 $äom_id
 ;
 
-1627 
+1407 
 $d©a
 ['to_id']=
 $to_id
 ;
 
-1628 
+1408 
 $d©a
 ['nÙify_ty³']=
 $nÙify_ty³
 ;
 
-1629 
+1409 
 $d©a
 ['nÙify_ty³_id']=
 $nÙify_ty³_id
 ;
 
-1630 
+1410 
 $d©a
 ['nÙify_cÚ‹Á']=
 $nÙify_cÚ‹Á
 ;
 
-1631 
+1411 
 $d©a
 ['is_read']=0;
 
-1632 
+1412 
 $d©a
 ['ü—‹_time']=
 $this
@@ -13969,7 +13353,7 @@ $this
 cu¼’t
 ;
 
-1634 
+1414 
 $num
 =
 $this
@@ -13981,15 +13365,15 @@ m_nÙify
 $d©a
 );
 
-1635  
+1415  
 $num
 ;
 
-1636 
+1416 
 	}
 }
 
-1642 
+1422 
 funùiÚ
  
 	$igniÜe_nÙify
@@ -13997,7 +13381,7 @@ funùiÚ
 $nÙify_id
 ){
 
-1643 
+1423 
 $this
 ->
 lßd
@@ -14005,7 +13389,7 @@ lßd
 	`mod–
 ('m_notify');
 
-1644  
+1424  
 $this
 ->
 m_nÙify
@@ -14015,11 +13399,11 @@ m_nÙify
 $nÙify_id
 );
 
-1645 
+1425 
 	}
 }
 
-1652 
+1432 
 funùiÚ
  
 	$g‘_u£rs_»ÏtiÚsh
@@ -14029,13 +13413,13 @@ $äom_id
 $to_id
 ){
 
-1653 if(
+1433 if(
 $äom_id
 ==
 $to_id
 )
 
-1655 
+1435 
 $this
 ->
 lßd
@@ -14043,7 +13427,7 @@ lßd
 	`mod–
 ('m_friend');
 
-1656 if(
+1436 if(
 $this
 ->
 m_ä›nd
@@ -14055,7 +13439,7 @@ $äom_id
 $to_id
 ))
 
-1660 
+1440 
 	}
 }
 
@@ -28181,6761 +27565,57 @@ $mes§ge
 	}
 }
 
+10 
+funùiÚ
+ 
+	$is_we_”rÜ
+(
+$”rÜ
+){
+
+11 if(
+$”rÜ
+ 
+š¡ªûof
+ 
+WE_E¼Ü
+)
+
+12  
+Œue
+;
+
+14  
+çl£
+;
+
+15 
+	}
+}
+
+17 
+funùiÚ
+ 
+we_esÿ³
+(&
+$tmp
+,
+$exchg
+=""){
+
+18  
+is£t
+(
+$tmp
+)?$tmp:
+$exchg
+;
+
 	@application/language/english/error_lang.php
 
 1 <?
 	gphp
 
-
-	@application/logs/log-2012-05-01.php
-
-1 
-	gERROR
- - 2012-05-01 12:33:29 --> 
-»que¡_sucûss
-:
-s
-:12:"we.userLogin";
-
-2 
-	gERROR
- - 2012-05-01 12:33:29 --> 
-a
-:2:{
-i
-:0;
-	gs
-:13:"‹¡1@163.com";
-	gi
-:1;s:6:"111111";}
-
-3 
-	gERROR
- - 2012-05-01 12:34:00 --> 
-»que¡_sucûss
-:
-we
-.
-u£rLogš
-
-
-4 
-ERROR
- - 2012-05-01 12:34:00 --> 
-a
-:2:{
-i
-:0;
-	gs
-:13:"‹¡1@163.com";
-	gi
-:1;s:6:"111111";}
-
-5 
-	gERROR
- - 2012-05-01 12:42:15 --> 
-»que¡_sucûss
-:
-we
-.
-u£rLogš
-
-
-6 
-ERROR
- - 2012-05-01 12:42:15 --> 
-a
-:2:{
-i
-:0;
-	gs
-:13:"‹¡1@163.com";
-	gi
-:1;s:6:"111111";}
-
-	@application/logs/log-2012-05-04.php
-
-1 <?
-php
- iàĞ! 
-defšed
-('BASEPATH')è
-ex™
-('No direct script‡ccess‡llowed'); ?>
-
-3 
-	gERROR
- - 2012-05-04 23:53:37 --> 
-»que¡_sucûss
-:
-we
-.
-addU£r
-
-
-4 
-ERROR
- - 2012-05-04 23:53:37 --> 
-a
-:4:{
-i
-:0;
-	gs
-:13:"‹¡1@163.com";
-	gi
-:1;s:6:"111111";i:2;s:5:"test1";i:3;s:12:"111111111111";}
-
-5 
-	gERROR
- - 2012-05-04 23:53:37 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"111111111111";s:14:"blu‘oÙh_Çme";s:0:"";s:11:"ü—‹_time";
-	gi
-:1336146817;}
-
-6 
-	gERROR
- - 2012-05-04 23:53:37 -->
-
-7 
-ERROR
- - 2012-05-04 23:53:37 --> 
-a
-:4:{
-s
-:7:"u£r_id";
-	gi
-:1;
-	gs
-:13:"bluetooth_mac";s:12:"111111111111";s:14:"bluetooth_name";s:0:"";s:11:"create_time";i:1336146817;}
-
-8 
-	gERROR
- - 2012-05-04 23:53:37 --> 1
-
-9 
-ERROR
- - 2012-05-04 23:53:37 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-10 
-ERROR
- - 2012-05-04 23:53:37 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-11 
-ERROR
- - 2012-05-04 23:53:37 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-12 
-	gERROR
- - 2012-05-04 23:53:37 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-13 
-ERROR
- - 2012-05-04 23:53:37 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-14 
-ERROR
- - 2012-05-04 23:53:37 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-15 
-	gERROR
- - 2012-05-04 23:53:37 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-16 
-ERROR
- - 2012-05-04 23:53:37 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-17 
-ERROR
- - 2012-05-04 23:53:37 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-18 
-	gERROR
- - 2012-05-04 23:53:37 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-19 
-ERROR
- - 2012-05-04 23:53:37 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-20 
-ERROR
- - 2012-05-04 23:53:37 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-21 
-	gERROR
- - 2012-05-04 23:53:37 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-22 
-ERROR
- - 2012-05-04 23:53:56 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-23 
-ERROR
- - 2012-05-04 23:53:56 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-24 
-	gERROR
- - 2012-05-04 23:53:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-25 
-ERROR
- - 2012-05-04 23:53:56 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-26 
-ERROR
- - 2012-05-04 23:53:56 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-27 
-	gERROR
- - 2012-05-04 23:53:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-28 
-ERROR
- - 2012-05-04 23:53:56 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-29 
-ERROR
- - 2012-05-04 23:53:56 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-30 
-	gERROR
- - 2012-05-04 23:53:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-31 
-ERROR
- - 2012-05-04 23:53:56 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-32 
-ERROR
- - 2012-05-04 23:53:56 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-33 
-	gERROR
- - 2012-05-04 23:53:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-34 
-ERROR
- - 2012-05-04 23:53:58 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-35 
-ERROR
- - 2012-05-04 23:53:58 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-36 
-	gERROR
- - 2012-05-04 23:53:58 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-37 
-ERROR
- - 2012-05-04 23:53:58 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-38 
-ERROR
- - 2012-05-04 23:53:58 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-39 
-	gERROR
- - 2012-05-04 23:53:58 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-40 
-ERROR
- - 2012-05-04 23:53:58 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-41 
-ERROR
- - 2012-05-04 23:53:58 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-42 
-	gERROR
- - 2012-05-04 23:53:58 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-43 
-ERROR
- - 2012-05-04 23:53:58 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-44 
-ERROR
- - 2012-05-04 23:53:58 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-45 
-	gERROR
- - 2012-05-04 23:53:58 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-46 
-ERROR
- - 2012-05-04 23:54:02 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-47 
-ERROR
- - 2012-05-04 23:54:02 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-48 
-	gERROR
- - 2012-05-04 23:54:02 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-49 
-ERROR
- - 2012-05-04 23:54:03 --> 
-»que¡_sucûss
-:
-we
-.
-po¡Weibo
-
-
-50 
-ERROR
- - 2012-05-04 23:54:03 --> 
-a
-:3:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:5:"h–lo";i:2;s:6:"public";
-	}
-}
-
-51 
-	gERROR
- - 2012-05-04 23:54:03 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-52 
-ERROR
- - 2012-05-04 23:54:03 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-53 
-ERROR
- - 2012-05-04 23:54:03 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-54 
-	gERROR
- - 2012-05-04 23:54:03 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-55 
-ERROR
- - 2012-05-04 23:54:03 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-56 
-ERROR
- - 2012-05-04 23:54:03 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-57 
-	gERROR
- - 2012-05-04 23:54:03 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-58 
-ERROR
- - 2012-05-04 23:54:03 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-59 
-ERROR
- - 2012-05-04 23:54:03 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-60 
-	gERROR
- - 2012-05-04 23:54:03 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-61 
-ERROR
- - 2012-05-04 23:54:03 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-62 
-ERROR
- - 2012-05-04 23:54:03 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-63 
-	gERROR
- - 2012-05-04 23:54:03 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-	@application/logs/log-2012-05-05.php
-
-1 <?
-php
- iàĞ! 
-defšed
-('BASEPATH')è
-ex™
-('No direct script‡ccess‡llowed'); ?>
-
-3 
-	gERROR
- - 2012-05-05 00:28:32 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-4 
-ERROR
- - 2012-05-05 00:28:32 --> 
-a
-:1:{
-i
-:0;
-	gs
-:32:"87d810ae21b2b62fe44725d1a84c6687";}
-
-5 
-	gERROR
- - 2012-05-05 00:28:32 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-6 
-ERROR
- - 2012-05-05 00:28:32 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-7 
-ERROR
- - 2012-05-05 00:28:32 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-8 
-	gERROR
- - 2012-05-05 00:28:32 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-9 
-ERROR
- - 2012-05-05 00:28:32 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-10 
-ERROR
- - 2012-05-05 00:28:32 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-11 
-	gERROR
- - 2012-05-05 00:28:32 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-12 
-ERROR
- - 2012-05-05 00:28:32 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-13 
-ERROR
- - 2012-05-05 00:28:32 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-14 
-	gERROR
- - 2012-05-05 00:28:32 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-15 
-ERROR
- - 2012-05-05 00:28:32 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-16 
-ERROR
- - 2012-05-05 00:28:32 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-17 
-	gERROR
- - 2012-05-05 00:28:32 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-18 
-ERROR
- - 2012-05-05 00:28:45 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-19 
-ERROR
- - 2012-05-05 00:28:45 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-20 
-	gERROR
- - 2012-05-05 00:28:45 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-21 
-ERROR
- - 2012-05-05 00:28:45 --> 
-»que¡_sucûss
-:
-we
-.
-po¡Weibo
-
-
-22 
-ERROR
- - 2012-05-05 00:28:45 --> 
-a
-:3:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:21:"ç°åœ¨æ„Ÿè§‰è¿˜ä¸é”™";i:2;s:6:"public";
-	}
-}
-
-23 
-	gERROR
- - 2012-05-05 00:28:45 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-24 
-ERROR
- - 2012-05-05 00:28:45 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-25 
-ERROR
- - 2012-05-05 00:28:45 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-26 
-	gERROR
- - 2012-05-05 00:28:45 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-27 
-ERROR
- - 2012-05-05 00:28:45 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-28 
-ERROR
- - 2012-05-05 00:28:45 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-29 
-	gERROR
- - 2012-05-05 00:28:45 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-30 
-ERROR
- - 2012-05-05 00:28:45 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-31 
-ERROR
- - 2012-05-05 00:28:45 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-32 
-	gERROR
- - 2012-05-05 00:28:45 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-33 
-ERROR
- - 2012-05-05 00:28:45 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-34 
-ERROR
- - 2012-05-05 00:28:45 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-35 
-	gERROR
- - 2012-05-05 00:28:45 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-36 
-ERROR
- - 2012-05-05 00:28:56 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-37 
-ERROR
- - 2012-05-05 00:28:56 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-38 
-	gERROR
- - 2012-05-05 00:28:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-39 
-ERROR
- - 2012-05-05 00:28:56 --> 
-»que¡_sucûss
-:
-we
-.
-po¡Weibo
-
-
-40 
-ERROR
- - 2012-05-05 00:28:56 --> 
-a
-:3:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:15:"å°¤å…¶æ˜¯é€Ÿåº¦";i:2;s:6:"public";
-	}
-}
-
-41 
-	gERROR
- - 2012-05-05 00:28:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-42 
-ERROR
- - 2012-05-05 00:28:56 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-43 
-ERROR
- - 2012-05-05 00:28:56 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-44 
-	gERROR
- - 2012-05-05 00:28:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-45 
-ERROR
- - 2012-05-05 00:28:56 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-46 
-ERROR
- - 2012-05-05 00:28:56 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-47 
-	gERROR
- - 2012-05-05 00:28:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-48 
-ERROR
- - 2012-05-05 00:28:56 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-49 
-ERROR
- - 2012-05-05 00:28:56 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-50 
-	gERROR
- - 2012-05-05 00:28:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-51 
-ERROR
- - 2012-05-05 00:28:56 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-52 
-ERROR
- - 2012-05-05 00:28:56 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-53 
-	gERROR
- - 2012-05-05 00:28:56 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-54 
-ERROR
- - 2012-05-05 00:28:58 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-55 
-ERROR
- - 2012-05-05 00:28:58 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-56 
-	gERROR
- - 2012-05-05 00:28:58 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-57 
-ERROR
- - 2012-05-05 00:28:58 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-58 
-ERROR
- - 2012-05-05 00:28:58 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-59 
-	gERROR
- - 2012-05-05 00:28:58 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-60 
-ERROR
- - 2012-05-05 00:28:58 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-61 
-ERROR
- - 2012-05-05 00:28:58 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:2:"10";
-	}
-}
-
-62 
-	gERROR
- - 2012-05-05 00:28:58 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-63 
-ERROR
- - 2012-05-05 00:36:40 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-64 
-ERROR
- - 2012-05-05 00:36:40 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-65 
-	gERROR
- - 2012-05-05 00:36:40 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-66 
-ERROR
- - 2012-05-05 00:36:40 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-67 
-ERROR
- - 2012-05-05 00:36:40 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-68 
-	gERROR
- - 2012-05-05 00:36:40 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-69 
-ERROR
- - 2012-05-05 00:36:40 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-70 
-ERROR
- - 2012-05-05 00:36:40 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:2:"10";
-	}
-}
-
-71 
-	gERROR
- - 2012-05-05 00:36:40 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-72 
-ERROR
- - 2012-05-05 00:36:48 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-73 
-ERROR
- - 2012-05-05 00:36:48 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-74 
-	gERROR
- - 2012-05-05 00:36:48 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-75 
-ERROR
- - 2012-05-05 00:36:49 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-76 
-ERROR
- - 2012-05-05 00:36:49 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-77 
-	gERROR
- - 2012-05-05 00:36:49 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-78 
-ERROR
- - 2012-05-05 00:36:49 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-79 
-ERROR
- - 2012-05-05 00:36:49 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-80 
-	gERROR
- - 2012-05-05 00:36:49 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-81 
-ERROR
- - 2012-05-05 00:36:49 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-82 
-ERROR
- - 2012-05-05 00:36:49 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-83 
-	gERROR
- - 2012-05-05 00:36:49 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-84 
-ERROR
- - 2012-05-05 00:36:49 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-85 
-ERROR
- - 2012-05-05 00:36:49 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-86 
-	gERROR
- - 2012-05-05 00:36:49 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-87 
-ERROR
- - 2012-05-05 12:09:54 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-88 
-ERROR
- - 2012-05-05 12:09:54 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-89 
-	gERROR
- - 2012-05-05 12:09:54 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-90 
-ERROR
- - 2012-05-05 12:09:54 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-91 
-ERROR
- - 2012-05-05 12:09:54 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-92 
-	gERROR
- - 2012-05-05 12:09:54 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-93 
-ERROR
- - 2012-05-05 12:09:54 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-94 
-ERROR
- - 2012-05-05 12:09:54 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-95 
-	gERROR
- - 2012-05-05 12:09:54 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-96 
-ERROR
- - 2012-05-05 12:09:55 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-97 
-ERROR
- - 2012-05-05 12:09:55 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-98 
-	gERROR
- - 2012-05-05 12:09:55 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-99 
-ERROR
- - 2012-05-05 12:10:12 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-100 
-ERROR
- - 2012-05-05 12:10:12 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-101 
-	gERROR
- - 2012-05-05 12:10:12 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-102 
-ERROR
- - 2012-05-05 12:10:12 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-103 
-ERROR
- - 2012-05-05 12:10:12 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-104 
-	gERROR
- - 2012-05-05 12:10:12 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-105 
-ERROR
- - 2012-05-05 12:10:12 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-106 
-ERROR
- - 2012-05-05 12:10:12 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:2:"10";
-	}
-}
-
-107 
-	gERROR
- - 2012-05-05 12:10:12 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-108 
-ERROR
- - 2012-05-05 12:10:13 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-109 
-ERROR
- - 2012-05-05 12:10:13 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-110 
-	gERROR
- - 2012-05-05 12:10:13 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-111 
-ERROR
- - 2012-05-05 12:10:13 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-112 
-ERROR
- - 2012-05-05 12:10:13 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-113 
-	gERROR
- - 2012-05-05 12:10:13 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-114 
-ERROR
- - 2012-05-05 12:10:14 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-115 
-ERROR
- - 2012-05-05 12:10:14 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-116 
-	gERROR
- - 2012-05-05 12:10:14 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-117 
-ERROR
- - 2012-05-05 12:10:14 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-118 
-ERROR
- - 2012-05-05 12:10:14 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-119 
-	gERROR
- - 2012-05-05 12:10:14 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-120 
-ERROR
- - 2012-05-05 12:36:06 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-121 
-ERROR
- - 2012-05-05 12:36:06 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-122 
-	gERROR
- - 2012-05-05 12:36:06 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-123 
-ERROR
- - 2012-05-05 12:36:06 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-124 
-ERROR
- - 2012-05-05 12:36:06 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-125 
-	gERROR
- - 2012-05-05 12:36:06 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-126 
-ERROR
- - 2012-05-05 12:36:06 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-127 
-ERROR
- - 2012-05-05 12:36:06 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:2:"10";
-	}
-}
-
-128 
-	gERROR
- - 2012-05-05 12:36:06 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-129 
-ERROR
- - 2012-05-05 12:36:08 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-130 
-ERROR
- - 2012-05-05 12:36:08 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";
-	}
-}
-
-131 
-	gERROR
- - 2012-05-05 12:36:08 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-132 
-ERROR
- - 2012-05-05 12:36:08 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-133 
-ERROR
- - 2012-05-05 12:36:08 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";
-	}
-}
-
-134 
-	gERROR
- - 2012-05-05 12:36:08 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-135 
-ERROR
- - 2012-05-05 12:36:08 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-136 
-ERROR
- - 2012-05-05 12:36:08 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-137 
-	gERROR
- - 2012-05-05 12:36:08 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-138 
-ERROR
- - 2012-05-05 12:36:08 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-139 
-ERROR
- - 2012-05-05 12:36:08 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"87d810«21b2b62ã44725d1a84c6687";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-140 
-	gERROR
- - 2012-05-05 12:36:08 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-	@application/logs/log-2012-05-11.php
-
-1 <?
-php
- iàĞ! 
-defšed
-('BASEPATH')è
-ex™
-('No direct script‡ccess‡llowed'); ?>
-
-3 
-	gERROR
- - 2012-05-11 23:56:00 --> 
-»que¡_sucûss
-:
-we
-.
-addU£r
-
-
-4 
-ERROR
- - 2012-05-11 23:56:00 --> 
-a
-:4:{
-i
-:0;
-	gs
-:13:"‹¡2@163.com";
-	gi
-:1;s:6:"222222";i:2;s:5:"test2";i:3;s:12:"222222222222";}
-
-5 
-	gERROR
- - 2012-05-11 23:56:00 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"222222222222";s:14:"blu‘oÙh_Çme";s:0:"";s:11:"ü—‹_time";
-	gi
-:1336751760;}
-
-6 
-	gERROR
- - 2012-05-11 23:56:00 -->
-
-7 
-ERROR
- - 2012-05-11 23:56:00 --> 
-a
-:4:{
-s
-:7:"u£r_id";
-	gi
-:2;
-	gs
-:13:"bluetooth_mac";s:12:"222222222222";s:14:"bluetooth_name";s:0:"";s:11:"create_time";i:1336751760;}
-
-8 
-	gERROR
- - 2012-05-11 23:56:00 --> 2
-
-9 
-ERROR
- - 2012-05-11 23:56:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-10 
-ERROR
- - 2012-05-11 23:56:00 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-11 
-ERROR
- - 2012-05-11 23:56:00 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-12 
-	gERROR
- - 2012-05-11 23:56:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-13 
-ERROR
- - 2012-05-11 23:56:00 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-14 
-ERROR
- - 2012-05-11 23:56:00 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";
-	}
-}
-
-15 
-	gERROR
- - 2012-05-11 23:56:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-16 
-ERROR
- - 2012-05-11 23:56:00 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-17 
-ERROR
- - 2012-05-11 23:56:00 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-18 
-	gERROR
- - 2012-05-11 23:56:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-19 
-ERROR
- - 2012-05-11 23:56:00 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-20 
-ERROR
- - 2012-05-11 23:56:00 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-21 
-	gERROR
- - 2012-05-11 23:56:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-22 
-ERROR
- - 2012-05-11 23:56:10 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-23 
-ERROR
- - 2012-05-11 23:56:10 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-24 
-	gERROR
- - 2012-05-11 23:56:11 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-25 
-ERROR
- - 2012-05-11 23:56:11 --> 
-»que¡_sucûss
-:
-we
-.
-po¡Weibo
-
-
-26 
-ERROR
- - 2012-05-11 23:56:11 --> 
-a
-:3:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:27:"ä¸ºå•¥è¿™ä¸ªå¯ä»¥ç”¨å‘¢ï¼Ÿ";i:2;s:6:"public";
-	}
-}
-
-27 
-	gERROR
- - 2012-05-11 23:56:11 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-28 
-ERROR
- - 2012-05-11 23:56:11 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-29 
-ERROR
- - 2012-05-11 23:56:11 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-30 
-	gERROR
- - 2012-05-11 23:56:11 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-31 
-ERROR
- - 2012-05-11 23:56:11 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-32 
-ERROR
- - 2012-05-11 23:56:11 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";
-	}
-}
-
-33 
-	gERROR
- - 2012-05-11 23:56:11 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-34 
-ERROR
- - 2012-05-11 23:56:11 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-35 
-ERROR
- - 2012-05-11 23:56:11 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-36 
-	gERROR
- - 2012-05-11 23:56:11 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-37 
-ERROR
- - 2012-05-11 23:56:11 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-38 
-ERROR
- - 2012-05-11 23:56:11 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-39 
-	gERROR
- - 2012-05-11 23:56:11 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-40 
-ERROR
- - 2012-05-11 23:56:22 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-41 
-ERROR
- - 2012-05-11 23:56:22 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-42 
-	gERROR
- - 2012-05-11 23:56:22 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-43 
-ERROR
- - 2012-05-11 23:56:22 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-44 
-ERROR
- - 2012-05-11 23:56:22 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";
-	}
-}
-
-45 
-	gERROR
- - 2012-05-11 23:56:22 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-46 
-ERROR
- - 2012-05-11 23:56:22 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-47 
-ERROR
- - 2012-05-11 23:56:22 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-48 
-	gERROR
- - 2012-05-11 23:56:22 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-49 
-ERROR
- - 2012-05-11 23:56:22 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-50 
-ERROR
- - 2012-05-11 23:56:22 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-51 
-	gERROR
- - 2012-05-11 23:56:22 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-52 
-ERROR
- - 2012-05-11 23:56:30 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-53 
-ERROR
- - 2012-05-11 23:56:30 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-54 
-	gERROR
- - 2012-05-11 23:56:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-55 
-ERROR
- - 2012-05-11 23:56:30 --> 
-»que¡_sucûss
-:
-we
-.
-po¡Weibo
-
-
-56 
-ERROR
- - 2012-05-11 23:56:30 --> 
-a
-:3:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:21:"è¿™æˆ‘äº†ä¸ªå»åˆ—ï½";i:2;s:6:"public";
-	}
-}
-
-57 
-	gERROR
- - 2012-05-11 23:56:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-58 
-ERROR
- - 2012-05-11 23:56:30 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-59 
-ERROR
- - 2012-05-11 23:56:30 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-60 
-	gERROR
- - 2012-05-11 23:56:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-61 
-ERROR
- - 2012-05-11 23:56:30 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-62 
-ERROR
- - 2012-05-11 23:56:30 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";
-	}
-}
-
-63 
-	gERROR
- - 2012-05-11 23:56:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-64 
-ERROR
- - 2012-05-11 23:56:30 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-65 
-ERROR
- - 2012-05-11 23:56:30 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-66 
-	gERROR
- - 2012-05-11 23:56:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-67 
-ERROR
- - 2012-05-11 23:56:30 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-68 
-ERROR
- - 2012-05-11 23:56:30 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-69 
-	gERROR
- - 2012-05-11 23:56:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-	@application/logs/log-2012-05-12.php
-
-1 <?
-php
- iàĞ! 
-defšed
-('BASEPATH')è
-ex™
-('No direct script‡ccess‡llowed'); ?>
-
-3 
-	gERROR
- - 2012-05-12 00:02:41 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-U£
- 
-of
- 
-undefšed
- 
-cÚ¡ªt
- 
-mes§ge
- - 
-assumed
- 'mes§ge' /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-h–³rs
-/
-we_”rÜ_h–³r
-.
-php
- 3
-
-	@application/logs/log-2012-05-13.php
-
-1 <?
-php
- iàĞ! 
-defšed
-('BASEPATH')è
-ex™
-('No direct script‡ccess‡llowed'); ?>
-
-3 
-	gERROR
- - 2012-05-13 13:24:48 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-šdex
-: 
-blu‘oÙh_d©a
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-mod–s
-/
-m_wlške
-.
-php
- 57
-
-4 
-ERROR
- - 2012-05-13 13:24:48 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gN
-;
-	gs
-:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-	gi
-:1336886688;}
-
-5 
-	gERROR
- - 2012-05-13 13:24:48 -->
-
-6 
-ERROR
- - 2012-05-13 13:24:48 --> 
-Qu”y
- 
-”rÜ
-: 
-CŞumn
- 'blu‘oÙh_mac' 
-ÿÂÙ
- 
-be
- 
-nuÎ
-
-
-7 
-ERROR
- - 2012-05-13 13:24:48 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-CªnÙ
- 
-modify
- 
-h—d”
- 
-šfÜm©iÚ
- - 
-h—d”s
- 
-®»ady
- 
-£Á
- 
-by
- (
-ouut
- 
-¡¬‹d
- 
-©
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-cÜe
-/
-Exû±iÚs
-.
-php
-:185è/v¬/www/wlške/sy¡em/cÜe/
-CommÚ
-.php 446
-
-8 
-ERROR
- - 2012-05-13 13:25:54 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-	gi
-:1336886754;}
-
-9 
-	gERROR
- - 2012-05-13 13:25:54 -->
-
-10 
-ERROR
- - 2012-05-13 13:26:16 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-	gi
-:1336886776;}
-
-11 
-	gERROR
- - 2012-05-13 13:26:16 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-12 
-ERROR
- - 2012-05-13 13:26:16 --> 3
-
-13 
-ERROR
- - 2012-05-13 13:26:16 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-14 
-ERROR
- - 2012-05-13 13:26:43 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";s:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-i
-:1336886803;
-	}
-}
-
-15 
-	gERROR
- - 2012-05-13 13:26:43 --> 3
-
-16 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-Missšg
- 
-¬gum’t
- 1 
-c_‹¡
-::
-addU£r
-(è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/c_‹¡.
-php
- 11
-
-17 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-Missšg
- 
-¬gum’t
- 2 
-c_‹¡
-::
-addU£r
-(è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/c_‹¡.
-php
- 11
-
-18 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-Missšg
- 
-¬gum’t
- 3 
-c_‹¡
-::
-addU£r
-(è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/c_‹¡.
-php
- 11
-
-19 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-Missšg
- 
-¬gum’t
- 4 
-c_‹¡
-::
-addU£r
-(è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/c_‹¡.
-php
- 11
-
-20 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-Missšg
- 
-¬gum’t
- 5 
-c_‹¡
-::
-addU£r
-(è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/c_‹¡.
-php
- 11
-
-21 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-ema
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-c_‹¡
-.
-php
- 13
-
-22 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-·sswÜd
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-c_‹¡
-.
-php
- 13
-
-23 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-»®_Çme
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-c_‹¡
-.
-php
- 13
-
-24 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-blu‘oÙh_mac
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-c_‹¡
-.
-php
- 13
-
-25 
-ERROR
- - 2012-05-13 13:32:13 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-blu‘oÙh_Çme
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-c_‹¡
-.
-php
- 13
-
-26 
-ERROR
- - 2012-05-13 13:40:11 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-	gi
-:1336887611;}
-
-27 
-	gERROR
- - 2012-05-13 13:40:11 --> 3
-
-28 
-ERROR
- - 2012-05-13 13:53:44 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-Missšg
- 
-¬gum’t
- 1 
-c_‹¡
-::
-šdex
-(è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/c_‹¡.
-php
- 8
-
-29 
-ERROR
- - 2012-05-13 13:53:44 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-¬gs
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-c_‹¡
-.
-php
- 9
-
-30 
-ERROR
- - 2012-05-13 13:54:10 --> 404 
-Page
- 
-NÙ
- 
-Found
- --> 
-c_‹¡
-/
-a1
-
-
-31 
-ERROR
- - 2012-05-13 20:19:00 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-32 
-ERROR
- - 2012-05-13 20:19:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-33 
-ERROR
- - 2012-05-13 20:19:00 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-34 
-	gERROR
- - 2012-05-13 20:19:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-35 
-ERROR
- - 2012-05-13 20:19:00 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-36 
-ERROR
- - 2012-05-13 20:19:01 --> 
-»que¡_sucûss
-:
-we
-.
-§yH–lo
-
-
-37 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-38 
-ERROR
- - 2012-05-13 20:19:01 --> 
-a
-:1:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";
-	}
-}
-
-39 
-	gERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-40 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-41 
-ERROR
- - 2012-05-13 20:19:01 --> 
-»que¡_sucûss
-:
-we
-.
-g‘AÎPublicWeibo
-
-
-42 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-43 
-ERROR
- - 2012-05-13 20:19:01 --> 
-a
-:2:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";
-	}
-}
-
-44 
-	gERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-45 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-46 
-ERROR
- - 2012-05-13 20:19:01 --> 
-»que¡_sucûss
-:
-we
-.
-g‘Hi¡ÜyN—rU£rD©as
-
-
-47 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-48 
-ERROR
- - 2012-05-13 20:19:01 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-49 
-	gERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-50 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-51 
-ERROR
- - 2012-05-13 20:19:01 --> 
-»que¡_sucûss
-:
-we
-.
-g‘GroupD©asbyC©egÜy
-
-
-52 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-53 
-ERROR
- - 2012-05-13 20:19:01 --> 
-a
-:4:{
-i
-:0;
-s
-:32:"85e71a8bd643e635dcã7df0b26b22f6";i:1;s:0:"";i:2;s:1:"1";i:3;s:1:"3";
-	}
-}
-
-54 
-	gERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Log
-.
-php
- 106
-
-55 
-ERROR
- - 2012-05-13 20:19:01 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$chmod
-(): 
-O³¿tiÚ
- 
-nÙ
- 
-³rm™‹d
- /
-v¬
-/
-www
-/
-wlške
-/
-sy¡em
-/
-lib¿r›s
-/
-Cache
-/
-driv”s
-/
-Cache_fe
-.
-php
- 93
-
-56 
-ERROR
- - 2012-05-13 21:59:30 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-off£t
-: 0 /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-mod–s
-/
-m_u£r
-.
-php
- 659
-
-57 
-ERROR
- - 2012-05-13 22:10:51 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";s:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-i
-:1336918251;
-	}
-}
-
-58 
-	gERROR
- - 2012-05-13 22:10:51 --> 3
-
-59 
-ERROR
- - 2012-05-13 22:10:51 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-»®Çme
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-mod–s
-/
-m_wlške
-.
-php
- 64
-
-60 
-ERROR
- - 2012-05-13 22:12:20 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-	gi
-:1336918340;}
-
-61 
-	gERROR
- - 2012-05-13 22:12:20 --> 3
-
-62 
-ERROR
- - 2012-05-13 22:12:20 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-v¬ŸbË
-: 
-»®Çme
- /
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-mod–s
-/
-m_wlške
-.
-php
- 64
-
-63 
-ERROR
- - 2012-05-13 22:13:21 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-	gi
-:1336918401;}
-
-64 
-	gERROR
- - 2012-05-13 22:13:21 --> 3
-
-65 
-ERROR
- - 2012-05-13 22:24:59 --> 
-a
-:3:{
-s
-:13:"blu‘oÙh_mac";
-	gs
-:12:"333333333333";s:14:"blu‘oÙh_Çme";s:5:"‹¡3";s:11:"ü—‹_time";
-	gi
-:1336919099;}
-
-66 
-	gERROR
- - 2012-05-13 22:24:59 --> 3
-
-	@application/logs/log-2012-05-14.php
-
-1 <?
-php
- iàĞ! 
-defšed
-('BASEPATH')è
-ex™
-('No direct script‡ccess‡llowed'); ?>
-
-3 
-	gERROR
- - 2012-05-14 15:04:27 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-šşude_Úû
-(/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-w–come
-.
-php
-): 
-çed
- 
-to
- 
-İ’
- 
-¡»am
-: 
-No
- 
-such
- 
-fe
- 
-Ü
- 
-dœeùÜy
- /v¬/www/wlške/­¶iÿtiÚ/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUnit.php 143
-
-4 
-ERROR
- - 2012-05-14 15:04:27 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$šşude_Úû
-(): 
-Faed
- 
-İ’šg
- '/v¬/www/wlške/­¶iÿtiÚ/cÚŒŞËrs/w–come.php' 
-	`šşusiÚ
- (
-šşude_·th
-='.:/u¤/sh¬e/php:/u¤/sh¬e/³¬'è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUn™.
-php
- 143
-
-5 
-ERROR
- - 2012-05-14 15:07:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	`šşude_Úû
-(/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-w–come
-.
-php
-): 
-çed
- 
-to
- 
-İ’
- 
-¡»am
-: 
-No
- 
-such
- 
-fe
- 
-Ü
- 
-dœeùÜy
- /v¬/www/wlške/­¶iÿtiÚ/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUnit.php 143
-
-6 
-ERROR
- - 2012-05-14 15:07:30 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$šşude_Úû
-(): 
-Faed
- 
-İ’šg
- '/v¬/www/wlške/­¶iÿtiÚ/cÚŒŞËrs/w–come.php' 
-	`šşusiÚ
- (
-šşude_·th
-='.:/u¤/sh¬e/php:/u¤/sh¬e/³¬'è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUn™.
-php
- 143
-
-7 
-ERROR
- - 2012-05-14 15:10:08 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	`šşude_Úû
-(/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-w–come
-.
-php
-): 
-çed
- 
-to
- 
-İ’
- 
-¡»am
-: 
-No
- 
-such
- 
-fe
- 
-Ü
- 
-dœeùÜy
- /v¬/www/wlške/­¶iÿtiÚ/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUnit.php 143
-
-8 
-ERROR
- - 2012-05-14 15:10:08 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$šşude_Úû
-(): 
-Faed
- 
-İ’šg
- '/v¬/www/wlške/­¶iÿtiÚ/cÚŒŞËrs/w–come.php' 
-	`šşusiÚ
- (
-šşude_·th
-='.:/u¤/sh¬e/php:/u¤/sh¬e/³¬'è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUn™.
-php
- 143
-
-9 
-ERROR
- - 2012-05-14 15:10:41 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	`šşude_Úû
-(/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-cÚŒŞËrs
-/
-w–come
-.
-php
-): 
-çed
- 
-to
- 
-İ’
- 
-¡»am
-: 
-No
- 
-such
- 
-fe
- 
-Ü
- 
-dœeùÜy
- /v¬/www/wlške/­¶iÿtiÚ/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUnit.php 143
-
-10 
-ERROR
- - 2012-05-14 15:10:41 --> 
-Sev”™y
-: 
-W¬nšg
- --> 
-	$šşude_Úû
-(): 
-Faed
- 
-İ’šg
- '/v¬/www/wlške/­¶iÿtiÚ/cÚŒŞËrs/w–come.php' 
-	`šşusiÚ
- (
-šşude_·th
-='.:/u¤/sh¬e/php:/u¤/sh¬e/³¬'è/
-v¬
-/
-www
-/
-wlške
-/
-­¶iÿtiÚ
-/
-thœd_·¹y
-/
-CIUn™
-/
-lib¿r›s
-/CIUn™.
-php
- 143
-
-11 
-ERROR
- - 2012-05-14 15:14:19 --> 
-Qu”y
- 
-”rÜ
-: 
-TabË
- 'wlške_‹¡.we_phÚe_ÿ¼›r' 
-dÛ¢
-'tƒxist
-
-12 
-ERROR
- - 2012-05-14 15:15:59 --> 
-Qu”y
- 
-”rÜ
-: 
-TabË
- 'wlške_‹¡.we_phÚe_ÿ¼›r' 
-dÛ¢
-'tƒxist
-
-13 
-ERROR
- - 2012-05-14 15:16:55 --> 
-Qu”y
- 
-”rÜ
-: 
-TabË
- 'ci_‹¡.we_phÚe_ÿ¼›r' 
-dÛ¢
-'tƒxist
-
-14 
-ERROR
- - 2012-05-14 15:23:03 --> 
-Qu”y
- 
-”rÜ
-: 
-TabË
- 'wlške_‹¡.we_phÚe_ÿ¼›r' 
-dÛ¢
-'tƒxist
-
-15 
-ERROR
- - 2012-05-14 19:25:44 --> 
-Sev”™y
-: 
-NÙiû
- --> 
-Undefšed
- 
-´İ”ty
-: 
-m_u£rTe¡
-::
-$lßd
- /
-v¬
-/
-www
-/
-wlške
-/
-‹¡s
-/
-mod–s
-/m_u£rTe¡.
-php
- 7
 
 	@application/models/m_album.php
 
@@ -43422,7 +36102,11 @@ funùiÚ
  
 	$add_u£r_m‘a
 (
-$d©a
+$u£r_id
+,
+$m‘a_key
+,
+$m‘a_v®ue
 ){
 
 59 
@@ -43432,8 +36116,10 @@ $this
 ->
 	`g‘_u£r_m‘a_id_by_key
 (
-$d©a
-['user_id'],$data['meta_key']);
+$u£r_id
+,
+$m‘a_key
+);
 
 61 if(
 $u£r_m‘a_id
@@ -43456,8 +36142,8 @@ u£r_m‘a_bË
 64 
 	`¬¿y
 ('m‘a_v®ue'=>
-$d©a
-['meta_value']),
+$m‘a_v®ue
+),
 
 65 
 	`¬¿y
@@ -43488,16 +36174,16 @@ u£r_m‘a_bË
 (
 
 72 'u£r_id'=>
-$d©a
-['user_id'],
+$u£r_id
+,
 
 73 'm‘a_key'=>
-$d©a
-['meta_key'],
+$m‘a_key
+,
 
 74 'm‘a_v®ue'=>
-$d©a
-['meta_value']
+$m‘a_v®ue
+
 
 76  
 TRUE
@@ -43510,6 +36196,52 @@ TRUE
 80 
 funùiÚ
  
+	$add_u£r_m‘as
+(
+$u£r_id
+,
+$m‘a_d©as
+){
+
+81 
+	`fÜ—ch
+(
+$m‘a_d©as
+ 
+as
+ 
+$key
+=>
+$v®ue
+){
+
+82 if(!
+$this
+->
+	`add_u£r_m‘a
+(
+$u£r_id
+,
+$key
+,
+$v®ue
+))
+
+83  
+çl£
+;
+
+85  
+Œue
+;
+
+86 
+	}
+}
+
+89 
+funùiÚ
+ 
 	$šü—£_u£r_m‘a
 (
 $u£r_id
@@ -43517,7 +36249,7 @@ $u£r_id
 $m‘a_key
 ){
 
-81 
+90 
 $this
 ->
 db
@@ -43527,7 +36259,7 @@ db
 FALSE
 );
 
-82 
+91 
 $this
 ->
 db
@@ -43541,7 +36273,7 @@ $u£r_id
 $m‘a_key
 ));
 
-83 
+92 
 $this
 ->
 db
@@ -43551,11 +36283,11 @@ db
 u£r_m‘a_bË
 );
 
-84 
+93 
 	}
 }
 
-86 
+95 
 funùiÚ
  
 	$deü—£_u£r_m‘a
@@ -43565,7 +36297,7 @@ $u£r_id
 $m‘a_key
 ){
 
-87 
+96 
 $this
 ->
 db
@@ -43575,7 +36307,7 @@ db
 FALSE
 );
 
-88 
+97 
 $this
 ->
 db
@@ -43589,7 +36321,7 @@ $u£r_id
 $m‘a_key
 ));
 
-89 
+98 
 $this
 ->
 db
@@ -43599,11 +36331,11 @@ db
 u£r_m‘a_bË
 );
 
-90 
+99 
 	}
 }
 
-97 
+106 
 funùiÚ
  
 	$add_blu‘oÙh
@@ -43611,7 +36343,7 @@ funùiÚ
 $d©a
 ){
 
-99 
+108 
 $blu‘oÙh_id
 =
 $this
@@ -43621,7 +36353,7 @@ $this
 $d©a
 ['bluetooth_mac']);
 
-100 
+109 
 	`log_mes§ge
 ("”rÜ",
 	`£rŸlize
@@ -43629,13 +36361,13 @@ $d©a
 $d©a
 ));
 
-101 
+110 
 	`log_mes§ge
 ("”rÜ",
 $blu‘oÙh_id
 );
 
-103 if(
+112 if(
 $blu‘oÙh_id
 &&
 	`is£t
@@ -43643,7 +36375,7 @@ $blu‘oÙh_id
 $d©a
 ['user_id'])){
 
-104 
+113 
 $this
 ->
 db
@@ -43651,29 +36383,29 @@ db
 	`upd©e
 (
 
-105 
+114 
 $this
 ->
 blu‘oÙh_bË
 ,
 
-106 
+115 
 	`¬¿y
 ('u£r_id'=>
 $d©a
 ['user_id'],'bluetooth_name'=>$data['bluetooth_name']),
 
-107 
+116 
 	`¬¿y
 ('blu‘oÙh_id'=>
 $blu‘oÙh_id
 )
 
-109  
+118  
 $blu‘oÙh_id
 ;
 
-110 }if(
+119 }if(
 $blu‘oÙh_id
 &&
 	`is£t
@@ -43681,7 +36413,7 @@ $blu‘oÙh_id
 $d©a
 ['bluetooth_name'])&&$data['bluetooth_name']){
 
-111 
+120 
 $this
 ->
 db
@@ -43689,37 +36421,37 @@ db
 	`upd©e
 (
 
-112 
+121 
 $this
 ->
 blu‘oÙh_bË
 ,
 
-113 
+122 
 	`¬¿y
 ('blu‘oÙh_Çme'=>
 $d©a
 ['bluetooth_name']),
 
-114 
+123 
 	`¬¿y
 ('blu‘oÙh_id'=>
 $blu‘oÙh_id
 )
 
-116  
+125  
 $blu‘oÙh_id
 ;
 
-117 }if(
+126 }if(
 $blu‘oÙh_id
 ) {
 
-118  
+127  
 $blu‘oÙh_id
 ;
 
-120 
+129 
 $this
 ->
 db
@@ -43731,7 +36463,7 @@ blu‘oÙh_bË
 $d©a
 );
 
-121  (
+130  (
 $this
 ->
 db
@@ -43743,11 +36475,11 @@ db
 FALSE
 ;
 
-124 
+133 
 	}
 }
 
-131 
+140 
 funùiÚ
  
 	$add_blu‘oÙh_£¬ch
@@ -43755,83 +36487,83 @@ funùiÚ
 $d©a
 ){
 
-132 
-$this
-->
-db
-->
-	`š£¹
-(
-
-133 
-$this
-->
-blu‘oÙh_£¬ch_bË
-,
-
-134 
-	`¬¿y
-(
-
-135 'äom_id'=>
-$d©a
-['from_id'],
-
-136 'to_id'=>
-$d©a
-['to_id'],
-
-137 'rssi'=>
-$d©a
-['rssi'],
-
-138 'ü—‹_time'=>
-$d©a
-['create_time']
-
-140 
-$this
-->
-db
-->
-	`š£¹
-(
-
 141 
 $this
 ->
+db
+->
+	`š£¹
+(
+
+142 
+$this
+->
 blu‘oÙh_£¬ch_bË
 ,
 
-142 
+143 
 	`¬¿y
 (
 
-143 'äom_id'=>
-$d©a
-['to_id'],
-
-144 'to_id'=>
+144 'äom_id'=>
 $d©a
 ['from_id'],
 
-145 'rssi'=>
+145 'to_id'=>
+$d©a
+['to_id'],
+
+146 'rssi'=>
 $d©a
 ['rssi'],
 
-146 'ü—‹_time'=>
+147 'ü—‹_time'=>
 $d©a
 ['create_time']
 
-148  
+149 
+$this
+->
+db
+->
+	`š£¹
+(
+
+150 
+$this
+->
+blu‘oÙh_£¬ch_bË
+,
+
+151 
+	`¬¿y
+(
+
+152 'äom_id'=>
+$d©a
+['to_id'],
+
+153 'to_id'=>
+$d©a
+['from_id'],
+
+154 'rssi'=>
+$d©a
+['rssi'],
+
+155 'ü—‹_time'=>
+$d©a
+['create_time']
+
+157  
 TRUE
 ;
 
-149 
+158 
 	}
 }
 
-157 
+166 
 funùiÚ
  
 	$add_blu‘oÙh_£¬chs_by_blu‘oÙh_d©as
@@ -43841,7 +36573,7 @@ $blu‘oÙh_id
 $blu‘oÙh_d©as
 ){
 
-159 
+168 
 $blu‘oÙh_ids
 =
 $this
@@ -43851,7 +36583,7 @@ $this
 $blu‘oÙh_d©as
 );
 
-161 
+170 
 $Ëngth
 =
 	`couÁ
@@ -43859,13 +36591,13 @@ $Ëngth
 $blu‘oÙh_ids
 );
 
-162 
+171 
 $i
 =0;$i<
 $Ëngth
 ;$i++){
 
-163 
+172 
 $this
 ->
 	`add_blu‘oÙh_£¬ch
@@ -43873,35 +36605,35 @@ $this
 	`¬¿y
 (
 
-164 'äom_id'=>
+173 'äom_id'=>
 $blu‘oÙh_id
 ,
 
-165 'to_id'=>
+174 'to_id'=>
 $blu‘oÙh_ids
 [
 $i
 ],
 
-166 'rssi'=>
+175 'rssi'=>
 $blu‘oÙh_d©as
 [
 $i
 ][2],
 
-167 'ü—‹_time'=>
+176 'ü—‹_time'=>
 	`time
 ()
 
-170  
+179  
 TRUE
 ;
 
-171 
+180 
 	}
 }
 
-179 
+188 
 funùiÚ
  
 	$g‘_blu‘oÙh_ids_by_£¬ch_time
@@ -43911,19 +36643,19 @@ $blu‘oÙh_id
 $cu¼’t_time
 ){
 
-181 
+190 
 $blu‘oÙh_ids
 =
 	`¬¿y
 ();
 
-183 
+192 
 $ü—‹_time
 =
 $cu¼’t_time
 -300;
 
-185 
+194 
 $this
 ->
 db
@@ -43937,7 +36669,7 @@ FALSE
 blu‘oÙh_£¬ch_bË
 );
 
-187 
+196 
 $this
 ->
 db
@@ -43947,15 +36679,15 @@ db
 	`¬¿y
 (
 
-188 'äom_id'=>
+197 'äom_id'=>
 $blu‘oÙh_id
 ,
 
-189 'ü—‹_tim>' =>
+198 'ü—‹_tim>' =>
 $ü—‹_time
 
 
-192 
+201 
 $qu”y
 =
 $this
@@ -43965,7 +36697,7 @@ db
 	`g‘
 ();
 
-194 
+203 
 $blu‘oÙh_ids
 =
 $qu”y
@@ -43973,7 +36705,7 @@ $qu”y
 	`»suÉ_¬¿y
 ();
 
-196 
+205 
 	`fÜ—ch
 (
 $blu‘oÙh_ids
@@ -43985,7 +36717,7 @@ $key
 $v®ue
 ){
 
-197 
+206 
 $blu‘oÙh_ids
 [
 $key
@@ -43993,21 +36725,21 @@ $key
 $v®ue
 ['to_id'];
 
-200 
+209 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-202  
+211  
 $blu‘oÙh_ids
 ;
 
-204 
+213 
 	}
 }
 
-212 
+221 
 funùiÚ
  
 	$g‘_blu‘oÙh_£¬ch_d©as_by_£¬ch_time
@@ -44017,19 +36749,19 @@ $blu‘oÙh_id
 $cu¼’t_time
 ){
 
-213 
+222 
 $blu‘oÙh_d©as
 =
 	`¬¿y
 ();
 
-215 
+224 
 $ü—‹_time
 =
 $cu¼’t_time
 -300;
 
-217 
+226 
 $this
 ->
 db
@@ -44039,7 +36771,7 @@ db
 FALSE
 );
 
-219 
+228 
 $this
 ->
 db
@@ -44049,7 +36781,7 @@ db
 blu‘oÙh_£¬ch_bË
 );
 
-221 
+230 
 $this
 ->
 db
@@ -44059,15 +36791,15 @@ db
 	`¬¿y
 (
 
-222 'äom_id'=>
+231 'äom_id'=>
 $blu‘oÙh_id
 ,
 
-223 'ü—‹_tim>' =>
+232 'ü—‹_tim>' =>
 $ü—‹_time
 
 
-226 
+235 
 $this
 ->
 db
@@ -44075,7 +36807,7 @@ db
 	`group_by
 ('to_id');
 
-228 
+237 
 $this
 ->
 db
@@ -44083,7 +36815,7 @@ db
 	`Üd”_by
 ('create_time','desc');
 
-230 
+239 
 $qu”y
 =
 $this
@@ -44093,7 +36825,7 @@ db
 	`g‘
 ();
 
-232 
+241 
 $blu‘oÙh_d©as
 =
 $qu”y
@@ -44101,21 +36833,21 @@ $qu”y
 	`»suÉ_¬¿y
 ();
 
-234 
+243 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-236  
+245  
 $blu‘oÙh_d©as
 ;
 
-237 
+246 
 	}
 }
 
-239 
+248 
 funùiÚ
  
 	$g‘_doubË_blu‘oÙh_£¬ch_d©as_by_£¬ch_time
@@ -44125,19 +36857,19 @@ $blu‘oÙh_id
 $cu¼’t_time
 ){
 
-240 
+249 
 $blu‘oÙh_d©as
 =
 	`¬¿y
 ();
 
-242 
+251 
 $ü—‹_time
 =
 $cu¼’t_time
 -300;
 
-244 
+253 
 $qu”y
 =
 $this
@@ -44147,7 +36879,7 @@ db
 	`qu”y
 ("
 
-245 
+254 
 SELECT
  
 to_id
@@ -44163,7 +36895,7 @@ AS
 £¬ch_couÁ
 
 
-246 
+255 
 FROM
  
 $this
@@ -44171,7 +36903,7 @@ $this
 blu‘oÙh_£¬ch_bË
 
 
-247 
+256 
 WHERE
  
 to_id
@@ -44179,7 +36911,7 @@ to_id
 $blu‘oÙh_id
 
 
-248 
+257 
 AND
  `
 ü—‹_time
@@ -44187,23 +36919,23 @@ AND
 $ü—‹_time
 
 
-249 
+258 
 AND
  
 äom_id
 
 
-250 
+259 
 	`IN
  (
 
-251 
+260 
 SELECT
  `
 to_id
 `
 
-252 
+261 
 FROM
  
 $this
@@ -44211,7 +36943,7 @@ $this
 blu‘oÙh_£¬ch_bË
 
 
-253 
+262 
 WHERE
  `
 äom_id
@@ -44219,7 +36951,7 @@ WHERE
 $blu‘oÙh_id
 
 
-254 
+263 
 AND
  `
 ü—‹_time
@@ -44227,7 +36959,7 @@ AND
 $ü—‹_time
 
 
-256 
+265 
 GROUP
  
 BY
@@ -44235,11 +36967,11 @@ BY
 to_id
 `
 
-257 
+266 
 UNION
 
 
-258 
+267 
 SELECT
  
 to_id
@@ -44255,7 +36987,7 @@ AS
 £¬ch_couÁ
 
 
-259 
+268 
 FROM
  
 $this
@@ -44263,7 +36995,7 @@ $this
 blu‘oÙh_£¬ch_bË
 
 
-260 
+269 
 WHERE
  
 äom_id
@@ -44271,7 +37003,7 @@ WHERE
 $blu‘oÙh_id
 
 
-261 
+270 
 AND
  `
 ü—‹_time
@@ -44279,7 +37011,7 @@ AND
 $ü—‹_time
 
 
-262 
+271 
 GROUP
  
 BY
@@ -44287,7 +37019,7 @@ BY
 to_id
 `
 
-263 
+272 
 ORDER
  
 BY
@@ -44297,7 +37029,7 @@ BY
 DESC
 
 
-267 
+276 
 $blu‘oÙh_d©as
 =
 $qu”y
@@ -44305,21 +37037,21 @@ $qu”y
 	`»suÉ_¬¿y
 ();
 
-269 
+278 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-271  
+280  
 $blu‘oÙh_d©as
 ;
 
-272 
+281 
 	}
 }
 
-274 
+283 
 funùiÚ
  
 	$g‘_blu‘oÙh_£¬ch_d©as_by_blu‘oÙh_id
@@ -44333,13 +37065,13 @@ $·ge
 $·ge_couÁ
 ){
 
-275 
+284 
 $blu‘oÙh_d©as
 =
 	`¬¿y
 ();
 
-277 
+286 
 $this
 ->
 db
@@ -44349,7 +37081,7 @@ db
 FALSE
 );
 
-279 
+288 
 $this
 ->
 db
@@ -44359,7 +37091,7 @@ db
 $blu‘oÙh_id
 );
 
-281 
+290 
 $this
 ->
 db
@@ -44367,7 +37099,7 @@ db
 	`group_by
 ('to_id');
 
-283 
+292 
 $this
 ->
 db
@@ -44377,7 +37109,7 @@ db
 $sÜt
 ,'desc');
 
-285 
+294 
 $qu”y
 =
 $this
@@ -44393,7 +37125,7 @@ $·ge_couÁ
 $·ge
 -1)*$page_count);
 
-287 
+296 
 $blu‘oÙh_d©as
 =
 $qu”y
@@ -44401,21 +37133,21 @@ $qu”y
 	`»suÉ_¬¿y
 ();
 
-289 
+298 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-291  
+300  
 $blu‘oÙh_d©as
 ;
 
-292 
+301 
 	}
 }
 
-294 
+303 
 funùiÚ
  
 	$g‘_u£r_d©as_by_blu‘oÙh_£¬ch_d©as
@@ -44423,13 +37155,13 @@ funùiÚ
 $blu‘oÙh_d©as
 ){
 
-296 
+305 
 $u£r_d©as
 =
 	`¬¿y
 ();
 
-298 
+307 
 	`fÜ—ch
 (
 $blu‘oÙh_d©as
@@ -44439,7 +37171,7 @@ as
 $v®ue
 ){
 
-299 
+308 
 $u£r_d©a
 =
 $this
@@ -44449,21 +37181,21 @@ $this
 $v®ue
 ['to_id']);
 
-300 if(!
+309 if(!
 $u£r_d©a
 ){
 
-301 
+310 
 $u£r_d©a
 ['user_id']=0;
 
-302 
+311 
 $u£r_d©a
 ['blu‘oÙh_id']=
 $v®ue
 ['to_id'];
 
-303 
+312 
 $u£r_d©a
 ['di¥Ïy_Çme']=
 $this
@@ -44473,61 +37205,61 @@ $this
 $v®ue
 ['to_id']);
 
-304 
+313 
 $u£r_d©a
 ['real_name']=$user_data['display_name'];
 
-305 
+314 
 $u£r_d©a
 ['Ï¡_aùiv™y']=
 	`time
 ();
 
-306 
+315 
 $u£r_d©a
 ['u£r_av©¬']=
 	`ba£_u¾
 ('upload/default.jpg');
 
-307 
+316 
 $u£r_d©a
 ['friend_count']=0;
 
-308 
+317 
 $u£r_d©a
 ['weibo_count']=0;
 
-309 
+318 
 $u£r_d©a
 ['latest_update']="taè¿˜æ²¡æœ‰æ³¨å†Œèœ—é‚»å®¢";
 
-311 
+320 
 $u£r_d©a
 ['Ï¡_£¬ch_time']=
 $v®ue
 ['create_time'];
 
-312 
+321 
 $u£r_d©a
 ['£¬ch_couÁ']=
 $v®ue
 ['search_count'];
 
-313 
+322 
 $u£r_d©as
 []=
 $u£r_d©a
 ;
 
-315  
+324  
 $u£r_d©as
 ;
 
-317 
+326 
 	}
 }
 
-324 
+333 
 funùiÚ
  
 	$g‘_u£r_d©as_by_blu‘oÙh_ids
@@ -44535,13 +37267,13 @@ funùiÚ
 $blu‘oÙh_ids
 ){
 
-326 
+335 
 $u£r_d©as
 =
 	`¬¿y
 ();
 
-328 
+337 
 	`fÜ—ch
 (
 $blu‘oÙh_ids
@@ -44551,7 +37283,7 @@ as
 $v®ue
 ){
 
-329 
+338 
 $u£r_d©a
 =
 $this
@@ -44561,21 +37293,21 @@ $this
 $v®ue
 );
 
-330 if(!
+339 if(!
 $u£r_d©a
 ){
 
-331 
+340 
 $u£r_d©a
 ['user_id']=0;
 
-332 
+341 
 $u£r_d©a
 ['blu‘oÙh_id']=
 $v®ue
 ;
 
-333 
+342 
 $u£r_d©a
 ['di¥Ïy_Çme']=
 $this
@@ -44585,49 +37317,49 @@ $this
 $v®ue
 );
 
-334 
+343 
 $u£r_d©a
 ['real_name']=$user_data['display_name'];
 
-335 
+344 
 $u£r_d©a
 ['Ï¡_aùiv™y']=
 	`time
 ();
 
-336 
+345 
 $u£r_d©a
 ['u£r_av©¬']=
 	`ba£_u¾
 ('upload/default.jpg');
 
-337 
+346 
 $u£r_d©a
 ['friend_count']=0;
 
-338 
+347 
 $u£r_d©a
 ['weibo_count']=0;
 
-339 
+348 
 $u£r_d©a
 ['latest_update']="æˆ‘è¿˜æ²¡æœ‰æ³¨å†Œèœ—é‚»å®¢ï¼Œå¿«æ¥é‚€è¯·æˆ‘å§ï¼";
 
-341 
+350 
 $u£r_d©as
 []=
 $u£r_d©a
 ;
 
-343  
+352  
 $u£r_d©as
 ;
 
-345 
+354 
 	}
 }
 
-352 
+361 
 funùiÚ
  
 	$g‘_u£r_m‘a_id_by_key
@@ -44637,7 +37369,7 @@ $u£r_id
 $m‘a_key
 ){
 
-353 
+362 
 $this
 ->
 db
@@ -44649,7 +37381,7 @@ db
 u£r_m‘a_bË
 );
 
-354 
+363 
 $this
 ->
 db
@@ -44659,15 +37391,15 @@ db
 	`¬¿y
 (
 
-355 'u£r_id'=>
+364 'u£r_id'=>
 $u£r_id
 ,
 
-356 'm‘a_key'=>
+365 'm‘a_key'=>
 $m‘a_key
 
 
-358 
+367 
 $qu”y
  = 
 $this
@@ -44677,7 +37409,7 @@ db
 	`g‘
 ();
 
-359 
+368 
 $num
  = 
 $qu”y
@@ -44685,17 +37417,17 @@ $qu”y
 	`row
 ();
 
-360 
+369 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-361 if(
+370 if(
 $num
 )
 
-362  
+371  
 	`štv®
 (
 $num
@@ -44703,15 +37435,15 @@ $num
 u£r_m‘a_id
 );
 
-364  
+373  
 FALSE
 ;
 
-365 
+374 
 	}
 }
 
-373 
+382 
 funùiÚ
  
 	$g‘_u£r_m‘a_v®ue_by_key
@@ -44721,7 +37453,7 @@ $u£r_id
 $m‘a_key
 ){
 
-374 
+383 
 $this
 ->
 db
@@ -44733,7 +37465,7 @@ db
 u£r_m‘a_bË
 );
 
-375 
+384 
 $this
 ->
 db
@@ -44743,15 +37475,15 @@ db
 	`¬¿y
 (
 
-376 'u£r_id'=>
+385 'u£r_id'=>
 $u£r_id
 ,
 
-377 'm‘a_key'=>
+386 'm‘a_key'=>
 $m‘a_key
 
 
-379 
+388 
 $qu”y
  = 
 $this
@@ -44761,7 +37493,7 @@ db
 	`g‘
 ();
 
-380 
+389 
 $num
  = 
 $qu”y
@@ -44769,31 +37501,31 @@ $qu”y
 	`row
 ();
 
-381 
+390 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-382 if(
+391 if(
 $num
 )
 
-383  
+392  
 $num
 ->
 m‘a_v®ue
 ;
 
-385  
+394  
 FALSE
 ;
 
-386 
+395 
 	}
 }
 
-393 
+402 
 funùiÚ
  
 	$g‘_u£r_m‘as_by_u£r_id
@@ -44801,7 +37533,7 @@ funùiÚ
 $u£r_id
 ){
 
-394 
+403 
 $this
 ->
 db
@@ -44813,7 +37545,7 @@ db
 u£r_m‘a_bË
 );
 
-395 
+404 
 $this
 ->
 db
@@ -44823,7 +37555,7 @@ db
 $u£r_id
 );
 
-396 
+405 
 $qu”y
  = 
 $this
@@ -44833,7 +37565,7 @@ db
 	`g‘
 ();
 
-397 
+406 
 $row
  = 
 $qu”y
@@ -44841,29 +37573,29 @@ $qu”y
 	`»suÉ_¬¿y
 ();
 
-398 
+407 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-399 if(
+408 if(
 $row
 )
 
-400  
+409  
 $row
 ;
 
-402  
+411  
 FALSE
 ;
 
-403 
+412 
 	}
 }
 
-409 
+418 
 funùiÚ
  
 	$g‘_blu‘oÙh_id_by_mac
@@ -44871,7 +37603,7 @@ funùiÚ
 $blu‘oÙh_mac
 ){
 
-410 
+419 
 $this
 ->
 db
@@ -44883,7 +37615,7 @@ db
 blu‘oÙh_bË
 );
 
-411 
+420 
 $this
 ->
 db
@@ -44893,7 +37625,7 @@ db
 $blu‘oÙh_mac
 );
 
-412 
+421 
 $qu”y
  = 
 $this
@@ -44903,7 +37635,7 @@ db
 	`g‘
 ();
 
-413 
+422 
 $num
  = 
 $qu”y
@@ -44911,17 +37643,17 @@ $qu”y
 	`row
 ();
 
-414 
+423 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-415 if(
+424 if(
 $num
 )
 
-416  
+425  
 	`štv®
 (
 $num
@@ -44929,15 +37661,15 @@ $num
 blu‘oÙh_id
 );
 
-418  
+427  
 FALSE
 ;
 
-419 
+428 
 	}
 }
 
-427 
+436 
 funùiÚ
  
 	$g‘_blu‘oÙh_id_by_mac_ªd_u£r_id
@@ -44947,7 +37679,7 @@ $blu‘oÙh_mac
 $u£r_id
 ){
 
-428 
+437 
 $this
 ->
 db
@@ -44959,7 +37691,7 @@ db
 blu‘oÙh_bË
 );
 
-429 
+438 
 $this
 ->
 db
@@ -44969,7 +37701,7 @@ db
 $blu‘oÙh_mac
 );
 
-430 
+439 
 $this
 ->
 db
@@ -44979,7 +37711,7 @@ db
 $u£r_id
 );
 
-431 
+440 
 $qu”y
  = 
 $this
@@ -44989,7 +37721,7 @@ db
 	`g‘
 ();
 
-432 
+441 
 $num
  = 
 $qu”y
@@ -44997,17 +37729,17 @@ $qu”y
 	`row
 ();
 
-433 
+442 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-435 if(
+444 if(
 $num
 )
 
-436  
+445  
 	`štv®
 (
 $num
@@ -45015,15 +37747,15 @@ $num
 blu‘oÙh_id
 );
 
-438  
+447  
 FALSE
 ;
 
-439 
+448 
 	}
 }
 
-449 
+458 
 funùiÚ
  
 	$g‘_blu‘oÙh_ids_by_blu‘oÙh_d©as
@@ -45031,17 +37763,17 @@ funùiÚ
 $blu‘oÙh_d©as
 ){
 
-451 
+460 
 $blu‘oÙh_ids
 =
 	`¬¿y
 ();
 
-453 
+462 
 $blu‘oÙh_d©as
 ){
 
-454 
+463 
 $blu‘oÙh_d©a
 =
 	`¬¿y_shiá
@@ -45049,7 +37781,7 @@ $blu‘oÙh_d©a
 $blu‘oÙh_d©as
 );
 
-455 
+464 
 $blu‘oÙh_id
 =
 $this
@@ -45059,33 +37791,33 @@ $this
 	`¬¿y
 (
 
-456 'blu‘oÙh_mac'=>
+465 'blu‘oÙh_mac'=>
 $blu‘oÙh_d©a
 [0],
 
-457 'blu‘oÙh_Çme'=>
+466 'blu‘oÙh_Çme'=>
 $blu‘oÙh_d©a
 [1],
 
-458 'ü—‹_time'=>
+467 'ü—‹_time'=>
 	`time
 ()
 
-461 
+470 
 $blu‘oÙh_ids
 []=
 $blu‘oÙh_id
 ;
 
-464  
+473  
 $blu‘oÙh_ids
 ;
 
-465 
+474 
 	}
 }
 
-473 
+482 
 funùiÚ
  
 	$g‘_blu‘oÙh_£¬ch_id_by_blu‘oÙh_id
@@ -45095,7 +37827,7 @@ $äom_id
 $to_id
 ){
 
-475 
+484 
 $this
 ->
 db
@@ -45107,7 +37839,7 @@ db
 blu‘oÙh_£¬ch_bË
 );
 
-477 
+486 
 $this
 ->
 db
@@ -45121,7 +37853,7 @@ $äom_id
 $to_id
 ));
 
-479 
+488 
 $qu”y
  = 
 $this
@@ -45131,7 +37863,7 @@ db
 	`g‘
 ();
 
-480 
+489 
 $num
  = 
 $qu”y
@@ -45139,17 +37871,17 @@ $qu”y
 	`row
 ();
 
-481 
+490 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-483 if(
+492 if(
 $num
 )
 
-484  
+493  
 	`štv®
 (
 $num
@@ -45157,15 +37889,15 @@ $num
 blu‘oÙh_£¬ch_id
 );
 
-486  
+495  
 FALSE
 ;
 
-487 
+496 
 	}
 }
 
-494 
+503 
 funùiÚ
  
 	$g‘_u£r_id_by_blu‘oÙh_mac
@@ -45173,7 +37905,7 @@ funùiÚ
 $blu‘oÙh_mac
 ){
 
-495 
+504 
 $this
 ->
 db
@@ -45185,7 +37917,7 @@ db
 u£r_bË
 );
 
-496 
+505 
 $this
 ->
 db
@@ -45193,7 +37925,7 @@ db
 	`wh”e
 ('bluetooth_id',
 
-497 '(SELECT blu‘oÙh_id FROM '.
+506 '(SELECT blu‘oÙh_id FROM '.
 $this
 ->
 blu‘oÙh_bË
@@ -45201,11 +37933,11 @@ blu‘oÙh_bË
 $blu‘oÙh_mac
 .'")',
 
-498 
+507 
 FALSE
 );
 
-499 
+508 
 $qu”y
 =
 $this
@@ -45215,7 +37947,7 @@ db
 	`g‘
 ();
 
-500 
+509 
 $num
 =
 $qu”y
@@ -45223,31 +37955,31 @@ $qu”y
 	`row
 ();
 
-501 
+510 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-503 if(
+512 if(
 $num
 )
 
-504  
+513  
 $num
 ->
 u£r_id
 ;
 
-506  
+515  
 FALSE
 ;
 
-507 
+516 
 	}
 }
 
-514 
+523 
 funùiÚ
  
 	$g‘_u£r_d©a_by_u£r_id
@@ -45255,13 +37987,13 @@ funùiÚ
 $u£r_id
 ){
 
-516 
+525 
 $u£r_d©a
 =
 	`¬¿y
 ();
 
-518 
+527 
 $this
 ->
 db
@@ -45273,7 +38005,7 @@ db
 u£r_bË
 );
 
-519 
+528 
 $this
 ->
 db
@@ -45283,7 +38015,7 @@ db
 $u£r_id
 );
 
-520 
+529 
 $qu”y
  = 
 $this
@@ -45293,7 +38025,7 @@ db
 	`g‘
 ();
 
-521 
+530 
 $row
  = 
 $qu”y
@@ -45301,51 +38033,51 @@ $qu”y
 	`row_¬¿y
 ();
 
-522 
+531 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-524 if(!
+533 if(!
 $row
 )
 
-525  
+534  
 FALSE
 ;
 
-526 
+535 
 $u£r_d©a
 ['u£r_id']=
 $u£r_id
 ;
 
-527 
+536 
 $u£r_d©a
 ['»®_Çme']=
 $row
 ['real_name'];
 
-528 
+537 
 $u£r_d©a
 ['di¥Ïy_Çme']=
 $row
 ['display_name'];
 
-529 
+538 
 $u£r_d©a
 ['Ï¡_aùiv™y']=
 $row
 ['last_activity'];
 
-530 
+539 
 $u£r_d©a
 ['ü—‹_time']=
 $row
 ['create_time'];
 
-531 
+540 
 $u£r_m‘as
 =
 $this
@@ -45355,11 +38087,11 @@ $this
 $u£r_id
 );
 
-532 if(
+541 if(
 $u£r_m‘as
 ){
 
-533 
+542 
 	`fÜ—ch
 (
 $u£r_m‘as
@@ -45369,21 +38101,21 @@ as
 $v®ue
 ){
 
-534 
+543 
 $u£r_d©a
 [
 $v®ue
 ['meta_key']]=$value['meta_value'];
 
-537  
+546  
 $u£r_d©a
 ;
 
-538 
+547 
 	}
 }
 
-540 
+549 
 funùiÚ
  
 	$g‘_u£r_d©a_by_di¥Ïy_Çme
@@ -45391,13 +38123,13 @@ funùiÚ
 $di¥Ïy_Çme
 ){
 
-542 
+551 
 $u£r_d©a
 =
 	`¬¿y
 ();
 
-544 
+553 
 $this
 ->
 db
@@ -45409,7 +38141,7 @@ db
 u£r_bË
 );
 
-545 
+554 
 $this
 ->
 db
@@ -45419,7 +38151,7 @@ db
 $di¥Ïy_Çme
 );
 
-546 
+555 
 $qu”y
  = 
 $this
@@ -45429,7 +38161,7 @@ db
 	`g‘
 ();
 
-547 
+556 
 $row
  = 
 $qu”y
@@ -45437,21 +38169,21 @@ $qu”y
 	`»suÉ_¬¿y
 ();
 
-548 
+557 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-550 if(!
+559 if(!
 $row
 )
 
-551  
+560  
 FALSE
 ;
 
-552 
+561 
 	`fÜ—ch
 (
 $row
@@ -45463,43 +38195,43 @@ $key
 $v®ue
 ){
 
-553 
+562 
 $u£r_d©a
 =
 	`¬¿y
 ();
 
-554 
+563 
 $u£r_d©a
 ['u£r_id']=
 $v®ue
 ['user_id'];
 
-555 
+564 
 $u£r_d©a
 ['»®_Çme']=
 $v®ue
 ['real_name'];
 
-556 
+565 
 $u£r_d©a
 ['di¥Ïy_Çme']=
 $v®ue
 ['display_name'];
 
-557 
+566 
 $u£r_d©a
 ['Ï¡_aùiv™y']=
 $v®ue
 ['last_activity'];
 
-558 
+567 
 $u£r_d©a
 ['ü—‹_time']=
 $v®ue
 ['create_time'];
 
-559 
+568 
 $u£r_m‘as
 =
 $this
@@ -45509,11 +38241,11 @@ $this
 $u£r_d©a
 ['user_id']);
 
-560 if(
+569 if(
 $u£r_m‘as
 ){
 
-561 
+570 
 	`fÜ—ch
 (
 $u£r_m‘as
@@ -45523,13 +38255,13 @@ as
 $m‘a_v®ue
 ){
 
-562 
+571 
 $u£r_d©a
 [
 $m‘a_v®ue
 ['meta_key']]=$meta_value['meta_value'];
 
-565 
+574 
 $row
 [
 $key
@@ -45537,15 +38269,15 @@ $key
 $u£r_d©a
 ;
 
-567  
+576  
 $row
 ;
 
-568 
+577 
 	}
 }
 
-575 
+584 
 funùiÚ
  
 	$g‘_u£r_d©as_by_u£r_ids
@@ -45553,17 +38285,17 @@ funùiÚ
 $u£r_ids
 ){
 
-576 
+585 
 $u£r_d©as
 =
 	`¬¿y
 ();
 
-577 if(
+586 if(
 $u£r_ids
 ){
 
-578 
+587 
 	`fÜ—ch
 (
 $u£r_ids
@@ -45573,7 +38305,7 @@ as
 $v®ue
 ){
 
-579 
+588 
 $u£r_d©a
 =
 $this
@@ -45583,21 +38315,21 @@ $this
 $v®ue
 );
 
-580 
+589 
 $u£r_d©as
 []=
 $u£r_d©a
 ;
 
-583  
+592  
 $u£r_d©as
 ;
 
-585 
+594 
 	}
 }
 
-591 
+600 
 funùiÚ
  
 	$g‘_®l_u£r_id
@@ -45607,7 +38339,7 @@ $·ge
 $·ge_couÁ
 =20){
 
-592 
+601 
 $this
 ->
 db
@@ -45615,7 +38347,7 @@ db
 	`£Ëù
 ('user_id');
 
-593 
+602 
 $this
 ->
 db
@@ -45623,7 +38355,7 @@ db
 	`Üd”_by
 ("user_id", "desc");
 
-594 
+603 
 $qu”y
 =
 $this
@@ -45639,13 +38371,13 @@ $·ge_couÁ
 $·ge
 -1)*$page_count);
 
-595 if(
+604 if(
 $qu”y
 ->
 	`num_rows
 ()>0){
 
-596 
+605 
 $u£r_ids
 =
 $qu”y
@@ -45653,13 +38385,13 @@ $qu”y
 	`»suÉ_¬¿y
 ();
 
-597 
+606 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-598 
+607 
 	`fÜ—ch
  (
 $u£r_ids
@@ -45671,7 +38403,7 @@ $key
 $v®ue
 ){
 
-599 
+608 
 $u£r_ids
 [
 $key
@@ -45679,19 +38411,19 @@ $key
 $v®ue
 ['user_id'];
 
-601  
+610  
 $u£r_ids
 ;
 
-603  
+612  
 FALSE
 ;
 
-605 
+614 
 	}
 }
 
-612 
+621 
 funùiÚ
  
 	$g‘_u£r_d©a_by_blu‘oÙh_id
@@ -45699,13 +38431,13 @@ funùiÚ
 $blu‘oÙh_id
 ){
 
-614 
+623 
 $u£r_d©a
 =
 	`¬¿y
 ();
 
-616 
+625 
 $this
 ->
 db
@@ -45717,7 +38449,7 @@ db
 u£r_bË
 );
 
-617 
+626 
 $this
 ->
 db
@@ -45727,7 +38459,7 @@ db
 $blu‘oÙh_id
 );
 
-618 
+627 
 $qu”y
  = 
 $this
@@ -45737,7 +38469,7 @@ db
 	`g‘
 ();
 
-619 
+628 
 $row
  = 
 $qu”y
@@ -45745,47 +38477,47 @@ $qu”y
 	`row_¬¿y
 ();
 
-620 
+629 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-622 if(
+631 if(
 $row
 ){
 
-623 
+632 
 $u£r_d©a
 ['u£r_id']=
 $row
 ['user_id'];
 
-624 
+633 
 $u£r_d©a
 ['blu‘oÙh_id']=
 $row
 ['bluetooth_id'];
 
-625 
+634 
 $u£r_d©a
 ['»®_Çme']=
 $row
 ['real_name'];
 
-626 
+635 
 $u£r_d©a
 ['di¥Ïy_Çme']=
 $row
 ['display_name'];
 
-627 
+636 
 $u£r_d©a
 ['Ï¡_aùiv™y']=
 $row
 ['last_activity'];
 
-628 
+637 
 $u£r_m‘as
 =
 $this
@@ -45795,11 +38527,11 @@ $this
 $row
 ['user_id']);
 
-629 if(
+638 if(
 $u£r_m‘as
 ){
 
-630 
+639 
 	`fÜ—ch
 (
 $u£r_m‘as
@@ -45809,25 +38541,25 @@ as
 $v®ue
 ){
 
-631 
+640 
 $u£r_d©a
 [
 $v®ue
 ['meta_key']]=$value['meta_value'];
 
-634  
+643  
 $u£r_d©a
 ;
 
-637  
+646  
 FALSE
 ;
 
-640 
+649 
 	}
 }
 
-647 
+656 
 funùiÚ
  
 	$g‘_blu‘oÙh_Çme_by_blu‘oÙh_id
@@ -45835,7 +38567,7 @@ funùiÚ
 $blu‘oÙh_id
 ){
 
-648 
+657 
 $this
 ->
 db
@@ -45847,7 +38579,7 @@ db
 blu‘oÙh_bË
 );
 
-649 
+658 
 $this
 ->
 db
@@ -45857,7 +38589,7 @@ db
 $blu‘oÙh_id
 );
 
-650 
+659 
 $qu”y
 =
 $this
@@ -45867,7 +38599,7 @@ db
 	`g‘
 ();
 
-651 
+660 
 $row
 =
 $qu”y
@@ -45875,31 +38607,31 @@ $qu”y
 	`row
 ();
 
-652 
+661 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-654 if(
+663 if(
 $row
 )
 
-655  
+664  
 $row
 ->
 blu‘oÙh_Çme
 ;
 
-657  
+666  
 FLASE
 ;
 
-658 
+667 
 	}
 }
 
-665 
+674 
 funùiÚ
  
 	$g‘_u£r_»®_Çme_by_di¥Ïy_Çme
@@ -45907,29 +38639,31 @@ funùiÚ
 $di¥Ïy_Çme
 ){
 
-667 
-$this
-->
-db
-->
-	`£Ëù
-("max(u£r_id)+1‡ max_u£r_id",
-çl£
-);
-
-668 
+676 
 $qu”y
 =
 $this
 ->
 db
 ->
-	`g‘
-($this->
-u£r_bË
-);
+	`qu”y
+(
 
-669 
+677 'SHOW TABLE STATUS FROM '.
+$this
+->
+cÚfig
+->
+	`™em
+("database")
+
+678 .' LIKE "'.
+$this
+->
+u£r_bË
+.'"');
+
+679 
 $u£r_id
 =
 $qu”y
@@ -45937,35 +38671,25 @@ $qu”y
 	`row_¬¿y
 ();
 
-670 if(
+680 if(
 $u£r_id
 ){
 
-671  
+681  
 $di¥Ïy_Çme
 ."(".
 $u£r_id
-['max_user_id'].")";
+['Auto_increment'].")";
 
-673  
+683  
 çl£
 ;
 
-675 
+685 
 	}
 }
 
-677 
-funùiÚ
- 
-	$¯
-(){
-
-679 
-	}
-}
-
-687 
+694 
 funùiÚ
  
 check_exi¡
@@ -45977,17 +38701,17 @@ $v®ue
 $exşude_u£r_id
  = 0)
 
-689 if(!
+696 if(!
 em±y
 (
 $v®ue
 ))
 
-692 if(
+699 if(
 $key
 =='real_name'){
 
-693 
+700 
 $this
 ->
 db
@@ -46005,7 +38729,7 @@ $key
 $v®ue
 .'(','after');
 
-695 
+702 
 	g$this
 ->
 	gdb
@@ -46025,7 +38749,7 @@ $key
 $v®ue
 );
 
-698 if(!
+705 if(!
 em±y
 (
 $exşude_u£r_id
@@ -46033,7 +38757,7 @@ $exşude_u£r_id
 is_num”ic
 ($exclude_user_id))
 
-700 
+707 
 	g$this
 ->
 	gdb
@@ -46043,7 +38767,7 @@ wh”e
 $exşude_u£r_id
 );
 
-703 
+710 
 	g$qu”y
  = 
 $this
@@ -46053,7 +38777,7 @@ db
 g‘
 ();
 
-704 
+711 
 	g$num
  = 
 $qu”y
@@ -46061,29 +38785,29 @@ $qu”y
 num_rows
 ();
 
-705 
+712 
 	g$qu”y
 ->
 ä“_»suÉ
 ();
 
-707 if(
+714 if(
 	g$num
 )
 
-708  
+715  
 	g$num
 ;
 
-710  
+717  
 	gFALSE
 ;
 
-712  
+719  
 	gFALSE
 ;
 
-720 
+727 
 funùiÚ
  
 	$upd©e_Ï¡_aùiv™y
@@ -46093,11 +38817,11 @@ $u£r_id
 $Ï¡_aùiv™y
 ){
 
-721 if(
+728 if(
 $u£r_id
 ){
 
-722 
+729 
 $this
 ->
 db
@@ -46105,43 +38829,45 @@ db
 	`upd©e
 (
 
-723 
+730 
 $this
 ->
 u£r_bË
 ,
 
-724 
+731 
 	`¬¿y
 ('Ï¡_aùiv™y'=>
 $Ï¡_aùiv™y
 ),
 
-725 
+732 
 	`¬¿y
 ('u£r_id'=>
 $u£r_id
 )
 
-728 
+735 
 	}
 }
 
-736 
+743 
 funùiÚ
  
 	$v®id©e_u£r
 (
-$d©a
+$ema
+,
+$·sswÜd
 )
 
-738 
+745 
 $u£r_d©a
  = 
 FALSE
 ;
 
-740 
+747 
 $this
 ->
 db
@@ -46153,17 +38879,17 @@ db
 u£r_bË
 );
 
-741 
+748 
 $this
 ->
 db
 ->
 	`wh”e
 ('ema', 
-$d©a
-['email']);
+$ema
+);
 
-742 
+749 
 $qu”y
  = 
 $this
@@ -46173,17 +38899,17 @@ db
 	`g‘
 ();
 
-744 if(
+751 if(
 $qu”y
 ->
 	`num_rows
 () == 0)
 
-745  
+752  
 FALSE
 ;
 
-747 
+754 
 $u£r_d©a
  = 
 $qu”y
@@ -46191,23 +38917,23 @@ $qu”y
 	`row_¬¿y
 ();
 
-749 
+756 
 $u£r_d©a
  = ($u£r_d©a['·sswÜd']===
 	`md5
 (
-$d©a
-['·sswÜd'])è? $u£r_d©¨: 
+$·sswÜd
+)è? $u£r_d©¨: 
 FALSE
 ;
 
-751 
+758 
 $qu”y
 ->
 	`ä“_»suÉ
 ();
 
-753 
+760 
 $u£r_m‘as
 =
 $this
@@ -46217,11 +38943,11 @@ $this
 $u£r_d©a
 ['user_id']);
 
-754 if(
+761 if(
 $u£r_m‘as
 ){
 
-755 
+762 
 	`fÜ—ch
 (
 $u£r_m‘as
@@ -46231,17 +38957,23 @@ as
 $v®ue
 ){
 
-756 
+763 
 $u£r_d©a
 [
 $v®ue
 ['meta_key']]=$value['meta_value'];
 
-760  
+766 
+	`un£t
+(
+$u£r_d©a
+['password']);
+
+767  
 $u£r_d©a
 ;
 
-761 
+768 
 	}
 }
 
@@ -46251,7 +38983,7 @@ $u£r_d©a
 php
 
 
-3 şas 
+4 şas 
 	cM_Wlške
  
 ex‹nds
@@ -46259,31 +38991,37 @@ ex‹nds
 	mCI_Mod–
 {
 
-5 
+6 
 v¬
  
-	m$u£rd©a
+	m$u£r_d©a
 ;
 
-6 
+7 
 v¬
  
 	m$cu¼’t_time
 ;
 
 8 
+v¬
+ 
+	m$ba£_u¾
+;
+
+10 
 funùiÚ
  
 	$__cÚ¡ruù
 (){
 
-9 
+11 
 ·»Á
 ::
 	`__cÚ¡ruù
 ();
 
-10 
+12 
 $this
 ->
 cu¼’t_time
@@ -46291,7 +39029,7 @@ cu¼’t_time
 	`time
 ();
 
-11 
+13 
 $this
 ->
 lßd
@@ -46299,7 +39037,7 @@ lßd
 	`mod–
 ('m_user');
 
-12 
+14 
 $this
 ->
 lßd
@@ -46307,9 +39045,17 @@ lßd
 	`h–³r
 (
 	`¬¿y
-('we_error','email','check'));
+('email','check'));
 
-23 
+15 
+$this
+->
+ba£_u¾
+=
+	`ba£_u¾
+();
+
+26 
 funùiÚ
  
 	`add_u£r
@@ -46325,13 +39071,13 @@ $blu‘oÙh_mac
 $blu‘oÙh_Çme
 =""){
 
-25 if(!
+28 if(!
 	`v®id_ema
 (
 $ema
 )){
 
-26 
+29 
 $this
 ->
 lßd
@@ -46341,13 +39087,13 @@ lßd
 	`¬¿y
 (0,'invalid_email'));
 
-27  
+30  
 $this
 ->
 we_”rÜ
 ;
 
-30 if(
+33 if(
 $this
 ->
 m_u£r
@@ -46357,119 +39103,119 @@ m_u£r
 $ema
 )){
 
-31 
+34 
 $this
 ->
-lßd
+we_”rÜ
 ->
-	`lib¿ry
-('we_”rÜ',
+	`£t_”rÜ
+(
 	`¬¿y
 (0,'existing_email'));
 
-32  
+35  
 $this
 ->
 we_”rÜ
 ;
 
-34 
+37 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['ema']=
 $ema
 ;
 
-36 if(!
+39 if(!
 	`v®id_·sswÜd
 (
 $·sswÜd
 )){
 
-37 
+40 
 $this
 ->
-lßd
+we_”rÜ
 ->
-	`lib¿ry
-('we_”rÜ',
+	`£t_”rÜ
+(
 	`¬¿y
 (0,'invalid_password'));
 
-38  
+41  
 $this
 ->
 we_”rÜ
 ;
 
-40 
+43 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['·sswÜd']=
 $·sswÜd
 ;
 
-43 if(!
+46 if(!
 	`v®id_»®_Çme
 (
 $»®_Çme
 )){
 
-44 
+47 
 $this
 ->
-lßd
+we_”rÜ
 ->
-	`lib¿ry
-('we_”rÜ',
+	`£t_”rÜ
+(
 	`¬¿y
 (0,'invalid_real_name'));
 
-45  
+48  
 $this
 ->
 we_”rÜ
 ;
 
-47 
+50 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['di¥Ïy_Çme']=
 $»®_Çme
 ;
 
-49 if(!
+52 if(!
 $blu‘oÙh_mac
 ||!
 	`v®id_blu‘oÙh_mac
 ($bluetooth_mac)){
 
-50 
+53 
 $this
 ->
-lßd
+we_”rÜ
 ->
-	`lib¿ry
-('we_”rÜ',
+	`£t_”rÜ
+(
 	`¬¿y
 (0,'invalid_bluetooth_mac'));
 
-51  
+54  
 $this
 ->
 we_”rÜ
 ;
 
-53 
+56 
 $blu‘oÙh_mac
 =
 	`¡¹ouµ”
 ($bluetooth_mac);
 
-57 
+60 
 $blu‘oÙh_id
 =
 $this
@@ -46481,50 +39227,50 @@ m_u£r
 $blu‘oÙh_mac
 );
 
-58 if(
+61 if(
 $blu‘oÙh_id
 ){
 
-59 
+62 
 $this
 ->
-lßd
+we_”rÜ
 ->
-	`lib¿ry
-('we_”rÜ',
+	`£t_”rÜ
+(
 	`¬¿y
 (0,'existing_bluetooth_mac'));
 
-60  
+63  
 $this
 ->
 we_”rÜ
 ;
 
-62 
+65 
 $blu‘oÙh_d©a
 =
 	`¬¿y
 (
 
-63 'blu‘oÙh_mac'=>
+66 'blu‘oÙh_mac'=>
 $blu‘oÙh_mac
 ,
 
-64 'blu‘oÙh_Çme'=>
+67 'blu‘oÙh_Çme'=>
 $blu‘oÙh_Çme
 ,
 
-65 'ü—‹_time'=>
+68 'ü—‹_time'=>
 $this
 ->
 cu¼’t_time
 
 
-67 
+70 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['blu‘oÙh_id']=$this->
 m_u£r
 ->
@@ -46533,20 +39279,20 @@ m_u£r
 $blu‘oÙh_d©a
 );
 
-70 
+73 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['·sswÜd']=
 	`md5
 (
 $·sswÜd
 );
 
-72 
+75 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['»®_Çme']=$this->
 m_u£r
 ->
@@ -46555,119 +39301,121 @@ m_u£r
 $»®_Çme
 );
 
-73 
+76 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['ü—‹_time']=$this->
 cu¼’t_time
 ;
 
-74 
+77 
 $this
 ->
-u£rd©a
+u£r_d©a
 ['user_type']='user';
 
-76 
+78 
 $this
 ->
-u£rd©a
+u£r_d©a
+['Ï¡_aùiv™y']=$this->
+cu¼’t_time
+;
+
+80 
+$this
+->
+u£r_d©a
 ['u£r_id']=$this->
 m_u£r
 ->
 	`š£¹_u£r
-($this->userdata);
+($this->user_data);
 
-78 if(!
+82 if(!
 $this
 ->
-u£rd©a
+u£r_d©a
 ['user_id']){
 
-79 
+83 
 $this
 ->
-lßd
+we_”rÜ
 ->
-	`lib¿ry
-('we_”rÜ',
+	`£t_”rÜ
+(
 	`¬¿y
 (0,'insert_user_error'));
 
-80  
+84  
 $this
 ->
 we_”rÜ
 ;
 
-81 }if(
-	`štv®
+85 }if(
+	`¡r¡r
 (
 $this
 ->
-u£rd©a
-['real_name'])!=$this->userdata['user_id']){
+u£r_d©a
+['real_name'],$this->user_data['user_id'])){
 
-82 
+86 
 $this
 ->
 m_u£r
 ->
 	`d–‘e_u£r
 ($this->
-u£rd©a
+u£r_d©a
 ['user_id']);
 
-83  
+87 
 $this
 ->
-u£rd©a
-['user_id'];
-
-84 
-$this
+we_”rÜ
 ->
-lßd
-->
-	`lib¿ry
-('we_”rÜ',
+	`£t_”rÜ
+(
 	`¬¿y
 (0,'insert_user_sequence_error'));
 
-85  
+88  
 $this
 ->
 we_”rÜ
 ;
 
-87 
+90 
 $blu‘oÙh_d©a
 =
 	`¬¿y
 (
 
-88 'u£r_id'=>
+91 'u£r_id'=>
 $this
 ->
-u£rd©a
+u£r_d©a
 ['user_id'],
 
-89 'blu‘oÙh_mac'=>
+92 'blu‘oÙh_mac'=>
 $blu‘oÙh_mac
 ,
 
-90 'blu‘oÙh_Çme'=>
+93 'blu‘oÙh_Çme'=>
 $blu‘oÙh_Çme
 ,
 
-91 'ü—‹_time'=>
+94 'ü—‹_time'=>
 $this
 ->
 cu¼’t_time
 
 
-95 
+98 
 $®bum_d©a
 =
 $this
@@ -46675,23 +39423,87 @@ $this
 	`add_®bum
 ($this->
 u£r_d©a
-,"é»˜è®¤","ç”¨æˆ·çš„é»˜è®¤ç›¸å†Œ");
+['user_id'],"é»˜è®¤","ç”¨æˆ·çš„é»˜è®¤ç›¸å†Œ");
 
-96  
+99 if(
+	`is_we_”rÜ
+(
+$®bum_d©a
+)){
+
+100  
 $®bum_d©a
 ;
 
-97  
+102 
+$u£r_m‘as
+=
+	`¬¿y
+();
+
+104 
+$u£r_m‘as
+['u£r_av©¬']=
 $this
 ->
-u£rd©a
+ba£_u¾
+.'upload/default.jpg';
+
+105 
+$u£r_m‘as
+['friend_count']=0;
+
+106 
+$u£r_m‘as
+['weibo_count']=0;
+
+107 
+$u£r_m‘as
+['latest_update']="æˆ‘åˆšåˆšæ³¨å†Œäº†èœ—ä¸´å®¢,æ¥çœ‹çœ‹æˆ‘å§ï¼";
+
+108 
+$this
+->
+m_u£r
+->
+	`add_u£r_m‘as
+($this->
+u£r_d©a
+['u£r_id'],
+$u£r_m‘as
+);
+
+109 
+$this
+->
+u£r_d©a
+=
+	`¬¿y_m”ge
+($this->u£r_d©a,
+$u£r_m‘as
+);
+
+110 
+$this
+->
+u£r_d©a
+['tok’']=$this->
+£ssiÚ
+->
+	`u£rd©a
+('session_id');
+
+111  
+$this
+->
+u£r_d©a
 ;
 
-98 
+112 
 	}
 }
 
-107 
+121 
 funùiÚ
  
 add_®bum
@@ -46705,11 +39517,11 @@ $®bum_de¡rtiÚ
 $®bum_·sswÜd
 =""){
 
-109 if(
+123 if(
 $®bum_Çme
 =='é»˜è®¤'){
 
-110 
+124 
 $this
 ->
 lßd
@@ -46717,13 +39529,13 @@ lßd
 h–³r
 ('album');
 
-111 
+125 
 ü—‹_u£r_dœ
 (
 $u£r_id
 );
 
-113 
+127 
 	g$this
 ->
 	glßd
@@ -46731,37 +39543,37 @@ $u£r_id
 mod–
 ('m_album');
 
-114 
+128 
 	g$®bum_d©a
 =
 ¬¿y
 (
 
-115 'u£r_id'=>
+129 'u£r_id'=>
 $u£r_id
 ,
 
-116 '®bum_Çme'=>
+130 '®bum_Çme'=>
 $®bum_Çme
 ,
 
-117 '®bum_de¡rtiÚ'=>
+131 '®bum_de¡rtiÚ'=>
 $®bum_de¡rtiÚ
 ,
 
-118 'ü—‹_time'=>
+132 'ü—‹_time'=>
 $this
 ->
 cu¼’t_time
 ,
 
-121 '®bum_·sswÜd'=>(
+135 '®bum_·sswÜd'=>(
 $®bum_·sswÜd
 ?
 md5
 ($album_password):"")
 
-123 
+137 
 	g$®bum_d©a
 ['®bum_id']=
 $this
@@ -46773,139 +39585,749 @@ m_®bum
 $®bum_d©a
 );
 
-124 if(
+138 if(
 	g$®bum_d©a
 ['album_id'])
 
-125  
+139  
 	g$®bum_d©a
 ;
 
-127 
+141 
 	g$this
 ->
-	glßd
+	gwe_”rÜ
 ->
-lib¿ry
-('we_”rÜ',
+£t_”rÜ
+(
 ¬¿y
 (0,'add_album_error'));
 
-128  
+142  
 	g$this
 ->
 	gwe_”rÜ
 ;
 
-	@application/models/phone_carrier_model.php
-
-1 <?
-php
- iàĞ! 
-defšed
-('BASEPATH')è
-ex™
-('No direct script‡ccess‡llowed');
-
-3 şas 
-	cPhÚe_ÿ¼›r_mod–
- 
-ex‹nds
- 
-	mCI_Mod–
- {
-
-5 
+152 
 funùiÚ
  
-	$__cÚ¡ruù
-()
+	$u£r_logš
+(
+$ema
+,
+$·sswÜd
+){
 
-7 
-·»Á
-::
-	`__cÚ¡ruù
-();
-
-8 
+154 
 $this
 ->
 lßd
 ->
-	`d©aba£
-();
+	`lib¿ry
+('session');
 
-11 
-funùiÚ
- 
-	$g‘C¬r›rs
+155 if(!
+	`v®id_ema
 (
-¬¿y
- 
-$©Œibu‹s
-)
+$ema
+)){
 
-13 
-	`fÜ—ch
- (
-$©Œibu‹s
- 
-as
- 
-$f›ld
-)
-
-15 
+156 
 $this
 ->
-db
+we_”rÜ
 ->
-	`£Ëù
+	`£t_”rÜ
 (
-$f›ld
-)->
-	`äom
-('phone_carrier');
-
-16 
-$qu”y
- = 
-$this
-->
-db
-->
-	`g‘
-();
-
-17 
-	`fÜ—ch
- (
-$qu”y
-->
-	`»suÉ_¬¿y
-(è
-as
- 
-$row
-)
-
-19 
-$d©a
-[] = 
 	`¬¿y
-(
-$f›ld
-, 
-$row
-[$field]);
+(0,'invalid_email'));
 
-23  
-$d©a
+157  
+$this
+->
+we_”rÜ
 ;
 
-24 
+159 
+$this
+->
+lßd
+->
+	`mod–
+('m_user');
+
+160 
+$this
+->
+u£r_d©a
+=$this->
+m_u£r
+->
+	`v®id©e_u£r
+(
+$ema
+,
+$·sswÜd
+);
+
+161 if(!
+$this
+->
+u£r_d©a
+){
+
+162 
+$this
+->
+we_”rÜ
+->
+	`£t_”rÜ
+(
+	`¬¿y
+(0,'invalid_user_data'));
+
+163  
+$this
+->
+we_”rÜ
+;
+
+166 
+$this
+->
+u£r_d©a
+['tok’']=$this->
+£ssiÚ
+->
+	`u£rd©a
+('session_id');
+
+167 
+$this
+->
+u£r_d©a
+['relationship']="self";
+
+169 
+$this
+->
+£ssiÚ
+->
+	`£t_u£rd©a
+('u£r_d©a',$this->
+u£r_d©a
+);
+
+170  
+$this
+->
+u£r_d©a
+;
+
+171 
 	}
 }
+
+173 
+funùiÚ
+ 
+add_group
+(
+$u£r_id
+,
+$group_Çme
+="",
+$group_de¡rtiÚ
+="",
+$group_ÿ‹gÜy
+=""){
+
+174 
+$group_d©a
+=
+¬¿y
+(
+
+175 'u£r_id'=>
+$u£r_id
+,
+
+176 'group_Çme'=>
+$group_Çme
+,
+
+177 'group_de¡rtiÚ'=>
+$group_de¡rtiÚ
+,
+
+178 'group_ÿ‹gÜy'=>
+$group_ÿ‹gÜy
+,
+
+181 'ü—‹_time'=>
+$this
+->
+cu¼’t_time
+
+
+183 
+	g$this
+->
+	glßd
+->
+mod–
+('m_group');
+
+184 
+	g$group_id
+=
+$this
+->
+m_group
+->
+add_group
+(
+$group_d©a
+);
+
+185 if(
+	g$group_id
+){
+
+186 
+	g$group_memb”
+=
+¬¿y
+(
+
+187 'group_id'=>
+$group_id
+,
+
+188 'u£r_id'=>
+$u£r_id
+,
+
+189 'šv™”_id'=>
+$u£r_id
+,
+
+192 'ü—‹_time'=>
+$this
+->
+cu¼’t_time
+
+
+194 
+	g$this
+->
+	gm_group
+->
+add_group_memb”
+(
+$group_memb”
+);
+
+195 
+	g$group_d©a
+['group_id']=
+$group_id
+;
+
+196  
+	g$group_d©a
+;
+
+198 
+	g$this
+->
+	gwe_”rÜ
+->
+£t_”rÜ
+(
+¬¿y
+(0,'unknown_error'));
+
+199  
+	g$this
+->
+	gwe_”rÜ
+;
+
+204 
+funùiÚ
+ 
+u£r_logout
+(
+$tok’
+=""){
+
+205 if(
+$tok’
+){
+
+206 
+$this
+->
+lßd
+->
+lib¿ry
+('£ssiÚ',
+¬¿y
+('tok’'=>
+$tok’
+));
+
+208 
+	g$this
+->
+	glßd
+->
+lib¿ry
+('session');
+
+210 
+	g$this
+->
+	g£ssiÚ
+->
+un£t_u£rd©a
+('user_data');
+
+211  
+	gŒue
+;
+
+214 
+funùiÚ
+ 
+	$g‘_»ûÁ_»gi¡”_u£rs_d©a
+(
+$num
+=6){
+
+215 
+$this
+->
+lßd
+->
+	`mod–
+('m_user');
+
+216 
+$u£r_ids
+=
+$this
+->
+m_u£r
+->
+	`g‘_®l_u£r_id
+(1,
+$num
+);
+
+217 
+$»ûÁ_»gi¡”_u£rs
+=
+$this
+->
+m_u£r
+->
+	`g‘_u£r_d©as_by_u£r_ids
+(
+$u£r_ids
+);
+
+218 if(
+$»ûÁ_»gi¡”_u£rs
+)
+
+219  
+$»ûÁ_»gi¡”_u£rs
+;
+
+221 
+$this
+->
+we_”rÜ
+->
+	`£t_”rÜ
+(
+	`¬¿y
+(0,'no_recent_users'));
+
+222  
+$this
+->
+we_”rÜ
+;
+
+224 
+	}
+}
+
+226 
+funùiÚ
+ 
+is_u£r_logš
+(
+$tok’
+=""){
+
+227 if(
+$tok’
+){
+
+228 
+$this
+->
+lßd
+->
+lib¿ry
+('£ssiÚ',
+¬¿y
+('tok’'=>
+$tok’
+));
+
+229 
+	g$this
+->
+	gu£r_d©a
+=
+$this
+->
+£ssiÚ
+->
+u£rd©a
+('user_data');
+
+231 
+	g$this
+->
+	glßd
+->
+lib¿ry
+('session');
+
+232 
+	g$this
+->
+	gu£r_d©a
+=
+$this
+->
+£ssiÚ
+->
+u£rd©a
+('user_data');
+
+234 if(
+	g$this
+->
+	gu£r_d©a
+)
+
+235  
+	g$this
+->
+	gu£r_d©a
+;
+
+237 
+	g$this
+->
+	gwe_”rÜ
+->
+£t_”rÜ
+(
+¬¿y
+(0,'not_login'));
+
+238  
+	g$this
+->
+	gwe_”rÜ
+;
+
+242 
+funùiÚ
+ 
+upd©e_Ï¡_aùiv™y
+(
+$u£r_id
+,
+$Ï¡_aùiv™y
+="",
+$Ï‹¡_upd©e
+=""){
+
+243 
+$this
+->
+lßd
+->
+mod–
+('m_user');
+
+244 
+	g$this
+->
+	gm_u£r
+->
+upd©e_Ï¡_aùiv™y
+(
+$u£r_id
+,
+$Ï¡_aùiv™y
+);
+
+245 if(!
+	g$Ï‹¡_upd©e
+){
+
+246 
+	g$this
+->
+	gm_u£r
+->
+add_u£r_m‘a
+(
+$u£r_id
+,'Ï‹¡_upd©e',
+$Ï‹¡_upd©e
+);
+
+250 
+funùiÚ
+ 
+po¡_weibo
+(
+$u£r_id
+,
+$ãed_cÚ‹Á
+="",
+$visib™y
+="public",
+$ãed_ty³
+="weibo",
+$Œª¥Úd_id
+="",
+$ü—‹_time
+="",
+$piùu»_u¾
+="",
+$Œª¥Úd_couÁ
+=0,
+$comm’t_couÁ
+=0){
+
+251 
+$ãed
+=
+¬¿y
+(
+
+252 'u£r_id'=>
+$u£r_id
+,
+
+253 'ãed_ty³'=>
+$ãed_ty³
+,
+
+254 'ãed_cÚ‹Á'=>
+$ãed_cÚ‹Á
+,
+
+255 'piùu»_u¾'=>
+$piùu»_u¾
+,
+
+256 'ü—‹_time'=>
+$ü—‹_time
+?$ü—‹_time:
+$this
+->
+cu¼’t_time
+,
+
+257 'Œª¥Úd_id'=>
+$Œª¥Úd_id
+,
+
+258 'Œª¥Úd_couÁ'=>
+$Œª¥Úd_couÁ
+,
+
+259 'comm’t_couÁ'=>
+$comm’t_couÁ
+,
+
+260 'visib™y'=>
+$visib™y
+
+
+262 
+	g$this
+->
+	glßd
+->
+mod–
+('m_feed');
+
+263 
+	g$ãed_id
+=
+$this
+->
+m_ãed
+->
+add_ãed
+(
+$ãed
+);
+
+264 if(
+	g$ãed_id
+){
+
+265 
+	g$this
+->
+upd©e_Ï¡_aùiv™y
+(
+$u£r_id
+,
+$ü—‹_time
+,
+$ãed_cÚ‹Á
+);
+
+266 
+	g$ãed
+['ãed_id']=
+$ãed_id
+;
+
+267 
+	g$this
+->
+	glßd
+->
+mod–
+('m_user');
+
+268 
+	g$ãed
+=
+¬¿y_m”ge
+(
+$ãed
+,
+$this
+->
+m_u£r
+->
+g‘_u£r_d©a_by_u£r_id
+(
+$u£r_id
+));
+
+269 
+	g$this
+->
+	gm_u£r
+->
+šü—£_u£r_m‘a
+(
+$u£r_id
+, 'weibo_count');
+
+270  
+	g$ãed
+;
+
+272 
+	g$this
+->
+	gwe_”rÜ
+->
+£t_”rÜ
+(
+¬¿y
+(0,'no_weibo'));
+
+273  
+	g$this
+->
+	gwe_”rÜ
+;
+
+277 
+funùiÚ
+ 
+g‘_®l_public_weibo
+(
+$f‹r
+='Şd',
+$id
+=0,
+$·ge
+=1,
+$·ge_couÁ
+=20){
+
+278 
+$this
+->
+lßd
+->
+mod–
+('m_feed');
+
+279 
+	g$public_weibos
+=
+$this
+->
+m_ãed
+->
+g‘_®l_public_ãeds
+(
+$f‹r
+,
+$id
+,
+$·ge
+,
+$·ge_couÁ
+);
+
+280 if(!
+	g$public_weibos
+){
+
+281 
+	g$this
+->
+	gwe_”rÜ
+->
+£t_”rÜ
+(
+¬¿y
+(0,'no_weibo'));
+
+282  
+	g$this
+->
+	gwe_”rÜ
+;
+
+284  
+	g$public_weibos
+;
 
 	@application/third_party/CIUnit/bootstrap_phpunit.php
 
@@ -66767,7 +60189,7 @@ div
 süt
  
 	g¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 jqu”y
@@ -66777,7 +60199,7 @@ jqu”y
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 wlške_js
@@ -66787,7 +60209,7 @@ wlške_js
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 boÙ¡¿p
@@ -66799,7 +60221,7 @@ boÙ¡¿p
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 boÙ¡¿p
@@ -66811,7 +60233,7 @@ mod®
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 boÙ¡¿p
@@ -66823,7 +60245,7 @@ bu‰Ú
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 boÙ¡¿p
@@ -66835,7 +60257,7 @@ drİdown
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 boÙ¡¿p
@@ -66847,7 +60269,7 @@ boÙ¡¿p
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 boÙ¡¿p
@@ -66859,7 +60281,7 @@ cŞÏp£
 süt
  
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 js
 /
 boÙ¡¿p
@@ -66939,7 +60361,7 @@ Le
 lšk
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 css
 /
 boÙ¡¿p
@@ -66993,7 +60415,7 @@ px
 lšk
  
 	gh»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 css
 /
 boÙ¡¿p
@@ -67071,9 +60493,7 @@ a
 şass
 ="b¿nd" 
 h»f
-="<?=ba£_u¾("
-c_wlške
-"); ?>">èœ—ä¸´å®¢</a>
+="<?phpƒcho base_url(); ?>">èœ—ä¸´å®¢</a>
 
 11 <
 div
@@ -67095,7 +60515,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_logš
 "); ?>">ç™»é™†</a></li>
 
@@ -67105,7 +60525,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_»gi¡”
 "); ?>">æ³¨å†Œ</a></li>
 
@@ -67275,7 +60695,7 @@ ty³
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_»gi¡”
 "); ?>" 
 şass
@@ -67415,7 +60835,7 @@ img
 width
 ="200" 
 ¤c
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 images
 /
 logš_im
@@ -67435,7 +60855,7 @@ bu‰Ú
 ¡yË
 ="width:98%">
 Android
-å®¢æˆ·ç«¯ä¸‹è½½</bu‰Ú>
+å®¢æˆ·ç«¯ä¸‹è½½</button>
 
 70 <
 p
@@ -67449,7 +60869,7 @@ bu‰Ú
 ¡yË
 ="width:98%">
 iPhÚe
-å®¢æˆ·ç«¯ä¸‹è½½</bu‰Ú>
+å®¢æˆ·ç«¯ä¸‹è½½</button>
 
 72 <
 p
@@ -67487,7 +60907,7 @@ fÚt
 size
 ="3">å’Œè®¸å¤šåŒå­¦ä¸€èµ·ä¸Šè¯¾ï¼Œå´ä»æ¥æ²¡æœ‰è¯´è¿‡è¯ï¼Ÿç”šè‡³éƒ½ä¸çŸ¥é“
 
-çš„åå­—ï¼Ÿ</fÚt></p></li>
+çš„åå­—ï¼Ÿ</font></p></li>
 
 78 <
 li
@@ -67723,9 +61143,7 @@ a
 şass
 ="b¿nd" 
 h»f
-="<?=ba£_u¾("
-c_wlške
-"); ?>">èœ—ä¸´å®¢</a>
+="<?phpƒcho base_url(); ?>">èœ—ä¸´å®¢</a>
 
 8 <
 div
@@ -67747,7 +61165,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 "); ?>">é¦–é¡µ</a></li>
 
@@ -67809,7 +61227,7 @@ li
 a
  
 h»f
-="<?=base_url('c_login/login_out');?>">ç™»å‡º</a></li>
+="<?phpƒcho base_url('c_login/login_out');?>">ç™»å‡º</a></li>
 
 19 </
 ul
@@ -67929,7 +61347,7 @@ fÜm
 ’ùy³
 ="muÉ¬t/fÜm-d©a" 
 aùiÚ
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 /
 u¶ßd_av©¬
@@ -67955,7 +61373,7 @@ ty³
 Çme
 ="u£r_id" 
 v®ue
-="<?=$user_data['user_id']?>" />
+="<?phpƒcho $user_data['user_id']?>" />
 
 41 <
 p
@@ -68093,7 +61511,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 "); ?>"><
 i
@@ -68109,7 +61527,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_group
 "); ?>"><
 i
@@ -68295,11 +61713,15 @@ div
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_sšgË_group_·ge
 /
 group
-/".$v®ue['group_id']);?>"> <?=
+/".$v®ue['group_id']);?>"> <?
+php
+ 
+echo
+ 
 $v®ue
 ['group_Çme']; ?></
 	ga
@@ -68373,7 +61795,11 @@ div
 	gşass
 ="span3">
 
-103 <?=
+103 <?
+php
+ 
+echo
+ 
 $v®ue
 ['group_destription']; ?>
 
@@ -68407,7 +61833,11 @@ div
 p
 >ç¾¤å·: <
 a
-><?=
+><?
+php
+ 
+echo
+ 
 $v®ue
 ['group_id']; ?></
 	ga
@@ -68431,7 +61861,11 @@ div
 p
 >ç±»å‹: <
 a
-><?=
+><?
+php
+ 
+echo
+ 
 $v®ue
 ['group_ÿ‹gÜy'];?></
 	ga
@@ -68455,7 +61889,11 @@ div
 p
 >æˆå‘˜: <
 a
-><?=
+><?
+php
+ 
+echo
+ 
 $v®ue
 ['memb”_couÁ'];?></
 	ga
@@ -68567,11 +62005,15 @@ div
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_sšgË_group_·ge
 /
 group
-/".$v®ue['group_id']);?>"> <?=
+/".$v®ue['group_id']);?>"> <?
+php
+ 
+echo
+ 
 $v®ue
 ['group_Çme']; ?></
 	ga
@@ -68645,7 +62087,11 @@ div
 	gşass
 ="span3">
 
-145 <?=
+145 <?
+php
+ 
+echo
+ 
 $v®ue
 ['group_destription']; ?>
 
@@ -68679,7 +62125,11 @@ div
 p
 >ç¾¤å·: <
 a
-><?=
+><?
+php
+ 
+echo
+ 
 $v®ue
 ['group_id']; ?></
 	ga
@@ -68703,7 +62153,11 @@ div
 p
 >ç±»å‹: <
 a
-><?=
+><?
+php
+ 
+echo
+ 
 $v®ue
 ['group_ÿ‹gÜy'];?></
 	ga
@@ -68727,7 +62181,11 @@ div
 p
 >æˆå‘˜: <
 a
-><?=
+><?
+php
+ 
+echo
+ 
 $v®ue
 ['memb”_couÁ'];?></
 	ga
@@ -68863,7 +62321,7 @@ img
 width
 ="50" 
 ¤c
-="<?=$value['user_avatar'];?>" />
+="<?phpƒcho $value['user_avatar'];?>" />
 
 181 </
 div
@@ -68891,7 +62349,11 @@ div
 a
  
 h»f
-="javasüt:void(0);"><?=
+="javasüt:void(0);"><?
+php
+ 
+echo
+ 
 $v®ue
 ['di¥Ïy_Çme'];?></
 	ga
@@ -68909,7 +62371,11 @@ div
 
 188 <
 h6
-><?=
+><?
+php
+ 
+echo
+ 
 time¥ª
 (
 $v®ue
@@ -68933,7 +62399,11 @@ div
 ¥ª
  
 şass
-="Ïb–"><?='ç¬¬'.
+="Ïb–"><?
+php
+ 
+echo
+ 'ç¬¬'.
 $v®ue
 ['£¬ch_couÁ'].'æ¬¡æ¥è§¦'; ?></
 	g¥ª
@@ -69089,9 +62559,7 @@ a
 şass
 ="b¿nd" 
 h»f
-="<?=ba£_u¾("
-c_wlške
-"); ?>">èœ—ä¸´å®¢</a>
+="<?phpƒcho base_url(); ?>">èœ—ä¸´å®¢</a>
 
 8 <
 div
@@ -69113,7 +62581,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 "); ?>">é¦–é¡µ</a></li>
 
@@ -69175,7 +62643,7 @@ li
 a
  
 h»f
-="<?=base_url('c_login/login_out');?>">ç™»å‡º</a></li>
+="<?phpƒcho base_url('c_login/login_out');?>">ç™»å‡º</a></li>
 
 19 </
 ul
@@ -69295,7 +62763,7 @@ fÜm
 ’ùy³
 ="muÉ¬t/fÜm-d©a" 
 aùiÚ
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 /
 u¶ßd_av©¬
@@ -69321,7 +62789,7 @@ ty³
 Çme
 ="u£r_id" 
 v®ue
-="<?=$user_data['user_id']?>" />
+="<?phpƒcho $user_data['user_id']?>" />
 
 41 <
 p
@@ -69455,7 +62923,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 "); ?>"><
 i
@@ -69467,7 +62935,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_group
 "); ?>"><
 i
@@ -69627,7 +63095,7 @@ img
 width
 ="50" 
 ¤c
-="<?=$value['user_avatar'];?>" />
+="<?phpƒcho $value['user_avatar'];?>" />
 
 88 </
 div
@@ -69655,11 +63123,15 @@ div
 a
  
 h»f
-="javasüt:void(0);"><?=
+="javasüt:void(0);"><?
+php
+ 
+echo
+ 
 $v®ue
 ['di¥Ïy_Çme'];?></
 	ga
->:<?=$value['feed_content'];?>
+>:<?phpƒcho $value['feed_content'];?>
 
 95 </
 	gdiv
@@ -69715,11 +63187,15 @@ div
 a
  
 h»f
-="javasüt:void(0);"><?=
+="javasüt:void(0);"><?
+php
+ 
+echo
+ 
 $v®ue
 ['sourû_ãed']['di¥Ïy_Çme'];?></
 	ga
->:<?=$value['source_feed']['feed_content'];?>
+>:<?phpƒcho $value['source_feed']['feed_content'];?>
 
 106 </
 	gdiv
@@ -69755,7 +63231,11 @@ div
 a
  
 h»f
-="javasüt:void(0);"><?=
+="javasüt:void(0);"><?
+php
+ 
+echo
+ 
 time¥ª
 (
 $v®ue
@@ -69785,7 +63265,11 @@ toggË
 
 116 
 h»f
-="#Œª¥Úd_<?=$v®ue['ãed_id'];?>_<?=$v®ue['sourû_ãed']['ãed_id'];?>">è½¬å‘(<?=
+="#Œª¥Úd_<?ph°echØ$v®ue['ãed_id'];?>_<?ph°echØ$v®ue['sourû_ãed']['ãed_id'];?>">è½¬å‘(<?
+php
+ 
+echo
+ 
 $v®ue
 ['sourû_ãed']['Œª¥Úd_couÁ']?>)</
 a
@@ -69805,7 +63289,11 @@ toggË
 d©a
 -
 rg‘
-="#comm’t_<?ph°echØ$v®ue['ãed_id'];?>_<?ph°echØ$v®ue['sourû_ãed']['ãed_id'];?>">è¯„è®º(<?=
+="#comm’t_<?ph°echØ$v®ue['ãed_id'];?>_<?ph°echØ$v®ue['sourû_ãed']['ãed_id'];?>">è¯„è®º(<?
+php
+ 
+echo
+ 
 $v®ue
 ['sourû_ãed']['comm’t_couÁ'];?>)</
 	ga
@@ -69859,7 +63347,7 @@ div
 
 131 
 id
-="transpond_<?=$value['feed_id'];?>_<?=$value['source_feed']['feed_id'];?>">
+="transpond_<?phpƒcho $value['feed_id'];?>_<?phpƒcho $value['source_feed']['feed_id'];?>">
 
 132 <
 div
@@ -69989,7 +63477,11 @@ div
 a
  
 h»f
-="javasüt:void(0);"><?=
+="javasüt:void(0);"><?
+php
+ 
+echo
+ 
 time¥ª
 (
 $v®ue
@@ -70027,7 +63519,11 @@ toggË
 
 159 
 h»f
-="#Œª¥Úd_<?=$v®ue['ãed_id'];?>_<?=$v®ue['sourû_ãed']['ãed_id'];?>">è½¬å‘(<?=
+="#Œª¥Úd_<?ph°echØ$v®ue['ãed_id'];?>_<?ph°echØ$v®ue['sourû_ãed']['ãed_id'];?>">è½¬å‘(<?
+php
+ 
+echo
+ 
 $v®ue
 ['Œª¥Úd_couÁ'];?>)</
 	ga
@@ -70047,7 +63543,11 @@ toggË
 
 162 
 h»f
-="#Œª¥Úd<?=$v®ue['ãed_id'];?>">è½¬å‘(<?=
+="#Œª¥Úd<?ph°echØ$v®ue['ãed_id'];?>">è½¬å‘(<?
+php
+ 
+echo
+ 
 $v®ue
 ['Œª¥Úd_couÁ'];?>)</
 	ga
@@ -70073,7 +63573,11 @@ toggË
 d©a
 -
 rg‘
-="#comm’t<?=$v®ue['ãed_id'];?>">è¯„è®º(<?=
+="#comm’t<?ph°echØ$v®ue['ãed_id'];?>">è¯„è®º(<?
+php
+ 
+echo
+ 
 $v®ue
 ['comm’t_couÁ'];?>)</
 	ga
@@ -70121,7 +63625,7 @@ div
 
 175 
 id
-="transpond_<?=$value['feed_id'];?>_<?=$value['source_feed']['feed_id'];?>">
+="transpond_<?phpƒcho $value['feed_id'];?>_<?phpƒcho $value['source_feed']['feed_id'];?>">
 
 176 <?
 php
@@ -70275,11 +63779,15 @@ div
 div
  
 id
-="feed_id_<?=$value['feed_id'];?>"
+="feed_id_<?phpƒcho $value['feed_id'];?>"
 
 204 
 ¡yË
-="visib™y: hidd’; di¥Ïy:‚Úe;"><?=
+="visib™y: hidd’; di¥Ïy:‚Úe;"><?
+php
+ 
+echo
+ 
 $v®ue
 ['ãed_id'];?></
 	gdiv
@@ -70407,7 +63915,7 @@ img
 width
 ="50" 
 ¤c
-="<?=$value['user_avatar'];?>" />
+="<?phpƒcho $value['user_avatar'];?>" />
 
 224 </
 div
@@ -70435,7 +63943,11 @@ div
 a
  
 h»f
-="javasüt:void(0);"><?=
+="javasüt:void(0);"><?
+php
+ 
+echo
+ 
 $v®ue
 ['di¥Ïy_Çme'];?></
 	ga
@@ -70453,7 +63965,11 @@ div
 
 231 <
 h6
-><?=
+><?
+php
+ 
+echo
+ 
 time¥ª
 (
 $v®ue
@@ -70477,7 +63993,11 @@ div
 ¥ª
  
 şass
-="Ïb–"><?='ç¬¬'.
+="Ïb–"><?
+php
+ 
+echo
+ 'ç¬¬'.
 $v®ue
 ['£¬ch_couÁ'].'æ¬¡æ¥è§¦'; ?></
 	g¥ª
@@ -70591,7 +64111,7 @@ div
 fÜm
  
 aùiÚ
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 /
 još_group_subm™
@@ -70617,7 +64137,11 @@ h»f
 
 257 
 t™Ë
-="<?=$v®ue['group_de¡rtiÚ'];?>"><?=
+="<?ph°echØ$v®ue['group_de¡rtiÚ'];?>"><?
+php
+ 
+echo
+ 
 $v®ue
 ['group_Çme'];?></
 	ga
@@ -70637,7 +64161,11 @@ div
 ¥ª
  
 şass
-="badge"><?=
+="badge"><?
+php
+ 
+echo
+ 
 $v®ue
 ['memb”_couÁ'];?></
 	g¥ª
@@ -70869,7 +64397,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_wlške
 "); ?>">ç™»é™†</a></li>
 
@@ -70881,7 +64409,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_»gi¡”
 "); ?>">æ³¨å†Œ</a></li>
 
@@ -70937,7 +64465,7 @@ div
 fÜm
  
 aùiÚ
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_»gi¡”
 /
 »gi¡”_subm™
@@ -71489,7 +65017,7 @@ a
 şass
 ="b¿nd" 
 h»f
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_wlške
 "); ?>">èœ—ä¸´å®¢</a>
 
@@ -71513,9 +65041,7 @@ li
 a
  
 h»f
-="<?=ba£_u¾("
-c_·ge_weibo
-"); ?>">é¦–é¡µ</a></li>
+="<?phpƒcho base_url(); ?>">é¦–é¡µ</a></li>
 
 11 </
 ul
@@ -71575,7 +65101,7 @@ li
 a
  
 h»f
-="<?=base_url('c_login/login_out');?>">ç™»å‡º</a></li>
+="<?phpƒcho base_url('c_login/login_out');?>">ç™»å‡º</a></li>
 
 19 </
 ul
@@ -71695,7 +65221,7 @@ fÜm
 ’ùy³
 ="muÉ¬t/fÜm-d©a" 
 aùiÚ
-="<?=ba£_u¾("
+="<?ph°echØba£_u¾("
 c_·ge_weibo
 /
 u¶ßd_av©¬
@@ -71721,7 +65247,7 @@ ty³
 Çme
 ="u£r_id" 
 v®ue
-="<?=$user_data['user_id']?>" />
+="<?phpƒcho $user_data['user_id']?>" />
 
 41 <
 p
@@ -71977,7 +65503,11 @@ fÜm
 
 89 <
 h3
->ç¾¤ç»„æˆå‘˜ (<?=
+>ç¾¤ç»„æˆå‘˜ (<?
+php
+ 
+echo
+ 
 $u£r_d©a
 ['this_group_data']['member_count']?>)</h3>
 
@@ -72009,11 +65539,15 @@ img
 width
 ="100%" 
 ¤c
-="<?=$value['user_avatar'];?>" />
+="<?phpƒcho $value['user_avatar'];?>" />
 
 93 <
 a
-><?=
+><?
+php
+ 
+echo
+ 
 $v®ue
 ['di¥Ïy_Çme'];?></
 	ga
@@ -154965,53 +148499,69 @@ $this
 cook›_´efix
 .$this->sess_cookie_name;
 
-116 iàĞ! 
+117 iàĞ! 
 $this
 ->
 	`£ss_»ad
-())
+(
+	`is£t
+(
+$·¿ms
+['token'])?$params['token']:""))
 
-118 
+119 
 $this
 ->
 	`£ss_ü—‹
 ();
 
-122 
+123 
 $this
 ->
 	`£ss_upd©e
 ();
 
-127 
+128 
 $this
 ->
 	`_æashd©a_sw“p
 ();
 
-130 
+131 
 $this
 ->
 	`_æashd©a_m¬k
 ();
 
-134 
+135 
 $this
 ->
 	`_£ss_gc
 ();
 
-136 
+137 
 	`log_mes§ge
 ('debug', "Session„outines successfully„un");
 
-147 
+148 
 funùiÚ
  
-	$£ss_»ad
-()
+	`£ss_»ad
+(
+$£ssiÚ_id
+="")
 
-151 
+150 
+	`log_mes§ge
+('”rÜ',
+$£ssiÚ_id
+);
+
+153 if(!
+$£ssiÚ_id
+){
+
+156 
 $£ssiÚ
  = 
 $this
@@ -155025,21 +148575,21 @@ CI
 £ss_cook›_Çme
 );
 
-156 ià(
+159 ià(
 $£ssiÚ
  ==ğ
 FALSE
 )
 
-158 
+161 
 	`log_mes§ge
 ('debug', 'A session cookie was‚ot found.');
 
-159  
+162  
 FALSE
 ;
 
-164 ià(
+167 ià(
 $this
 ->
 £ss_’üy±_cook›
@@ -155047,7 +148597,7 @@ $this
 TRUE
 )
 
-166 
+169 
 $£ssiÚ
  = 
 $this
@@ -155059,7 +148609,7 @@ CI
 	`decode
 ($session);
 
-172 
+175 
 $hash
  = 
 	`sub¡r
@@ -155069,7 +148619,7 @@ $£ssiÚ
 	`¡¾’
 ($session)-32);
 
-173 
+176 
 $£ssiÚ
  = 
 	`sub¡r
@@ -155077,7 +148627,7 @@ $£ssiÚ
 	`¡¾’
 ($session)-32);
 
-176 ià(
+179 ià(
 $hash
  !=ğ
 	`md5
@@ -155089,21 +148639,21 @@ $this
 ’üy±iÚ_key
 ))
 
-178 
+181 
 	`log_mes§ge
 ('error', 'The session cookie data did‚ot match what wasƒxpected. This could be‡…ossible hacking‡ttempt.');
 
-179 
+182 
 $this
 ->
 	`£ss_de¡roy
 ();
 
-180  
+183  
 FALSE
 ;
 
-187 
+191 
 $£ssiÚ
  = 
 $this
@@ -155111,7 +148661,7 @@ $this
 	`_un£rŸlize
 ($session);
 
-190 iàĞ! 
+196 iàĞ! 
 	`is_¬¿y
 (
 $£ssiÚ
@@ -155121,17 +148671,55 @@ OR
 	`is£t
 ($session['session_id']) OR ! isset($session['ip_address']) OR ! isset($session['user_agent']) OR ! isset($session['last_activity']))
 
-192 
+198 
 $this
 ->
 	`£ss_de¡roy
 ();
 
-193  
+199  
 FALSE
 ;
 
-198 ià((
+202 
+$£ssiÚ
+ = 
+	`¬¿y
+(
+
+203 '£ssiÚ_id' => 
+$£ssiÚ_id
+,
+
+204 '_add»ss' => 
+$this
+->
+CI
+->
+šput
+->
+	`_add»ss
+(),
+
+205 'u£r_ag’t' => 
+	`sub¡r
+(
+$this
+->
+CI
+->
+šput
+->
+	`u£r_ag’t
+(), 0, 120),
+
+206 'Ï¡_aùiv™y' => 
+$this
+->
+now
+,
+
+213 ià((
 $£ssiÚ
 ['Ï¡_aùiv™y'] + 
 $this
@@ -155141,17 +148729,17 @@ $this
 now
 )
 
-200 
+215 
 $this
 ->
 	`£ss_de¡roy
 ();
 
-201  
+216  
 FALSE
 ;
 
-206 ià(
+220 ià(
 $this
 ->
 £ss_m©ch_
@@ -155169,17 +148757,17 @@ CI
 	`_add»ss
 ())
 
-208 
+222 
 $this
 ->
 	`£ss_de¡roy
 ();
 
-209  
+223  
 FALSE
 ;
 
-214 ià(
+228 ià(
 $this
 ->
 £ss_m©ch_u£¿g’t
@@ -155201,17 +148789,17 @@ CI
 	`u£r_ag’t
 (), 0, 120)))
 
-216 
+230 
 $this
 ->
 	`£ss_de¡roy
 ();
 
-217  
+231  
 FALSE
 ;
 
-222 ià(
+236 ià(
 $this
 ->
 £ss_u£_d©aba£
@@ -155219,7 +148807,7 @@ $this
 TRUE
 )
 
-224 
+238 
 $this
 ->
 CI
@@ -155231,7 +148819,7 @@ db
 $£ssiÚ
 ['session_id']);
 
-226 ià(
+240 ià(
 $this
 ->
 £ss_m©ch_
@@ -155239,7 +148827,7 @@ $this
 TRUE
 )
 
-228 
+242 
 $this
 ->
 CI
@@ -155251,7 +148839,7 @@ db
 $£ssiÚ
 ['ip_address']);
 
-231 ià(
+245 ià(
 $this
 ->
 £ss_m©ch_u£¿g’t
@@ -155259,7 +148847,7 @@ $this
 TRUE
 )
 
-233 
+247 
 $this
 ->
 CI
@@ -155271,7 +148859,7 @@ db
 $£ssiÚ
 ['user_agent']);
 
-236 
+250 
 $qu”y
  = 
 $this
@@ -155285,23 +148873,23 @@ db
 £ss_bË_Çme
 );
 
-239 ià(
+253 ià(
 $qu”y
 ->
 	`num_rows
 () == 0)
 
-242 
+256 
 $this
 ->
 	`£ss_de¡roy
 ();
 
-244  
+258  
 FALSE
 ;
 
-248 
+262 
 $row
  = 
 $qu”y
@@ -155309,7 +148897,7 @@ $qu”y
 	`row
 ();
 
-250 ià(
+264 ià(
 	`is£t
 (
 $row
@@ -155319,7 +148907,7 @@ u£r_d©a
 AND
  $row->user_data != '')
 
-252 
+266 
 $cu¡om_d©a
  = 
 $this
@@ -155331,13 +148919,13 @@ $row
 u£r_d©a
 );
 
-254 ià(
+268 ià(
 	`is_¬¿y
 (
 $cu¡om_d©a
 ))
 
-256 
+270 
 	`fÜ—ch
  (
 $cu¡om_d©a
@@ -155349,7 +148937,7 @@ $key
 $v®
 )
 
-258 
+272 
 $£ssiÚ
 [
 $key
@@ -155357,7 +148945,7 @@ $key
 $v®
 ;
 
-265 
+279 
 $this
 ->
 u£rd©a
@@ -155365,27 +148953,27 @@ u£rd©a
 $£ssiÚ
 ;
 
-266 
+280 
 	`un£t
 (
 $£ssiÚ
 );
 
-268  
+282  
 TRUE
 ;
 
-269 
+283 
 	}
 }
 
-279 
+293 
 funùiÚ
  
 	$£ss_wr™e
 ()
 
-282 ià(
+296 ià(
 $this
 ->
 £ss_u£_d©aba£
@@ -155393,13 +148981,13 @@ $this
 FALSE
 )
 
-284 
+298 
 $this
 ->
 	`_£t_cook›
 ();
 
-289 
+303 
 $cu¡om_u£rd©a
  = 
 $this
@@ -155407,13 +148995,13 @@ $this
 u£rd©a
 ;
 
-290 
+304 
 $cook›_u£rd©a
  = 
 	`¬¿y
 ();
 
-295 
+309 
 	`fÜ—ch
  (
 	`¬¿y
@@ -155423,7 +149011,7 @@ as
 $v®
 )
 
-297 
+311 
 	`un£t
 (
 $cu¡om_u£rd©a
@@ -155431,7 +149019,7 @@ $cu¡om_u£rd©a
 $v®
 ]);
 
-298 
+312 
 $cook›_u£rd©a
 [
 $v®
@@ -155441,17 +149029,17 @@ $this
 u£rd©a
 [$val];
 
-303 ià(
+317 ià(
 	`couÁ
 (
 $cu¡om_u£rd©a
 ) === 0)
 
-305 
+319 
 $cu¡om_u£rd©a
  = '';
 
-310 
+324 
 $cu¡om_u£rd©a
  = 
 $this
@@ -155459,7 +149047,7 @@ $this
 	`_£rŸlize
 ($custom_userdata);
 
-314 
+328 
 $this
 ->
 CI
@@ -155471,7 +149059,7 @@ db
 u£rd©a
 ['session_id']);
 
-315 
+329 
 $this
 ->
 CI
@@ -155489,7 +149077,7 @@ u£rd©a
 $cu¡om_u£rd©a
 ));
 
-320 
+334 
 $this
 ->
 	`_£t_cook›
@@ -155497,27 +149085,27 @@ $this
 $cook›_u£rd©a
 );
 
-321 
+335 
 	}
 }
 
-331 
+345 
 funùiÚ
  
 	$£ss_ü—‹
 ()
 
-333 
+347 
 $£ssid
  = '';
 
-334 
+348 
 	`¡¾’
 (
 $£ssid
 ) < 32)
 
-336 
+350 
 $£ssid
  .ğ
 	`mt_¿nd
@@ -155525,7 +149113,7 @@ $£ssid
 	`mt_g‘¿ndmax
 ());
 
-340 
+354 
 $£ssid
  .ğ
 $this
@@ -155537,7 +149125,7 @@ CI
 	`_add»ss
 ();
 
-343 
+357 
 $this
 ->
 u£rd©a
@@ -155545,7 +149133,7 @@ u£rd©a
 	`¬¿y
 (
 
-344 '£ssiÚ_id' => 
+358 '£ssiÚ_id' => 
 	`md5
 (
 	`uniqid
@@ -155555,7 +149143,7 @@ $£ssid
 TRUE
 )),
 
-345 '_add»ss' => 
+359 '_add»ss' => 
 $this
 ->
 CI
@@ -155565,7 +149153,7 @@ CI
 	`_add»ss
 (),
 
-346 'u£r_ag’t' => 
+360 'u£r_ag’t' => 
 	`sub¡r
 (
 $this
@@ -155577,13 +149165,13 @@ CI
 	`u£r_ag’t
 (), 0, 120),
 
-347 'Ï¡_aùiv™y' => 
+361 'Ï¡_aùiv™y' => 
 $this
 ->
 now
 ,
 
-353 ià(
+367 ià(
 $this
 ->
 £ss_u£_d©aba£
@@ -155591,7 +149179,7 @@ $this
 TRUE
 )
 
-355 
+369 
 $this
 ->
 CI
@@ -155607,23 +149195,23 @@ db
 u£rd©a
 ));
 
-359 
+373 
 $this
 ->
 	`_£t_cook›
 ();
 
-360 
+374 
 	}
 }
 
-370 
+384 
 funùiÚ
  
 	$£ss_upd©e
 ()
 
-373 ià((
+387 ià((
 $this
 ->
 u£rd©a
@@ -155633,7 +149221,7 @@ u£rd©a
 now
 )
 
-380 
+394 
 $Şd_£ssid
  = 
 $this
@@ -155641,17 +149229,17 @@ $this
 u£rd©a
 ['session_id'];
 
-381 
+395 
 $Ãw_£ssid
  = '';
 
-382 
+396 
 	`¡¾’
 (
 $Ãw_£ssid
 ) < 32)
 
-384 
+398 
 $Ãw_£ssid
  .ğ
 	`mt_¿nd
@@ -155659,7 +149247,7 @@ $Ãw_£ssid
 	`mt_g‘¿ndmax
 ());
 
-388 
+402 
 $Ãw_£ssid
  .ğ
 $this
@@ -155671,7 +149259,7 @@ CI
 	`_add»ss
 ();
 
-391 
+405 
 $Ãw_£ssid
  = 
 	`md5
@@ -155681,7 +149269,7 @@ $Ãw_£ssid
 TRUE
 ));
 
-394 
+408 
 $this
 ->
 u£rd©a
@@ -155689,7 +149277,7 @@ u£rd©a
 $Ãw_£ssid
 ;
 
-395 
+409 
 $this
 ->
 u£rd©a
@@ -155697,13 +149285,13 @@ u£rd©a
 now
 ;
 
-399 
+413 
 $cook›_d©a
  = 
 NULL
 ;
 
-402 ià(
+416 ià(
 $this
 ->
 £ss_u£_d©aba£
@@ -155711,13 +149299,13 @@ $this
 TRUE
 )
 
-405 
+419 
 $cook›_d©a
  = 
 	`¬¿y
 ();
 
-406 
+420 
 	`fÜ—ch
  (
 	`¬¿y
@@ -155727,7 +149315,7 @@ as
 $v®
 )
 
-408 
+422 
 $cook›_d©a
 [
 $v®
@@ -155737,7 +149325,7 @@ $this
 u£rd©a
 [$val];
 
-411 
+425 
 $this
 ->
 CI
@@ -155759,7 +149347,7 @@ $Ãw_£ssid
 $Şd_£ssid
 )));
 
-415 
+429 
 $this
 ->
 	`_£t_cook›
@@ -155767,17 +149355,17 @@ $this
 $cook›_d©a
 );
 
-416 
+430 
 	}
 }
 
-426 
+440 
 funùiÚ
  
 	$£ss_de¡roy
 ()
 
-429 ià(
+443 ià(
 $this
 ->
 £ss_u£_d©aba£
@@ -155791,7 +149379,7 @@ AND
 u£rd©a
 ['session_id']))
 
-431 
+445 
 $this
 ->
 CI
@@ -155803,7 +149391,7 @@ db
 u£rd©a
 ['session_id']);
 
-432 
+446 
 $this
 ->
 CI
@@ -155815,17 +149403,17 @@ db
 £ss_bË_Çme
 );
 
-436 
+450 
 	`£tcook›
 (
 
-437 
+451 
 $this
 ->
 £ss_cook›_Çme
 ,
 
-438 
+452 
 	`add¦ashes
 (
 	`£rŸlize
@@ -155833,29 +149421,29 @@ $this
 	`¬¿y
 ())),
 
-439 (
+453 (
 $this
 ->
 now
  - 31500000),
 
-440 
+454 
 $this
 ->
 cook›_·th
 ,
 
-441 
+455 
 $this
 ->
 cook›_domaš
 ,
 
-444 
+458 
 	}
 }
 
-455 
+469 
 funùiÚ
  
 	$u£rd©a
@@ -155863,7 +149451,7 @@ funùiÚ
 $™em
 )
 
-457  ( ! 
+471  ( ! 
 	`is£t
 (
 $this
@@ -155875,27 +149463,27 @@ $™em
 FALSE
  : $this->userdata[$item];
 
-458 
+472 
 	}
 }
 
-468 
+482 
 funùiÚ
  
 	$®l_u£rd©a
 ()
 
-470  
+484  
 $this
 ->
 u£rd©a
 ;
 
-471 
+485 
 	}
 }
 
-483 
+497 
 funùiÚ
  
 £t_u£rd©a
@@ -155907,13 +149495,13 @@ $Ãwd©a
 $Ãwv®
  = '')
 
-485 ià(
+499 ià(
 is_¡ršg
 (
 $Ãwd©a
 ))
 
-487 
+501 
 $Ãwd©a
  = 
 ¬¿y
@@ -155921,13 +149509,13 @@ $Ãwd©a
 $Ãwv®
 );
 
-490 ià(
+504 ià(
 couÁ
 (
 $Ãwd©a
 ) > 0)
 
-492 
+506 
 fÜ—ch
  (
 $Ãwd©a
@@ -155939,7 +149527,7 @@ $key
 $v®
 )
 
-494 
+508 
 $this
 ->
 u£rd©a
@@ -155949,13 +149537,13 @@ $key
 $v®
 ;
 
-498 
+512 
 	g$this
 ->
 £ss_wr™e
 ();
 
-509 
+523 
 funùiÚ
  
 un£t_u£rd©a
@@ -155965,25 +149553,25 @@ $Ãwd©a
 	$¬¿y
 ())
 
-511 ià(
+525 ià(
 	`is_¡ršg
 (
 $Ãwd©a
 ))
 
-513 
+527 
 $Ãwd©a
  = 
 	`¬¿y
 ($newdata => '');
 
-516 ià(
+530 ià(
 	`couÁ
 (
 $Ãwd©a
 ) > 0)
 
-518 
+532 
 	`fÜ—ch
  (
 $Ãwd©a
@@ -155995,7 +149583,7 @@ $key
 $v®
 )
 
-520 
+534 
 	`un£t
 (
 $this
@@ -156005,17 +149593,17 @@ u£rd©a
 $key
 ]);
 
-524 
+538 
 $this
 ->
 	`£ss_wr™e
 ();
 
-525 
+539 
 	}
 }
 
-538 
+552 
 funùiÚ
  
 £t_æashd©a
@@ -156027,13 +149615,13 @@ $Ãwd©a
 $Ãwv®
  = '')
 
-540 ià(
+554 ià(
 is_¡ršg
 (
 $Ãwd©a
 ))
 
-542 
+556 
 $Ãwd©a
  = 
 ¬¿y
@@ -156041,13 +149629,13 @@ $Ãwd©a
 $Ãwv®
 );
 
-545 ià(
+559 ià(
 couÁ
 (
 $Ãwd©a
 ) > 0)
 
-547 
+561 
 fÜ—ch
  (
 $Ãwd©a
@@ -156059,7 +149647,7 @@ $key
 $v®
 )
 
-549 
+563 
 $æashd©a_key
  = 
 $this
@@ -156069,7 +149657,7 @@ $this
 $key
 ;
 
-550 
+564 
 	g$this
 ->
 £t_u£rd©a
@@ -156079,7 +149667,7 @@ $æashd©a_key
 $v®
 );
 
-564 
+578 
 funùiÚ
  
 	$k“p_æashd©a
@@ -156087,7 +149675,7 @@ funùiÚ
 $key
 )
 
-570 
+584 
 $Şd_æashd©a_key
  = 
 $this
@@ -156097,7 +149685,7 @@ $this
 $key
 ;
 
-571 
+585 
 $v®ue
  = 
 $this
@@ -156107,7 +149695,7 @@ $this
 $Şd_æashd©a_key
 );
 
-573 
+587 
 $Ãw_æashd©a_key
  = 
 $this
@@ -156117,7 +149705,7 @@ $this
 $key
 ;
 
-574 
+588 
 $this
 ->
 	`£t_u£rd©a
@@ -156127,11 +149715,11 @@ $Ãw_æashd©a_key
 $v®ue
 );
 
-575 
+589 
 	}
 }
 
-586 
+600 
 funùiÚ
  
 	$æashd©a
@@ -156139,7 +149727,7 @@ funùiÚ
 $key
 )
 
-588 
+602 
 $æashd©a_key
  = 
 $this
@@ -156149,7 +149737,7 @@ $this
 $key
 ;
 
-589  
+603  
 $this
 ->
 	`u£rd©a
@@ -156157,17 +149745,17 @@ $this
 $æashd©a_key
 );
 
-590 
+604 
 	}
 }
 
-601 
+615 
 funùiÚ
  
 	$_æashd©a_m¬k
 ()
 
-603 
+617 
 $u£rd©a
  = 
 $this
@@ -156175,7 +149763,7 @@ $this
 	`®l_u£rd©a
 ();
 
-604 
+618 
 	`fÜ—ch
  (
 $u£rd©a
@@ -156187,7 +149775,7 @@ $Çme
 $v®ue
 )
 
-606 
+620 
 $·¹s
  = 
 	`ex¶ode
@@ -156195,7 +149783,7 @@ $·¹s
 $Çme
 );
 
-607 ià(
+621 ià(
 	`is_¬¿y
 (
 $·¹s
@@ -156203,7 +149791,7 @@ $·¹s
 	`couÁ
 ($parts) === 2)
 
-609 
+623 
 $Ãw_Çme
  = 
 $this
@@ -156213,7 +149801,7 @@ $this
 $·¹s
 [1];
 
-610 
+624 
 $this
 ->
 	`£t_u£rd©a
@@ -156223,7 +149811,7 @@ $Ãw_Çme
 $v®ue
 );
 
-611 
+625 
 $this
 ->
 	`un£t_u£rd©a
@@ -156231,17 +149819,17 @@ $this
 $Çme
 );
 
-614 
+628 
 	}
 }
 
-625 
+639 
 funùiÚ
  
 	$_æashd©a_sw“p
 ()
 
-627 
+641 
 $u£rd©a
  = 
 $this
@@ -156249,7 +149837,7 @@ $this
 	`®l_u£rd©a
 ();
 
-628 
+642 
 	`fÜ—ch
  (
 $u£rd©a
@@ -156261,13 +149849,13 @@ $key
 $v®ue
 )
 
-630 ià(
+644 ià(
 	`¡½os
 (
 $key
 , ':old:'))
 
-632 
+646 
 $this
 ->
 	`un£t_u£rd©a
@@ -156275,17 +149863,17 @@ $this
 $key
 );
 
-636 
+650 
 	}
 }
 
-646 
+660 
 funùiÚ
  
 	$_g‘_time
 ()
 
-648 ià(
+662 ià(
 	`¡¹Şow”
 (
 $this
@@ -156293,13 +149881,13 @@ $this
 time_»ã»nû
 ) == 'gmt')
 
-650 
+664 
 $now
  = 
 	`time
 ();
 
-651 
+665 
 $time
  = 
 	`mktime
@@ -156309,21 +149897,21 @@ $time
 $now
 ), gmdate("i", $now), gmdate("s", $now), gmdate("m", $now), gmdate("d", $now), gmdate("Y", $now));
 
-655 
+669 
 $time
  = 
 	`time
 ();
 
-658  
+672  
 $time
 ;
 
-659 
+673 
 	}
 }
 
-669 
+683 
 funùiÚ
  
 	$_£t_cook›
@@ -156333,13 +149921,13 @@ $cook›_d©a
 NULL
 )
 
-671 ià(
+685 ià(
 	`is_nuÎ
 (
 $cook›_d©a
 ))
 
-673 
+687 
 $cook›_d©a
  = 
 $this
@@ -156347,7 +149935,7 @@ $this
 u£rd©a
 ;
 
-677 
+691 
 $cook›_d©a
  = 
 $this
@@ -156355,7 +149943,7 @@ $this
 	`_£rŸlize
 ($cookie_data);
 
-679 ià(
+693 ià(
 $this
 ->
 £ss_’üy±_cook›
@@ -156363,7 +149951,7 @@ $this
 TRUE
 )
 
-681 
+695 
 $cook›_d©a
  = 
 $this
@@ -156375,7 +149963,7 @@ CI
 	`’code
 ($cookie_data);
 
-686 
+700 
 $cook›_d©a
  = $cook›_d©a.
 	`md5
@@ -156385,7 +149973,7 @@ $this
 ’üy±iÚ_key
 );
 
-689 
+703 
 $expœe
  = (
 $this
@@ -156399,47 +149987,47 @@ TRUE
 	`time
 ();
 
-692 
+706 
 	`£tcook›
 (
 
-693 
+707 
 $this
 ->
 £ss_cook›_Çme
 ,
 
-694 
+708 
 $cook›_d©a
 ,
 
-695 
+709 
 $expœe
 ,
 
-696 
+710 
 $this
 ->
 cook›_·th
 ,
 
-697 
+711 
 $this
 ->
 cook›_domaš
 ,
 
-698 
+712 
 $this
 ->
 cook›_£cu»
 
 
-700 
+714 
 	}
 }
 
-714 
+728 
 funùiÚ
  
 	$_£rŸlize
@@ -156447,13 +150035,13 @@ funùiÚ
 $d©a
 )
 
-716 ià(
+730 ià(
 	`is_¬¿y
 (
 $d©a
 ))
 
-718 
+732 
 	`fÜ—ch
  (
 $d©a
@@ -156465,13 +150053,13 @@ $key
 $v®
 )
 
-720 ià(
+734 ià(
 	`is_¡ršg
 (
 $v®
 ))
 
-722 
+736 
 $d©a
 [
 $key
@@ -156481,29 +150069,29 @@ $key
 $v®
 );
 
-728 ià(
+742 ià(
 	`is_¡ršg
 (
 $d©a
 ))
 
-730 
+744 
 $d©a
  = 
 	`¡r_»¶aû
 ('\\', '{{slash}}', $data);
 
-734  
+748  
 	`£rŸlize
 (
 $d©a
 );
 
-735 
+749 
 	}
 }
 
-749 
+763 
 funùiÚ
  
 	$_un£rŸlize
@@ -156511,7 +150099,7 @@ funùiÚ
 $d©a
 )
 
-751 
+765 
 $d©a
  = @
 	`un£rŸlize
@@ -156519,13 +150107,13 @@ $d©a
 	`¡r_¦ashes
 ($data));
 
-753 ià(
+767 ià(
 	`is_¬¿y
 (
 $d©a
 ))
 
-755 
+769 
 	`fÜ—ch
  (
 $d©a
@@ -156537,13 +150125,13 @@ $key
 $v®
 )
 
-757 ià(
+771 ià(
 	`is_¡ršg
 (
 $v®
 ))
 
-759 
+773 
 $d©a
 [
 $key
@@ -156553,11 +150141,11 @@ $key
 $v®
 );
 
-763  
+777  
 $d©a
 ;
 
-766  (
+780  (
 	`is_¡ršg
 (
 $d©a
@@ -156565,17 +150153,17 @@ $d©a
 	`¡r_»¶aû
 ('{{slash}}', '\\', $data) : $data;
 
-767 
+781 
 	}
 }
 
-780 
+794 
 funùiÚ
  
 	$_£ss_gc
 ()
 
-782 ià(
+796 ià(
 $this
 ->
 £ss_u£_d©aba£
@@ -156583,13 +150171,13 @@ $this
 TRUE
 )
 
-787 
+801 
 	`¤ªd
 (
 	`time
 ());
 
-788 ià((
+802 ià((
 	`¿nd
 (è% 100è< 
 $this
@@ -156597,7 +150185,7 @@ $this
 gc_´obab™y
 )
 
-790 
+804 
 $expœe
  = 
 $this
@@ -156607,7 +150195,7 @@ now
 £ss_expœ©iÚ
 ;
 
-792 
+806 
 $this
 ->
 CI
@@ -156617,7 +150205,7 @@ db
 	`wh”e
 ("last_activity < {$expire}");
 
-793 
+807 
 $this
 ->
 CI
@@ -156629,11 +150217,11 @@ db
 £ss_bË_Çme
 );
 
-795 
+809 
 	`log_mes§ge
 ('debug', 'Session garbage collection…erformed.');
 
-797 
+811 
 	}
 }
 
@@ -175344,8 +168932,8 @@ $‰
 .
 1
 /usr/include
-243
-9238
+235
+8943
 application/config/autoload.php
 application/config/config.php
 application/config/constants.php
@@ -175385,13 +168973,6 @@ application/helpers/ixr_xmlrpc_helper.php
 application/helpers/saetv2.ex.class_helper.php
 application/helpers/we_error_helper.php
 application/language/english/error_lang.php
-application/logs/log-2012-05-01.php
-application/logs/log-2012-05-04.php
-application/logs/log-2012-05-05.php
-application/logs/log-2012-05-11.php
-application/logs/log-2012-05-12.php
-application/logs/log-2012-05-13.php
-application/logs/log-2012-05-14.php
 application/models/m_album.php
 application/models/m_blog.php
 application/models/m_comment.php
@@ -175406,7 +168987,6 @@ application/models/m_online.php
 application/models/m_place.php
 application/models/m_user.php
 application/models/m_wlinke.php
-application/models/phone_carrier_model.php
 application/third_party/CIUnit/bootstrap_phpunit.php
 application/third_party/CIUnit/config/config.php
 application/third_party/CIUnit/core/CIU_Controller.php
