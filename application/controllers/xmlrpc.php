@@ -290,7 +290,11 @@ class Xmlrpc extends WE_Controller {
 			$this->m_user->add_bluetooth_searchs_by_bluetooth_datas($user_data['bluetooth_id'],$args[2]);
 		}
 		//根据时间和用户获得发现蓝牙的ID
-		$bluetooth_datas=$this->m_user->get_double_bluetooth_search_datas_by_search_time($user_data['bluetooth_id'],$this->current);
+		$bluetooth_datas=$this->m_user->
+						 get_double_bluetooth_search_datas_by_search_time(
+									$user_data['bluetooth_id'],
+									$this->current
+							);
 		
 		//根据蓝牙ID获取用户数据
 		$user_datas=$this->m_user->get_user_datas_by_bluetooth_search_datas($bluetooth_datas);
@@ -458,7 +462,7 @@ class Xmlrpc extends WE_Controller {
 			$user_ids=$this->m_user->get_all_user_id();
 		}
 		
-		$user_datas=$this->m_user->get_user_datas_by_user_ids($user_ids);
+		$user_Datas=$this->M_User->Get_User_Datas_By_User_Ids($user_ids);
 		if($user_datas)
 			return $user_datas;
 		else
@@ -1426,10 +1430,10 @@ class Xmlrpc extends WE_Controller {
 	/**
 	 * 根据两用户ID获得用户间的关系
 	 * @param unknown_type $from_id
-	 * @param unknown_type $to_id
+	 * @Param Unknown_Type $to_Id
 	 */
-	function get_users_relationship($from_id,$to_id){
-		if($from_id==$to_id)
+	Function Get_Users_Relationship($from_Id,$to_Id){
+		If($from_Id==$to_id)
 			return 'self';
 		$this->load->model('m_friend');
 		if($this->m_friend->get_friendship_id_by_user_id($from_id, $to_id))
