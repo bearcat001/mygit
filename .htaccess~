@@ -1,3 +1,0 @@
-RewriteEngine on   
-RewriteCond $1 !^(index\.php|upload|js|images|css|robots\.txt|favicon\.ico)   
-RewriteRule ^(.*)$ /wlinke/index.php/$1 [L]
